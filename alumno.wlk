@@ -1,3 +1,5 @@
+import wollok.game.*
+import bondi.*
 import efectos.*
 import consumibles.*
 
@@ -11,15 +13,14 @@ object alumno {
   var position = game.at(0,0)
   method image() = "imagenes/alumno.gif"
 
-  method position() = position
   method mover(nuevaPosicion){
     if(tiempo>0){
       position = nuevaPosicion
       self.consumirTiempo(1)
-    } if(tiempo==0 && llegoBondi==false){
-        llegoBondi==true
+    } if(tiempo==0 and llegoBondi==false){
+        llegoBondi=true
         bondi.aparecer()
-      }if(tiempo==0 && llegoBondi==true){
+      }if(tiempo==0 and llegoBondi==true){
         game.say(self, "Uh la pucha, se me fue")
         game.schedule(1500, { game.stop() })
       }
@@ -47,7 +48,7 @@ object alumno {
     tieneSube = true
   }
   method cargarSube(carga) {
-    if (tieneSube && dinero >= carga) {
+    if (tieneSube and dinero >= carga) {
       dinero = dinero - carga
       saldo+=carga
     }

@@ -1,8 +1,11 @@
+import wollok.game.*
+
 object sube{
-    method saldo()= (-1000 .. 1000).anyOne()
+    var saldo = (-1000 .. 1000).anyOne()
 
     var property position = game.at(4, 4)
     method image() = "imagenes/sube.png"
+    method saldo() = saldo
 
     method interactuar(personaje){
         personaje.conseguirSube(self)
@@ -12,6 +15,7 @@ object sube{
 
 class PlataTirada{
     var valor
+    var imagen
     method valor()=valor
     method image()=imagen
     var property position = game.at(0, 0) 

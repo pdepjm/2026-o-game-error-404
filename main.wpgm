@@ -17,6 +17,11 @@ program ElBondi {
     game.addVisual(sube)
     game.addVisual(kiosco)
 
+    game.addVisual(billete100)
+    game.addVisual(billete200)
+    game.addVisual(billete500)
+    game.addVisual(billete1000)
+
 
     keyboard.w().onPressDo({ 
         alumno.mover(alumno.position().up(1))

@@ -1,15 +1,15 @@
 import wollok.game.*
-
 import alumno.*
+
 object bondi{
     var precioBoleto = 670
     method precioBoleto()=precioBoleto
+    method image() = "imagenes/bondi.png"
     var property position = game.at(1, 1)
 
     method aparecer(){
         game.addVisual(self)
         alumno.agregarTiempo(15)
-        alumno.llegoBondi()=true
         game.say(self, "¡Llegó el bondi! Tenés 15 segundos para subirte")
     }
 
