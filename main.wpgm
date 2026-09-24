@@ -3,7 +3,7 @@ import wollok.game.*
 import alumno.*
 import efectos.*
 import kiosco.*
-import reloj.*
+import pantalla.*
 import sube.*
 
 program ElBondi {
@@ -13,6 +13,7 @@ program ElBondi {
 
     game.addVisual(alumno)
     game.addVisual(reloj)
+    game.addVisual(plata)
     game.addVisual(sube)
     game.addVisual(kiosco)
 
@@ -20,6 +21,7 @@ program ElBondi {
     keyboard.w().onPressDo({ 
         alumno.mover(alumno.position().up(1))
     })
+
     keyboard.s().onPressDo({ 
         alumno.mover(alumno.position().down(1))
     })
@@ -33,6 +35,7 @@ program ElBondi {
         (alumno.position().right(1))
     })
 
+    game.onCollideDo(alumno, {objetoChocado => objetoChocado.interactuar(alumno)})
 	game.start()
     
     

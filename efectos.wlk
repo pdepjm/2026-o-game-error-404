@@ -17,7 +17,7 @@ object cafe {
   }
 }
 
-object fisura {
+object robo {
   method aplicarEfecto(alumno) {
     alumno.pierdeDinero(alumno.dinero()/2)
   }

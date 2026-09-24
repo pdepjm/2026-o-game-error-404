@@ -1,3 +1,6 @@
+import efectos.*
+import sube.*
+
 object alumno {
   var tiempo = 200
   var dinero = 0
@@ -12,7 +15,7 @@ object alumno {
     if(tiempo>0){
       position = nuevaPosicion
       self.consumirTiempo(1)
-      if(tiempo==0){
+      if(tiempo==0 && not(self.subirAlBondi())){
         game.stop()
       }
     } 
