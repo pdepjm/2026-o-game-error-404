@@ -10,21 +10,29 @@ object alumno {
   var saldo = 0
   var llegoBondi = false
 
-  var position = game.at(0,0)
+  var property position = game.at(0, 0)
   method image() = "imagenes/alumno.gif"
 
-  method mover(nuevaPosicion){
-    if(tiempo>0){
+  method mover(nuevaPosicion) {
+    if (tiempo > 0 and self.posicionValida(nuevaPosicion)) {
       position = nuevaPosicion
       self.consumirTiempo(1)
-    } if(tiempo==0 and llegoBondi==false){
-        llegoBondi=true
+
+      if (tiempo == 0 and not llegoBondi) {
+        llegoBondi = true
         bondi.aparecer()
-      }if(tiempo==0 and llegoBondi==true){
+      }
+    } else {
+      if (tiempo == 0 and llegoBondi) {
         game.say(self, "Uh la pucha, se me fue")
         game.schedule(1500, { game.stop() })
       }
+    }
   }
+
+  method posicionValida(pos) =
+    pos.x() >= 0 and pos.x() < game.width() and
+    pos.y() >= 0 and pos.y() < game.height()
 
   method consumirTiempo(perdida){
     tiempo-=perdida

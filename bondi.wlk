@@ -2,7 +2,7 @@ import wollok.game.*
 import alumno.*
 
 object bondi{
-    var precioBoleto = 670
+    const precioBoleto = 670
     method precioBoleto()=precioBoleto
     method image() = "imagenes/bondi.png"
     var property position = game.at(1, 1)

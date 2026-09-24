@@ -1,25 +1,25 @@
 object semaforo {
-  method aplicarEfecto(alumno) {
-    alumno.restarTiempo(5)
+  method aplicarEfecto(personaje) {
+    personaje.restarTiempo(5)
   }
 }
 
 object lluvia {
-  method aplicarEfecto(alumno) {
-    alumno.restarTiempo(10)
+  method aplicarEfecto(personaje) {
+    personaje.restarTiempo(10)
   }
 
 }
 
 object cafe {
-  method aplicarEfecto(alumno) {
-    alumno.agregarTiempo(5)
+  method aplicarEfecto(personaje) {
+    personaje.agregarTiempo(5)
   }
 }
 
 object robo {
-  method aplicarEfecto(alumno) {
-    alumno.pierdeDinero(alumno.dinero()/2)
+  method aplicarEfecto(personaje) {
+    personaje.pierdeDinero(personaje.dinero()/2)
   }
 
 }

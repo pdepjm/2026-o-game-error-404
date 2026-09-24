@@ -1,47 +1,36 @@
 import wollok.game.*
 
 import alumno.*
-import efectos.*
-import kiosco.*
-import pantalla.*
+import bondi.*
 import consumibles.*
+import efectos.*
+import mobs.*
+import pantalla.*
 
 program ElBondi {
-	game.title("elJuegoDelBondi")
-	game.height(15)
-	game.width(15)
+    game.title("elJuegoDelBondi")
+    game.height(15)
+    game.width(15)
 
     game.addVisual(alumno)
     game.addVisual(reloj)
     game.addVisual(plata)
     game.addVisual(sube)
     game.addVisual(kiosco)
+    game.addVisual(fisura)
+    game.addVisual(vecino)
 
     game.addVisual(billete100)
     game.addVisual(billete200)
     game.addVisual(billete500)
     game.addVisual(billete1000)
 
+    keyboard.w().onPressDo({ alumno.mover(alumno.position().up(1)) })
+    keyboard.s().onPressDo({ alumno.mover(alumno.position().down(1)) })
+    keyboard.a().onPressDo({ alumno.mover(alumno.position().left(1)) })
+    keyboard.d().onPressDo({ alumno.mover(alumno.position().right(1)) })
 
-    keyboard.w().onPressDo({ 
-        alumno.mover(alumno.position().up(1))
-    })
+    game.onCollideDo(alumno, { objetoChocado => objetoChocado.interactuar(alumno) })
 
-    keyboard.s().onPressDo({ 
-        alumno.mover(alumno.position().down(1))
-    })
-
-    keyboard.a().onPressDo({ 
-        alumno.mover(alumno.position().left(1))
-    })
-
-    keyboard.d().onPressDo({ 
-        alumno.mover
-        (alumno.position().right(1))
-    })
-
-    game.onCollideDo(alumno, {objetoChocado => objetoChocado.interactuar(alumno)})
-	game.start()
-    
-    
+    game.start()
 }
