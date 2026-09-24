@@ -1,5 +1,8 @@
-### [Nombre del juego]
+### El Bondi
+(nombre provisorio)
 
-* Integrante 1
-* Integrante 2
-* Etc...
+Álvarez Tomás
+Carrara Lucio
+Mercado Lara
+Merlotti Salvador
+Rojas Sol
