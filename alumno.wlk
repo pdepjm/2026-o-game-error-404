@@ -1,11 +1,12 @@
 import efectos.*
-import sube.*
+import consumibles.*
 
 object alumno {
   var tiempo = 200
   var dinero = 0
   var tieneSube = false
   var saldo = 0
+  var llegoBondi = false
 
   var position = game.at(0,0)
   method image() = "imagenes/alumno.gif"
@@ -15,10 +16,13 @@ object alumno {
     if(tiempo>0){
       position = nuevaPosicion
       self.consumirTiempo(1)
-      if(tiempo==0 && not(self.subirAlBondi())){
-        game.stop()
+    } if(tiempo==0 && llegoBondi==false){
+        llegoBondi==true
+        bondi.aparecer()
+      }if(tiempo==0 && llegoBondi==true){
+        game.say(self, "Uh la pucha, se me fue")
+        game.schedule(1500, { game.stop() })
       }
-    } 
   }
 
   method consumirTiempo(perdida){
@@ -26,17 +30,14 @@ object alumno {
   }
 
   method tiempo() = tiempo
-
   method dinero() = dinero
-
   method saldo() = saldo
-
   method tieneSube() = tieneSube
+  method llegoBondi()=llegoBondi
 
   method conseguirDinero(cantidad) {
     dinero += cantidad
   }
-
   method pierdeDinero(cantidadPerdida) {
     dinero -= cantidadPerdida
   }
@@ -45,7 +46,6 @@ object alumno {
     saldo += subeEncontrada.saldo()
     tieneSube = true
   }
-
   method cargarSube(carga) {
     if (tieneSube && dinero >= carga) {
       dinero = dinero - carga
@@ -56,7 +56,6 @@ object alumno {
   method restarTiempo(cantidad) {
     tiempo = tiempo - cantidad
   }
-
   method agregarTiempo(cantidad) {
     tiempo = tiempo + cantidad
   }

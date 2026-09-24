@@ -4,7 +4,7 @@ import alumno.*
 import efectos.*
 import kiosco.*
 import pantalla.*
-import sube.*
+import consumibles.*
 
 program ElBondi {
 	game.title("elJuegoDelBondi")

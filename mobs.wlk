@@ -15,3 +15,4 @@ object vecino{
         game.removeVisual(self)
     }
 }
+
