@@ -4,7 +4,7 @@ import alumno.*
 object bondi{
     const precioBoleto = 670
     method precioBoleto()=precioBoleto
-    method image() = "imagenes/bondi.png"
+    method image() = "bondi.png"
     var property position = game.at(1, 1)
 
     method aparecer(){

@@ -14,3 +14,10 @@ object plata{
     method textColor() = "FFFFFFFF"
     method interactuar(personaje){}
 }
+
+object saldo{
+    method position() = game.at(1, 12)
+    method text() = "Saldo: " + alumno.saldo().toString()
+    method textColor() = "FFFFFFFF"
+    method interactuar(personaje){}
+}

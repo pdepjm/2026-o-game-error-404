@@ -11,7 +11,7 @@ object alumno {
   var llegoBondi = false
 
   var property position = game.at(0, 0)
-  method image() = "imagenes/alumno.gif"
+  method image() = "alumno.gif"
 
   method mover(nuevaPosicion) {
     if (tiempo > 0 and self.posicionValida(nuevaPosicion)) {

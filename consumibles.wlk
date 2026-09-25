@@ -4,7 +4,7 @@ object sube{
     const saldo = (-1000 .. 1000).anyOne()
 
     var property position = game.at(4, 4)
-    method image() = "imagenes/sube.png"
+    method image() = "sube.png"
     method saldo() = saldo
 
     method interactuar(personaje){

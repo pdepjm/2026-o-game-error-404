@@ -15,6 +15,7 @@ program ElBondi {
     game.addVisual(alumno)
     game.addVisual(reloj)
     game.addVisual(plata)
+    game.addVisual(saldo)
     game.addVisual(sube)
     game.addVisual(kiosco)
     game.addVisual(fisura)
