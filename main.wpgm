@@ -34,6 +34,9 @@ program ElBondi {
     keyboard.a().onPressDo({ alumno.mover(alumno.position().left(1)) })
     keyboard.d().onPressDo({ alumno.mover(alumno.position().right(1)) })
 
+    game.onTick(70, "seMueveFisura", { fisura.moverse() })
+    game.onTick(100, "seMuevePolicia", { policia.moverse() })
+
     game.onCollideDo(alumno, { objetoChocado => objetoChocado.interactuar(alumno) })
     game.onTick(1000, "relojJuego", { alumno.pasarSegundo() })
     game.start()

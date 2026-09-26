@@ -4,7 +4,7 @@ import efectos.*
 import consumibles.*
 
 object alumno {
-  var tiempo = 60
+  var tiempo = 115
   var dinero = 0
   var tieneSube = false
   var saldo = 0
@@ -42,6 +42,9 @@ object alumno {
   method consumirTiempo(perdida){
     tiempo-=perdida
   }
+  method agregarTiempo(cantidad) {
+    tiempo += cantidad
+  }
 
   method tiempo() = tiempo
   method dinero() = dinero
@@ -67,12 +70,6 @@ object alumno {
     }
   }
 
-  method restarTiempo(cantidad) {
-    tiempo = tiempo - cantidad
-  }
-  method agregarTiempo(cantidad) {
-    tiempo = tiempo + cantidad
-  }
 
   method subirAlBondi() = saldo>=bondi.precioBoleto()
 

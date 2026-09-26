@@ -5,7 +5,7 @@ object bondi{
     const precioBoleto = 670
     method precioBoleto()=precioBoleto
     method image() = "bondi.png"
-    var property position = game.at(1, 1)
+    var property position = game.at(20, 0)
 
     method aparecer(){
         game.addVisual(self)

@@ -1,14 +1,8 @@
+import wollok.game.*
 object semaforo {
   method aplicarEfecto(personaje) {
-    personaje.restarTiempo(5)
+    personaje.consumirTiempo(7)
   }
-}
-
-object lluvia {
-  method aplicarEfecto(personaje) {
-    personaje.restarTiempo(10)
-  }
-
 }
 
 object cafe {
@@ -26,7 +20,13 @@ object robo {
 
 object frenar {
   method aplicarEfecto(personaje) {
-    personaje.restarTiempo(15)
+    personaje.consumirTiempo(15)
   }
 
+}
+
+object meterEnCana{
+  method aplicarEfecto(personaje) {
+    game.schedule(1500, { game.stop() })
+  }
 }
