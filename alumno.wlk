@@ -4,7 +4,7 @@ import efectos.*
 import consumibles.*
 
 object alumno {
-  var tiempo = 200
+  var tiempo = 60
   var dinero = 0
   var tieneSube = false
   var saldo = 0
@@ -14,25 +14,30 @@ object alumno {
   method image() = "alumno.gif"
 
   method mover(nuevaPosicion) {
-    if (tiempo > 0 and self.posicionValida(nuevaPosicion)) {
+    if (self.posicionValida(nuevaPosicion)) {
       position = nuevaPosicion
-      self.consumirTiempo(1)
-
-      if (tiempo == 0 and not llegoBondi) {
-        llegoBondi = true
-        bondi.aparecer()
-      }
-    } else {
-      if (tiempo == 0 and llegoBondi) {
-        game.say(self, "Uh la pucha, se me fue")
-        game.schedule(1500, { game.stop() })
-      }
     }
   }
 
   method posicionValida(pos) =
     pos.x() >= 0 and pos.x() < game.width() and
     pos.y() >= 0 and pos.y() < game.height()
+
+  method pasarSegundo() {
+    if (tiempo > 0) {
+      self.consumirTiempo(1)
+      if (tiempo == 0 and not llegoBondi) {
+        llegoBondi = true
+        bondi.aparecer()
+      }
+    } else {
+      if (tiempo == 0 and llegoBondi) {
+        game.removeTickEvent("relojJuego")
+        game.say(self, "Uh la pucha, se me fue")
+        game.schedule(1500, { game.stop() })
+      }
+    }
+  }
 
   method consumirTiempo(perdida){
     tiempo-=perdida

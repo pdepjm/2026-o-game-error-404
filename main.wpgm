@@ -10,7 +10,7 @@ import pantalla.*
 program ElBondi {
     game.title("elJuegoDelBondi")
     game.height(15)
-    game.width(15)
+    game.width(30)
 
     game.addVisual(alumno)
     game.addVisual(reloj)
@@ -32,6 +32,6 @@ program ElBondi {
     keyboard.d().onPressDo({ alumno.mover(alumno.position().right(1)) })
 
     game.onCollideDo(alumno, { objetoChocado => objetoChocado.interactuar(alumno) })
-
+    game.onTick(1000, "relojJuego", { alumno.pasarSegundo() })
     game.start()
 }
