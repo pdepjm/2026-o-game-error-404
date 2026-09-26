@@ -23,3 +23,10 @@ object robo {
   }
 
 }
+
+object frenar {
+  method aplicarEfecto(personaje) {
+    personaje.restarTiempo(15)
+  }
+
+}

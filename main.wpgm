@@ -11,6 +11,8 @@ program ElBondi {
     game.title("elJuegoDelBondi")
     game.height(15)
     game.width(30)
+    game.boardGround("fondo.png")
+
 
     game.addVisual(alumno)
     game.addVisual(reloj)
@@ -20,6 +22,7 @@ program ElBondi {
     game.addVisual(kiosco)
     game.addVisual(fisura)
     game.addVisual(vecino)
+    game.addVisual(policia)
 
     game.addVisual(billete100)
     game.addVisual(billete200)
