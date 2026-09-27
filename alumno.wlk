@@ -24,7 +24,7 @@ object alumno {
     pos.y() >= 0 and pos.y() < game.height()
 
   method pasarSegundo() {
-    if (tiempo > 0) {
+    if (tiempo >= 0) {
       self.consumirTiempo(1)
       if (tiempo == 0 and not llegoBondi) {
         llegoBondi = true
@@ -40,7 +40,7 @@ object alumno {
   }
 
   method consumirTiempo(perdida){
-    tiempo-=perdida
+    tiempo = (tiempo - perdida).max(0)
   }
   method agregarTiempo(cantidad) {
     tiempo += cantidad

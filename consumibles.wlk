@@ -14,8 +14,8 @@ object sube{
 }
 
 class PlataTirada{
-    var valor
-    var imagen
+    const valor
+    const imagen
     method valor()=valor
     method image()=imagen
     var property position = game.at(0, 0) 
