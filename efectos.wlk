@@ -1,9 +1,4 @@
 import wollok.game.*
-object semaforo {
-  method aplicarEfecto(personaje) {
-    personaje.consumirTiempo(7)
-  }
-}
 
 object cafe {
   method aplicarEfecto(personaje) {
