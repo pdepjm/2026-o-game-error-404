@@ -13,6 +13,10 @@ object alumno {
   var property position = game.at(0, 0)
   method image() = "alumno.gif"
 
+  method tiempo(nuevoTiempo) {
+    tiempo = nuevoTiempo
+  }
+
   method mover(nuevaPosicion) {
     if (self.posicionValida(nuevaPosicion)) {
       position = nuevaPosicion

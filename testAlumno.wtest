@@ -18,11 +18,11 @@ describe "Alumno y sus Consumibles" {
 
     test "El alumno agarra la SUBE y revisa que la tiene" {
 
-    assert.notThat(alumno.tieneSube())
+        assert.notThat(alumno.tieneSube())
 
-    sube.interactuar(alumno)
+        sube.interactuar(alumno)
 
-    assert.that(alumno.tieneSube())
+        assert.that(alumno.tieneSube())
     }
 
 }
