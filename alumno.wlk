@@ -28,18 +28,16 @@ object alumno {
     pos.y() >= 0 and pos.y() < game.height()
 
   method pasarSegundo() {
-    if (tiempo >= 0) {
+    if (tiempo > 0) {
       self.consumirTiempo(1)
       if (tiempo == 0 and not llegoBondi) {
         llegoBondi = true
         bondi.aparecer()
       }
     } else {
-      if (tiempo == 0 and llegoBondi) {
-        game.removeTickEvent("relojJuego")
-        game.say(self, "Uh la pucha, se me fue")
-        game.schedule(1500, { game.stop() })
-      }
+      game.removeTickEvent("relojJuego")
+      game.say(self, "Uh la pucha, se me fue")
+      game.schedule(1500, { game.stop() })
     }
   }
 

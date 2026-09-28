@@ -1,3 +1,4 @@
+import wollok.game.*
 import alumno.*
 import consumibles.*
 import bondi.*
@@ -13,6 +14,15 @@ describe "Mobs y la interacción con alumno" {
 
         assert.equals(50, alumno.dinero())
         assert.equals(35, alumno.tiempo())
+        
+    }
+
+    test "Cuando el vecino choca con el alumno le suma 5 de tiempo" {
+        alumno.tiempo(50)
+        
+        vecino.interactuar(alumno)
+
+        assert.equals(55, alumno.tiempo())
         
     }
 }
