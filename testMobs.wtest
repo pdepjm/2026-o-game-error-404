@@ -1,0 +1,18 @@
+import alumno.*
+import consumibles.*
+import bondi.*
+import efectos.*
+import mobs.*
+
+describe "Mobs y la interacción con alumno" {
+    test "Cuando el fisura choca con el alumno le saca 15 de tiempo y la mitad de la plata" {
+        alumno.tiempo(50)
+        alumno.conseguirDinero(100)
+        
+        fisura.interactuar(alumno)
+
+        assert.equals(50, alumno.dinero())
+        assert.equals(35, alumno.tiempo())
+        
+    }
+}

@@ -7,7 +7,7 @@ import mobs.*
 describe "Alumno y sus Consumibles" {
     test "El alumno suma 100 de dinero al interactuar con un billete de 100" {
         assert.equals(0, alumno.dinero())
-        
+
         game.addVisual(billete100)
         
         billete100.interactuar(alumno)
