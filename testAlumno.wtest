@@ -1,3 +1,4 @@
+import pantalla.*
 import alumno.*
 import consumibles.*
 import bondi.*
@@ -24,6 +25,18 @@ describe "Alumno y sus Consumibles" {
 
         assert.that(alumno.tieneSube())
     }
+
+    test "Si no tiene saldo suficiente no puede subir al bondi" {
+    assert.notThat(alumno.subirAlBondi())
+    }
+
+    test "Si tiene saldo suficiente puede subir al bondi" {
+    alumno.conseguirSube(sube)
+    alumno.cargarSube(670)
+    assert.that(alumno.subirAlBondi())
+    }
+
+
 
 }
 

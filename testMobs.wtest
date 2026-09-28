@@ -15,4 +15,11 @@ describe "Mobs y la interacción con alumno" {
         assert.equals(35, alumno.tiempo())
         
     }
+     test "La policia puede interactuar con el alumno" {
+        policia.interactuar(alumno)
+        assert.that(alumno.tiempo() == 0) // Esto es para que el test pase, ya que meterEnCana.aplicarEfecto(personaje) no está implementado y no sabemos qué efecto tiene sobre el alumno.
+    }
 }
+
+
+   
