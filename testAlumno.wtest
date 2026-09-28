@@ -1,8 +1,10 @@
 import alumno.*
 import consumibles.*
+import bondi.*
+import efectos.*
+import mobs.*
 
-
-describe "Alumno" {
+describe "Alumno y sus Consumibles" {
     test "El alumno suma 100 de dinero al interactuar con un billete de 100" {
         assert.equals(0, alumno.dinero())
         
@@ -13,4 +15,15 @@ describe "Alumno" {
         assert.equals(100, alumno.dinero())
         
     }
+
+    test "El alumno agarra la SUBE y revisa que la tiene" {
+
+    assert.notThat(alumno.tieneSube())
+
+    sube.interactuar(alumno)
+
+    assert.that(alumno.tieneSube())
+    }
+
 }
+
