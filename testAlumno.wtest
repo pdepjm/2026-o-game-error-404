@@ -32,7 +32,8 @@ describe "Alumno y sus Consumibles" {
 
     test "Si tiene saldo suficiente puede subir al bondi" {
     alumno.conseguirSube(sube)
-    alumno.cargarSube(670)
+    alumno.conseguirDinero(10000)
+    alumno.cargarSube(3000)
     assert.that(alumno.subirAlBondi())
     }
 
