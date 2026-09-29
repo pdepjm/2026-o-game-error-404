@@ -15,7 +15,10 @@ object robo {
 
 object frenar {
   method aplicarEfecto(personaje) {
-    personaje.consumirTiempo(15)
+    if(personaje.tiempo()>15){
+      personaje.consumirTiempo(15)
+    }
+    
   }
 
 }
