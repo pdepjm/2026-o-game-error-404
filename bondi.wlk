@@ -1,4 +1,5 @@
 import wollok.game.*
+import pantallas.*
 import alumno.*
 
 object bondi{
@@ -16,10 +17,16 @@ object bondi{
     method interactuar(personaje){
         if(personaje.subirAlBondi()){
             game.say(self, "Te alcanza, subite")
-            game.schedule(1500, { game.stop() })
+            game.schedule(1500, {
+                game.clear()
+                game.addVisual(pantallaGanaste)
+            })
         } else {
             game.say(self, "No llegas, bajate que la gente está yendo al trabajo pibe")
-            game.schedule(1500, { game.stop() })
+            game.schedule(1500, {
+                game.clear()
+                game.addVisual(pantallaSinSaldo)
+            })
         }
 
     }

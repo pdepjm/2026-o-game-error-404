@@ -1,4 +1,4 @@
-import pantalla.*
+import mostrables.*
 import alumno.*
 import consumibles.*
 import bondi.*

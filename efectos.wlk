@@ -1,4 +1,5 @@
 import wollok.game.*
+import pantallas.*
 
 object cafe {
   method aplicarEfecto(personaje) {
@@ -25,6 +26,20 @@ object frenar {
 
 object meterEnCana{
   method aplicarEfecto(personaje) {
-    game.schedule(1500, { game.stop() })
+    game.schedule(1500, {
+                game.clear()
+                game.addVisual(pantallaPreso)
+            })
   }
+}
+
+object pisar {
+    method aplicarEfecto(personaje) {
+        game.say(personaje, "Upa! Me atropellaron")
+        if(personaje.tiempo()>20){
+            personaje.consumirTiempo(20)
+        }
+        personaje.pierdeDinero(100)
+        personaje.position(game.at(0, 0))
+    }
 }

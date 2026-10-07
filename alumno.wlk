@@ -2,6 +2,7 @@ import wollok.game.*
 import bondi.*
 import efectos.*
 import consumibles.*
+import pantallas.*
 
 object alumno {
   var tiempo = 115
@@ -37,7 +38,10 @@ object alumno {
     } else {
       game.removeTickEvent("relojJuego")
       game.say(self, "Uh la pucha, se me fue")
-      game.schedule(1500, { game.stop() })
+      game.schedule(1500, {
+        game.clear()
+        game.addVisual(pantallaSinTiempo)
+      })
     }
   }
 
@@ -58,7 +62,7 @@ object alumno {
     dinero += cantidad
   }
   method pierdeDinero(cantidadPerdida) {
-    dinero -= cantidadPerdida
+    dinero = (dinero - cantidadPerdida).max(0)
   }
 
   method conseguirSube(subeEncontrada) {

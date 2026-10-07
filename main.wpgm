@@ -5,39 +5,57 @@ import bondi.*
 import consumibles.*
 import efectos.*
 import mobs.*
-import pantalla.*
+import mostrables.*
+import pantallas.*
 
 program ElBondi {
     game.title("elJuegoDelBondi")
     game.height(15)
     game.width(30)
-    game.boardGround("fondo.png")
 
+    game.addVisual(pantallaInicio)
 
-    game.addVisual(alumno)
-    game.addVisual(reloj)
-    game.addVisual(plata)
-    game.addVisual(saldo)
-    game.addVisual(sube)
-    game.addVisual(kiosco)
-    game.addVisual(fisura)
-    game.addVisual(vecino)
-    game.addVisual(policia)
+    keyboard.enter().onPressDo({
+        game.removeVisual(pantallaInicio)
+        game.addVisual(fondoMapa)
 
-    game.addVisual(billete100)
-    game.addVisual(billete200)
-    game.addVisual(billete500)
-    game.addVisual(billete1000)
+        game.addVisual(alumno)
+        game.addVisual(reloj)
+        game.addVisual(plata)
+        game.addVisual(saldo)
+        game.addVisual(sube)
+        game.addVisual(kiosco)
+        game.addVisual(fisura)
+        game.addVisual(vecino)
+        game.addVisual(policia)
 
-    keyboard.w().onPressDo({ alumno.mover(alumno.position().up(1)) })
-    keyboard.s().onPressDo({ alumno.mover(alumno.position().down(1)) })
-    keyboard.a().onPressDo({ alumno.mover(alumno.position().left(1)) })
-    keyboard.d().onPressDo({ alumno.mover(alumno.position().right(1)) })
+        game.addVisual(billete100)
+        game.addVisual(billete200)
+        game.addVisual(billete500)
+        game.addVisual(billete1000)
 
-    game.onTick(70, "seMueveFisura", { fisura.moverse() })
-    game.onTick(100, "seMuevePolicia", { policia.moverse() })
+        keyboard.w().onPressDo({ alumno.mover(alumno.position().up(1)) })
+        keyboard.s().onPressDo({ alumno.mover(alumno.position().down(1)) })
+        keyboard.a().onPressDo({ alumno.mover(alumno.position().left(1)) })
+        keyboard.d().onPressDo({ alumno.mover(alumno.position().right(1)) })
 
-    game.onCollideDo(alumno, { objetoChocado => objetoChocado.interactuar(alumno) })
-    game.onTick(1000, "relojJuego", { alumno.pasarSegundo() })
+        game.onTick(150, "seMueveFisura", { fisura.moverse() })
+        game.onTick(100, "seMuevePolicia", { policia.moverse() })
+
+        game.onCollideDo(alumno, { objetoChocado => objetoChocado.interactuar(alumno) })
+        game.onTick(1000, "relojJuego", { alumno.pasarSegundo() })
+
+        // Visuales de los autos
+        game.addVisual(autoRojo)
+        game.addVisual(autoAzul)
+        game.addVisual(autoVerde)
+        game.addVisual(taxi)
+
+        game.onTick(60, "mueveRojo", { autoRojo.moverse() })
+        game.onTick(60, "mueveAzul", { autoAzul.moverse() })
+        game.onTick(60, "mueveVerde", { autoVerde.moverse() })
+        game.onTick(60, "mueveTaxi", { taxi.moverse() })
+    })
+
     game.start()
 }
