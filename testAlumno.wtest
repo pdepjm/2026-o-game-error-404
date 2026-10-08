@@ -13,7 +13,7 @@ describe "Alumno y sus Consumibles" {
         
         billete100.interactuar(lucio)
         
-        assert.equals(100, lucio.dinero())
+        assert.equals(600, lucio.dinero())
         
     }
 
