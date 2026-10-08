@@ -36,13 +36,13 @@ object vecino{
 
 object policia{
     method image() = "policia.png"
-    var property position = game.at(19, 1)
+    var property position = game.at(18, 0)
     var direccion = 1
 
     method moverse() {
         if (position.y() >= 5) {
             direccion = -1
-        } else if (position.y() <= 1) {
+        } else if (position.y() <= 0) {
             direccion = 1
         }
         position = position.up(direccion)

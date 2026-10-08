@@ -9,17 +9,32 @@ import mostrables.*
 import pantallas.*
 
 program ElBondi {
-    game.title("elJuegoDelBondi")
+    game.title("elBondi")
     game.height(15)
     game.width(30)
 
     game.addVisual(pantallaInicio)
+    game.addVisual(previewPersonaje)
+
+    keyboard.num1().onPressDo({
+        juego.jugador(pinguino)
+        previewPersonaje.image(pinguino.imagenMenu())
+    })
+
+    keyboard.num2().onPressDo({
+        juego.jugador(lucio)
+        previewPersonaje.image(lucio.imagenMenu())
+    })
 
     keyboard.enter().onPressDo({
         game.removeVisual(pantallaInicio)
+        game.removeVisual(previewPersonaje)
         game.addVisual(fondoMapa)
 
-        game.addVisual(alumno)
+        const jugadorElegido = juego.jugador()
+        jugadorElegido.position(game.at(0, 0))
+        game.addVisual(jugadorElegido)
+
         game.addVisual(reloj)
         game.addVisual(plata)
         game.addVisual(saldo)
@@ -34,27 +49,27 @@ program ElBondi {
         game.addVisual(billete500)
         game.addVisual(billete1000)
 
-        keyboard.w().onPressDo({ alumno.mover(alumno.position().up(1)) })
-        keyboard.s().onPressDo({ alumno.mover(alumno.position().down(1)) })
-        keyboard.a().onPressDo({ alumno.mover(alumno.position().left(1)) })
-        keyboard.d().onPressDo({ alumno.mover(alumno.position().right(1)) })
-
-        game.onTick(150, "seMueveFisura", { fisura.moverse() })
-        game.onTick(100, "seMuevePolicia", { policia.moverse() })
-
-        game.onCollideDo(alumno, { objetoChocado => objetoChocado.interactuar(alumno) })
-        game.onTick(1000, "relojJuego", { alumno.pasarSegundo() })
-
-        // Visuales de los autos
         game.addVisual(autoRojo)
         game.addVisual(autoAzul)
         game.addVisual(autoVerde)
         game.addVisual(taxi)
 
+        keyboard.w().onPressDo({ jugadorElegido.mover(jugadorElegido.position().up(1)) })
+        keyboard.s().onPressDo({ jugadorElegido.mover(jugadorElegido.position().down(1)) })
+        keyboard.a().onPressDo({ jugadorElegido.mover(jugadorElegido.position().left(1)) })
+        keyboard.d().onPressDo({ jugadorElegido.mover(jugadorElegido.position().right(1)) })
+        
+        game.onCollideDo(jugadorElegido, { objetoChocado => objetoChocado.interactuar(jugadorElegido) })
+
+        game.onTick(150, "seMueveFisura", { fisura.moverse() })
+        game.onTick(100, "seMuevePolicia", { policia.moverse() })
+
         game.onTick(60, "mueveRojo", { autoRojo.moverse() })
         game.onTick(60, "mueveAzul", { autoAzul.moverse() })
         game.onTick(60, "mueveVerde", { autoVerde.moverse() })
         game.onTick(60, "mueveTaxi", { taxi.moverse() })
+
+        game.onTick(1000, "relojJuego", { jugadorElegido.pasarSegundo() })
     })
 
     game.start()

@@ -4,15 +4,18 @@ import efectos.*
 import consumibles.*
 import pantallas.*
 
-object alumno {
-  var tiempo = 115
-  var dinero = 0
+class Alumno {
+  var tiempo 
+  var dinero 
   var tieneSube = false
   var saldo = 0
   var llegoBondi = false
+  const imagen
+  const imagenMenu
 
   var property position = game.at(0, 0)
-  method image() = "alumno.gif"
+  method image() = imagen
+  method imagenMenu() = imagenMenu
 
   method tiempo(nuevoTiempo) {
     tiempo = nuevoTiempo
@@ -79,4 +82,11 @@ object alumno {
 
   method subirAlBondi() = saldo>=bondi.precioBoleto()
 
+}
+
+const pinguino = new Alumno(imagenMenu= "pinguino_menu.gif", imagen = "alumno.gif", tiempo=100, dinero=0)
+const lucio    = new Alumno(imagenMenu= "lucio_menu.png", imagen = "lucio.png",tiempo=70, dinero=500)
+
+object juego {
+  var property jugador = pinguino
 }

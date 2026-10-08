@@ -7,34 +7,34 @@ import mobs.*
 
 describe "Alumno y sus Consumibles" {
     test "El alumno suma 100 de dinero al interactuar con un billete de 100" {
-        assert.equals(0, alumno.dinero())
+        assert.equals(0, lucio.dinero())
 
         game.addVisual(billete100)
         
-        billete100.interactuar(alumno)
+        billete100.interactuar(lucio)
         
-        assert.equals(100, alumno.dinero())
+        assert.equals(100, lucio.dinero())
         
     }
 
     test "El alumno agarra la SUBE y revisa que la tiene" {
 
-        assert.notThat(alumno.tieneSube())
+        assert.notThat(lucio.tieneSube())
 
-        sube.interactuar(alumno)
+        sube.interactuar(lucio)
 
-        assert.that(alumno.tieneSube())
+        assert.that(lucio.tieneSube())
     }
 
     test "Si no tiene saldo suficiente no puede subir al bondi" {
-    assert.notThat(alumno.subirAlBondi())
+    assert.notThat(lucio.subirAlBondi())
     }
 
     test "Si tiene saldo suficiente puede subir al bondi" {
-    alumno.conseguirSube(sube)
-    alumno.conseguirDinero(10000)
-    alumno.cargarSube(3000)
-    assert.that(alumno.subirAlBondi())
+    lucio.conseguirSube(sube)
+    lucio.conseguirDinero(10000)
+    lucio.cargarSube(3000)
+    assert.that(lucio.subirAlBondi())
     }
 
 

@@ -6,11 +6,11 @@ import mobs.*
 
 describe "Bondi y su funcionamiento" {
     test "Cuando el tiempo llega a 0 el bondi spawnea" {
-        alumno.tiempo(1)
-        assert.notThat(alumno.llegoBondi())
+        lucio.tiempo(1)
+        assert.notThat(lucio.llegoBondi())
 
-        alumno.pasarSegundo()
-        assert.that(alumno.llegoBondi())
+        lucio.pasarSegundo()
+        assert.that(lucio.llegoBondi())
         
     }
 }

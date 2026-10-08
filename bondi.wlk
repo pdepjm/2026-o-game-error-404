@@ -6,11 +6,11 @@ object bondi{
     const precioBoleto = 670
     method precioBoleto()=precioBoleto
     method image() = "bondi.png"
-    var property position = game.at(20, 0)
+    var property position = game.at(19, 0)
 
     method aparecer(){
         game.addVisual(self)
-        alumno.agregarTiempo(15)
+        juego.jugador().agregarTiempo(15)
         game.say(self, "¡Llegó el bondi! Tenés 15 segundos para subirte")
     }
 
