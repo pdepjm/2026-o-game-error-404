@@ -8,11 +8,9 @@ import mobs.*
 describe "Mobs y la interacción con alumno" {
     test "Cuando el fisura choca con el alumno le saca 15 de tiempo y la mitad de la plata" {
         lucio.tiempo(50)
-        lucio.conseguirDinero(100)
-        
         fisura.interactuar(lucio)
 
-        assert.equals(50, lucio.dinero())
+        assert.equals(250, lucio.dinero())
         assert.equals(35, lucio.tiempo())
         
     }
