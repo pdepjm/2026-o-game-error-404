@@ -86,6 +86,9 @@ class Alumno {
 
 const pinguino = new Alumno(imagenMenu= "pinguino_menu.gif", imagen = "alumno.gif", tiempo=100, dinero=0)
 const lucio    = new Alumno(imagenMenu= "lucio_menu.png", imagen = "lucio.png",tiempo=70, dinero=500)
+const lari   = new Alumno(imagenMenu= "personaje_lari.png", imagen = "personaje_lari.png",tiempo=60, dinero=1000)
+
+
 
 object juego {
   var property jugador = pinguino

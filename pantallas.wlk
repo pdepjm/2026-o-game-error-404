@@ -15,6 +15,8 @@ const pantallaGanaste   = new Pantalla(image = "ganaste.png")
 const pantallaSinSaldo  = new Pantalla(image = "sin_saldo.png")
 const pantallaSinTiempo = new Pantalla(image = "sin_tiempo.png")
 const pantallaPreso = new Pantalla(image = "preso.png")
+const pantallaNivel2 = new Pantalla(image = "fondoNivel2.png")
+
 
 object previewPersonaje {
   var property image = "pinguino_menu.gif"

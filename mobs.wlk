@@ -1,6 +1,7 @@
 import wollok.game.*
 import efectos.*
 
+
 object fisura{
     method image() = "fisura.png"
     var property position = game.at(7, 10)
@@ -90,3 +91,5 @@ const autoAzul = new Auto(position = game.at(12, 8), carrilY = 8, image = "azul.
 
 const autoVerde = new Auto(position = game.at(5, 7), carrilY = 7, image = "verde.png")
 const taxi = new Auto(position = game.at(22, 7), carrilY = 7, image = "taxi.png")
+
+
