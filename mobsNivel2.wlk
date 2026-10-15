@@ -2,7 +2,7 @@ import wollok.game.*
 import pantallas.*
 import alumno2.*
 
-
+//EN OTRO ARCHIVO PARA NO CONFUNDIR CON EL ALUMNO DEL NIVEL 1
 object pasajeroDormido {
     var property position = game.at(7, 6)
 
@@ -21,7 +21,7 @@ object pasajeroPesado {
     method image() = "pasajero.png"
 
     method interactuar(personaje) {
-        game.say(self, "¡Pará de empujar!")
+        game.say(self, "Pará de empujar!")
         personaje.consumirTiempo(5)
     }
 }
@@ -32,7 +32,7 @@ object pasajeroMochila {
     method image() = "pasajeroMochila.png"
 
     method interactuar(personaje) {
-        game.say(self, "¡Cuidado con la mochila!")
+        game.say(self, "Cuidado con la mochila!")
         personaje.consumirTiempo(5)
         personaje.aumentarSueno(10)
     }
@@ -46,7 +46,7 @@ object nubeSueno {
     method image() = "zzz.png"
 
     method mostrar() {
-        position = alumnoNivel2.position().up(1)
+        position = alumnoNivel2.posicionJugador().up(1) // Ajusta la posición de la nube sobre el jugador
 
         if (not visible) {
             visible = true

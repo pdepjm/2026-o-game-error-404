@@ -1,5 +1,4 @@
 import wollok.game.*
-
 import alumno.*
 import bondi.*
 import consumibles.*
@@ -7,6 +6,9 @@ import efectos.*
 import mobs.*
 import mostrables.*
 import pantallas.*
+import alumno2.*
+import mobsNivel2.*
+import consumiblesNivel2.*
 
 program ElBondi {
     game.title("elBondi")

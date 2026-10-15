@@ -1,25 +1,68 @@
 import wollok.game.*
+import alumno.*
 import pantallas.*
 import mobsNivel2.*
 import consumiblesNivel2.*
-
+//OTRO ARCHIVO PORQUE TIENE COSAS DISTINTAS. no repite codigo.
 object alumnoNivel2 {
+    var jugador= pinguino
     var tiempo = 90
     var sueno = 0
     var finalizado = false
 
-    var property position = game.at(1, 7)
+ method iniciar(personaje) {
+    jugador = personaje
+    tiempo = 90
+    sueno = 0
+    finalizado = false
 
-    method image() = "alumno.gif"
 
-    method mover(nuevaPosicion) {
-        if (nuevaPosicion.x() >= 0 and
-            nuevaPosicion.x() < game.width() and
-            nuevaPosicion.y() >= 0 and
-            nuevaPosicion.y() < game.height()) {
-            position = nuevaPosicion
-        }
-    }
+    game.title("No te pases de la parada")
+    game.width(30)
+    game.height(15)
+
+   
+    game.addVisual(pantallaNivel2)
+    jugador.position(game.at(1, 7))
+    game.addVisual(jugador)
+
+    game.addVisual(pasajeroDormido)
+    game.addVisual(pasajeroPesado)
+    game.addVisual(pasajeroMochila)
+
+    game.addVisual(monster)
+    game.addVisual(gomitas)
+    game.addVisual(gomitas2)
+
+    game.addVisual(nubeSueno)
+    game.addVisual(puertaNivel2)
+
+    keyboard.w().onPressDo({
+        jugador.mover(jugador.position().up(1))
+    })
+    keyboard.s().onPressDo({
+        jugador.mover(jugador.position().down(1))
+    })
+    keyboard.a().onPressDo({
+        jugador.mover(jugador.position().left(1))
+    })
+    keyboard.d().onPressDo({
+        jugador.mover(jugador.position().right(1))
+    })
+
+    game.onCollideDo(jugador, {
+        objetoChocado => objetoChocado.interactuar(jugador)
+    })
+
+    game.onTick(1000, "relojNivel2", {
+        self.pasarSegundo()
+    })
+}
+    method jugador() = jugador
+    method posicionJugador() = jugador.position()
+    method tiempo() = tiempo
+    method sueno() = sueno
+    method finalizado() = finalizado
 
     method consumirTiempo(cantidad) {
         tiempo = (tiempo - cantidad).max(0)
@@ -32,10 +75,6 @@ object alumnoNivel2 {
     method reducirSueno(cantidad) {
         sueno = (sueno - cantidad).max(0)
     }
-
-    method tiempo() = tiempo
-    method sueno() = sueno
-    method finalizado() = finalizado
 
     method pasarSegundo() {
         if (not finalizado) {
@@ -59,54 +98,28 @@ object alumnoNivel2 {
     method ganar() {
         if (not finalizado) {
             finalizado = true
-            game.say(self, "¡Llegaste a la puerta! ¡A rendir!")
-            game.schedule(1500, { game.stop() })
+            game.say(jugador, "¡Llegaste a la puerta! ¡A rendir!")
+            game.schedule(1500, {
+                game.stop()
+            })
         }
     }
 
     method perder(mensaje) {
         if (not finalizado) {
             finalizado = true
-            game.say(self, mensaje)
-            game.schedule(1500, { game.stop() })
+            game.say(jugador, mensaje)
+            game.schedule(1500, {
+                game.stop()
+            })
         }
     }
 
     method llegarALaPuerta() {
-    if (tiempo > 0 and sueno < 100) {
-        self.ganar()
+        if (tiempo > 0 and sueno < 100) {
+            self.ganar()
+        }
     }
-    }
 
-    method iniciar() {
-    game.clear()
-
-    game.title("No te pases de la parada")
-    game.width(30)
-    game.height(15)
-    game.boardGround("fondoBondi.png")
-
-    game.addVisual(self)
-
-    game.addVisual(pasajeroDormido)
-    game.addVisual(pasajeroPesado)
-    game.addVisual(pasajeroMochila)
-
-    game.addVisual(monster)
-    game.addVisual(gomitas)
-    game.addVisual(gomitas2)
-
-    game.addVisual(nubeSueno)
-    game.addVisual(puertaNivel2)
-
-    game.onCollideDo(self, {
-        objetoChocado =>
-            objetoChocado.interactuar(self)
-    })
-
-    game.onTick(1000, "relojNivel2", {
-        self.pasarSegundo()
-    })
+    
 }
-}
-
