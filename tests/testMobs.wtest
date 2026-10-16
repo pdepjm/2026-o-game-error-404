@@ -9,19 +9,27 @@ import nivel1.nivel1.*
 describe "Mobs y la interacción con alumno" {
     test "Cuando el fisura choca con el alumno le saca 15 de tiempo y la mitad de la plata" {
         lucio.conseguirDinero(500 - lucio.dinero())
-        nivel1.agregarTiempo(50 - nivel1.tiempo()) 
+        if (lucio.tiempo() < 50) {
+            lucio.agregarTiempo(50 - lucio.tiempo())
+        } else if (lucio.tiempo() > 50) {
+            lucio.consumirTiempo(lucio.tiempo() - 50)
+        }
         
         fisura.interactuar(lucio)
 
         assert.equals(250, lucio.dinero())
-        assert.equals(35, nivel1.tiempo())
+        assert.equals(35, lucio.tiempo())
     }
 
     test "Cuando el vecino choca con el alumno le suma 5 de tiempo" {
-        nivel1.agregarTiempo(50 - nivel1.tiempo())
+        if (lucio.tiempo() < 50) {
+            lucio.agregarTiempo(50 - lucio.tiempo())
+        } else if (lucio.tiempo() > 50) {
+            lucio.consumirTiempo(lucio.tiempo() - 50)
+        }
         
         vecino.interactuar(lucio)
 
-        assert.equals(55, nivel1.tiempo())
+        assert.equals(55, lucio.tiempo())
     }
 }

@@ -8,7 +8,7 @@ class Alumno {
   var sueno = 0
   const imagen
   const imagenMenu
-  var property tiempo = 20
+  var tiempo = 20
 
   var property position = game.at(0, 0)
   method image() = imagen
@@ -20,7 +20,10 @@ class Alumno {
     }
   }
 
-  method posicionValida(pos) =
+  method posicionValida(nuevaPosicion) =
+    self.estaDentroDelMapa(nuevaPosicion) and juego.nivelActual().posicionPermitida(nuevaPosicion)
+
+  method estaDentroDelMapa(pos) =
     pos.x() >= 0 and pos.x() < game.width() and
     pos.y() >= 0 and pos.y() < game.height()
 
@@ -28,6 +31,21 @@ class Alumno {
   method saldo() = saldo
   method tieneSube() = tieneSube
   method sueno() = sueno
+  method tiempo() = tiempo
+
+  method agregarTiempo(cantidad) {
+    tiempo += cantidad
+  }
+
+  method consumirTiempo(cantidad) {
+    if (tiempo > cantidad) {
+      tiempo -= cantidad
+    }
+  }
+
+  method pasarSegundo() {
+    tiempo = (tiempo - 1).max(0)
+  }
 
   method conseguirDinero(cantidad) {
     dinero += cantidad
@@ -64,4 +82,5 @@ const lari     = new Alumno(imagenMenu = "personaje_lari.png", imagen = "persona
 
 object juego {
   var property jugador = pinguino
+  var property nivelActual = null
 }

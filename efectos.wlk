@@ -4,7 +4,7 @@ import nivel1.nivel1.*
 
 object cafe {
   method aplicarEfecto(personaje) {
-    nivel1.agregarTiempo(5)
+    personaje.agregarTiempo(5)
   }
 }
 
@@ -16,7 +16,7 @@ object robo {
 
 object frenar {
   method aplicarEfecto(personaje) {
-    nivel1.consumirTiempo(15)
+    personaje.consumirTiempo(15)
   }
 }
 
@@ -32,7 +32,7 @@ object meterEnCana {
 object pisar {
   method aplicarEfecto(personaje) {
     game.say(personaje, "Upa! Me atropellaron")
-    nivel1.consumirTiempo(20)
+    personaje.consumirTiempo(20)
     personaje.pierdeDinero(100)
     personaje.position(game.at(0, 0))
   }

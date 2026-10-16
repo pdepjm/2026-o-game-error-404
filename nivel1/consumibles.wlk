@@ -28,7 +28,7 @@ class PlataTirada{
     }
 }
 
-const billete100 = new PlataTirada(valor=100, imagen ="100pesos.png", position = game.at(4, 11))
+const billete100 = new PlataTirada(valor=100, imagen ="100pesos.png", position = game.at(4, 10))
 const billete200 = new PlataTirada(valor=200, imagen ="200pesos.png", position = game.at(7, 4))
 const billete500 = new PlataTirada(valor=500, imagen ="500pesos.png", position = game.at(24, 10))
 const billete1000 = new PlataTirada(valor=1000, imagen ="1000pesos.png", position = game.at(22, 0))

@@ -13,7 +13,7 @@ object bondi {
 
     method aparecer() {
         game.addVisual(self)
-        nivel1.agregarTiempo(15)
+        juego.jugador().agregarTiempo(15)
         game.say(self, "¡Llegó el bondi! Tenés 15 segundos para subirte")
     }
 

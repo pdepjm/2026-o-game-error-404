@@ -9,20 +9,18 @@ import interfaz.pantallas.*
 
 object reloj {
   method position() = game.at(1, 14)
-  method text() = "Tiempo: " + nivel1.tiempo().toString()
+  method text() = "Tiempo: " + juego.jugador().tiempo().toString()
   method textColor() = "FFFFFFFF"
   method interactuar(personaje) {}
 }
 
 object nivel1 {
-  var tiempo = 100
   var llegoBondi = false
 
-  method tiempo() = tiempo
   method llegoBondi() = llegoBondi
 
   method iniciar() {
-    tiempo = juego.jugador().tiempo()
+    juego.nivelActual(self)
     llegoBondi = false
     game.clear()
 
@@ -71,14 +69,15 @@ object nivel1 {
   }
 
   method pasarSegundo() {
-    tiempo = (tiempo - 1).max(0)
+    const jugador = juego.jugador()
+    jugador.pasarSegundo()
 
-    if (tiempo == 0 and not llegoBondi) {
+    if (jugador.tiempo() == 0 and not llegoBondi) {
       llegoBondi = true
       bondi.aparecer()
-    } else if (tiempo == 0 and llegoBondi) {
+    }   else if (jugador.tiempo() == 0 and llegoBondi) {
       game.removeTickEvent("relojNivel1")
-      game.say(juego.jugador(), "Uh la pucha, se me fue el bondi")
+      game.say(jugador, "Uh la pucha, se me fue el bondi")
       game.schedule(1500, {
         game.clear()
         game.addVisual(pantallaSinTiempo)
@@ -86,11 +85,25 @@ object nivel1 {
     }
   }
 
-  method agregarTiempo(cantidad) {
-    tiempo += cantidad
+  
+  method posicionPermitida(pos) = not self.estaEnZonaBloqueada(pos)
+
+  method estaEnZonaBloqueada(pos) {
+    const x = pos.x()
+    const y = pos.y()
+
+    // manzana izquierda (la del kiosco)
+    const casasArribaIzq = (x <= 16 and y >= 12)
+    const cercaIzqKiosco = (x <= 6 and y == 11)
+    const cercaDerKiosco = (x >= 13 and x <= 16 and y == 11)
+
+    // manzana derecha arriba
+    const casasArribaDer = (x >= 22 and y >= 11)
+
+    // manzana abajo (la de la parada)
+    const casasAbajoDer = (x >= 22 and y >= 1 and y <= 5)
+
+    return casasArribaIzq or casasArribaDer or casasAbajoDer or cercaIzqKiosco or cercaDerKiosco
   }
 
-  method consumirTiempo(cantidad) {
-    tiempo = (tiempo - cantidad).max(0)
-  }
 }

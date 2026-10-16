@@ -7,7 +7,8 @@ import nivel1.nivel1.*
 
 describe "Bondi y su funcionamiento" {
     test "Cuando el tiempo llega a 0 el bondi spawnea" {
-        nivel1.agregarTiempo(1 - nivel1.tiempo())
+        juego.jugador(pinguino)
+        pinguino.consumirTiempo(pinguino.tiempo() - 1)
         assert.notThat(nivel1.llegoBondi())
 
         nivel1.pasarSegundo()

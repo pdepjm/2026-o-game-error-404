@@ -41,7 +41,7 @@ object policia{
     var property direccion = 1
 
     method moverse() {
-        if (position.y() >= 5) {
+        if (position.y() >= 6) {
             direccion = -1
         } else if (position.y() <= 0) {
             direccion = 1

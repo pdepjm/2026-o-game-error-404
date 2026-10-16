@@ -12,6 +12,7 @@ object nivel2 {
   method tiempo() = tiempo
 
   method iniciar() {
+    juego.nivelActual(self)
     tiempo = 90
     finalizado = false
 
