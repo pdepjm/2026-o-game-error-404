@@ -1,16 +1,12 @@
-import alumno.*
-import consumibles.*
+import nivel1.*
 import bondi.*
-import efectos.*
-import mobs.*
 
 describe "Bondi y su funcionamiento" {
     test "Cuando el tiempo llega a 0 el bondi spawnea" {
-        lucio.tiempo(1)
-        assert.notThat(lucio.llegoBondi())
+        nivel1.agregarTiempo(1 - nivel1.tiempo())
+        assert.notThat(nivel1.llegoBondi())
 
-        lucio.pasarSegundo()
-        assert.that(lucio.llegoBondi())
-        
+        nivel1.pasarSegundo()
+        assert.that(nivel1.llegoBondi())
     }
 }

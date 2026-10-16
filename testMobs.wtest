@@ -1,26 +1,25 @@
 import wollok.game.*
 import alumno.*
-import consumibles.*
-import bondi.*
 import efectos.*
 import mobs.*
+import nivel1.*
 
 describe "Mobs y la interacción con alumno" {
     test "Cuando el fisura choca con el alumno le saca 15 de tiempo y la mitad de la plata" {
-        lucio.tiempo(50)
+        lucio.conseguirDinero(500 - lucio.dinero())
+        nivel1.agregarTiempo(50 - nivel1.tiempo()) 
+        
         fisura.interactuar(lucio)
 
         assert.equals(250, lucio.dinero())
-        assert.equals(35, lucio.tiempo())
-        
+        assert.equals(35, nivel1.tiempo())
     }
 
     test "Cuando el vecino choca con el alumno le suma 5 de tiempo" {
-        lucio.tiempo(50)
+        nivel1.agregarTiempo(50 - nivel1.tiempo())
         
         vecino.interactuar(lucio)
 
-        assert.equals(55, lucio.tiempo())
-        
+        assert.equals(55, nivel1.tiempo())
     }
 }

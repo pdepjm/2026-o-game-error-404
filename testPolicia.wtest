@@ -3,17 +3,21 @@ import mobs.*
 
 describe "Comprobacion del Policia" {
 
-    test "Cuando el policia se mueve avanza una posicion hacia arriba" 
-    {
+    method initialize() {
+        policia.position(game.at(18, 0))
+        policia.direccion(1)
+    }
+
+    test "Cuando el policia se mueve avanza una posicion hacia arriba" {
         policia.position(game.at(19, 1))
+        policia.direccion(1)
 
         policia.moverse()
 
         assert.equals(2, policia.position().y())
     }
 
-    test "Cuando el policia llega al limite superior comienza a bajar" 
-    {
+    test "Cuando el policia llega al limite superior comienza a bajar" {
         policia.position(game.at(19, 5))
 
         policia.moverse()
@@ -21,13 +25,11 @@ describe "Comprobacion del Policia" {
         assert.equals(4, policia.position().y())
     }
 
-    test "Cuando el policia se mueve mantiene su posicion en x" 
-    {
+    test "Cuando el policia se mueve mantiene su posicion en x" {
         policia.position(game.at(19, 1))
 
         policia.moverse()
 
         assert.equals(19, policia.position().x())
     }
-
 }
