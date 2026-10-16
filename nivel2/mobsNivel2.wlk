@@ -5,7 +5,7 @@ import efectos.*
 import interfaz.pantallas.*
 
 object pasajeroDormido {
-    var property position = game.at(7, 6)
+    var property position = game.at(22, 8)
     method image() = "pasajeroDormido.png"
 
     method interactuar(personaje) {
@@ -16,7 +16,7 @@ object pasajeroDormido {
 }
 
 object pasajeroPesado {
-    var property position = game.at(12, 8)
+    var property position = game.at(15, 6)
     method image() = "pasajero.png"
 
     method interactuar(personaje) {
@@ -26,7 +26,7 @@ object pasajeroPesado {
 }
 
 object pasajeroMochila {
-    var property position = game.at(19, 6)
+    var property position = game.at(8, 7)
     method image() = "pasajeroMochila.png"
 
     method interactuar(personaje) {
@@ -60,7 +60,7 @@ object nubeSueno {
 }
 
 object exclamacion {
-    var property position = game.at(28, 7)
+    var property position = game.at(27, 9)
     method image() = "exclamacion.gif"
 
     method interactuar(personaje) {

@@ -18,17 +18,17 @@ class ConsumibleSueno {
 const monster = new ConsumibleSueno(
     reduccionSueno = 35,
     imagen = "monster.png",
-    position = game.at(5, 11)
+    position = game.at(3, 8)
 )
 
 const gomitas = new ConsumibleSueno(
     reduccionSueno = 15,
     imagen = "gomitas.png",
-    position = game.at(15, 10)
+    position = game.at(14, 9)
 )
 
 const gomitas2 = new ConsumibleSueno(
     reduccionSueno = 15,
     imagen = "gomitas.png",
-    position = game.at(23, 4)
+    position = (game.at(24, 5))
 )

@@ -67,6 +67,9 @@ object nivel2 {
     }
   }
 
+  method posicionPermitida(pos) =
+    pos.x().between(1, 28) and pos.y().between(4, 11)
+
   method ganar() {
     if (not finalizado) {
       finalizado = true

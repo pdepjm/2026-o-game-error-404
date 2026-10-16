@@ -76,7 +76,8 @@ class Alumno {
   method subirAlBondi() = saldo >= bondi.precioBoleto()
 }
 
-const pinguino = new Alumno(imagenMenu = "pinguino_menu.gif", imagen = "alumno.gif", dinero = 0, tiempo =100)
+//el pinguino es de prueba para el nivel 2, ya tiene el saldo suficiente para viajar y no espera a q spawnee el bondi
+const pinguino = new Alumno(imagenMenu = "pinguino_menu.gif", imagen = "alumno.gif", dinero = 0, tiempo =5,saldo=4500)
 const lucio    = new Alumno(imagenMenu = "lucio_menu.png", imagen = "lucio.png", dinero = 500, tiempo = 70)
 const lari     = new Alumno(imagenMenu = "personaje_lari.png", imagen = "personaje_lari.png", dinero = 1000, tiempo = 60)
 
