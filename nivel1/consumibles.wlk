@@ -1,4 +1,6 @@
 import wollok.game.*
+import alumno.*
+import efectos.*
 
 object sube{
     const saldo = (-1000 .. 1000).anyOne()

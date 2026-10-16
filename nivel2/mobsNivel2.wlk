@@ -1,8 +1,8 @@
 import wollok.game.*
-import pantallas.*
 import alumno.*
-import efectos.*
 import nivel2.*
+import efectos.*
+import interfaz.pantallas.*
 
 object pasajeroDormido {
     var property position = game.at(7, 6)
@@ -56,9 +56,7 @@ object nubeSueno {
         }
     }
 
-    method interactuar(personaje) {
-        nubeAlcanza.aplicarEfecto(personaje)
-    }
+    method interactuar(personaje) {}
 }
 
 object exclamacion {

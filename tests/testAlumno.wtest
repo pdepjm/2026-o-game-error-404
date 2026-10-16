@@ -1,9 +1,9 @@
-import mostrables.*
 import alumno.*
-import consumibles.*
-import bondi.*
 import efectos.*
-import mobs.*
+import interfaz.mostrables.*
+import nivel1.consumibles.*
+import nivel1.bondi.*
+import nivel1.mobs.*
 
 describe "Alumno y sus Consumibles" {
     test "El alumno suma 100 de dinero al interactuar con un billete de 100" {

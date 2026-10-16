@@ -1,7 +1,8 @@
 import wollok.game.*
 import alumno.*
-import pantallas.*
-import nivel1.*
+import interfaz.pantallas.*
+import nivel1.nivel1.*
+import nivel2.nivel2.*
 
 program ElBondi {
     game.title("elBondi")

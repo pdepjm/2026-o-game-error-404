@@ -4,8 +4,8 @@ import bondi.*
 import consumibles.*
 import efectos.*
 import mobs.*
-import mostrables.*
-import pantallas.*
+import interfaz.mostrables.*
+import interfaz.pantallas.*
 
 object reloj {
   method position() = game.at(1, 14)

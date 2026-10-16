@@ -1,4 +1,7 @@
 import wollok.game.*
+import alumno.*
+import nivel1.nivel1.*
+import nivel2.nivel2.*
 
 class Pantalla {
     var property image

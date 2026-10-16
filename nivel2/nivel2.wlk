@@ -1,9 +1,9 @@
 import wollok.game.*
 import alumno.*
-import pantallas.*
 import mobsNivel2.*
 import consumiblesNivel2.*
-import mostrables.*
+import interfaz.mostrables.*
+import interfaz.pantallas.*
 
 object nivel2 {
   var tiempo = 90

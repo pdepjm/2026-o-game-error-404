@@ -1,5 +1,7 @@
 import wollok.game.*
 import alumno.*
+import nivel1.nivel1.*
+import nivel2.nivel2.*
 
 object plata {
     method position() = game.at(1, 13)

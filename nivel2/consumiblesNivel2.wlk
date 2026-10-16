@@ -1,4 +1,5 @@
 import wollok.game.*
+import alumno.*
 
 class ConsumibleSueno {
     const reduccionSueno

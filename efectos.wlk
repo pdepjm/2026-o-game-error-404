@@ -1,6 +1,6 @@
 import wollok.game.*
-import pantallas.*
-import nivel1.*
+import interfaz.pantallas.*
+import nivel1.nivel1.*
 
 object cafe {
   method aplicarEfecto(personaje) {

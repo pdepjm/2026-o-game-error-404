@@ -1,5 +1,5 @@
 import wollok.game.*
-import bondi.*
+import nivel1.bondi.*
 
 class Alumno {
   var dinero 
