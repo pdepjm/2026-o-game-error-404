@@ -1,25 +1,18 @@
 import wollok.game.*
 import bondi.*
-import efectos.*
-import consumibles.*
-import pantallas.*
 
 class Alumno {
-  var tiempo 
   var dinero 
   var tieneSube = false
   var saldo = 0
-  var llegoBondi = false
+  var sueno = 0
   const imagen
   const imagenMenu
+  var property tiempo = 20
 
   var property position = game.at(0, 0)
   method image() = imagen
   method imagenMenu() = imagenMenu
-
-  method tiempo(nuevoTiempo) {
-    tiempo = nuevoTiempo
-  }
 
   method mover(nuevaPosicion) {
     if (self.posicionValida(nuevaPosicion)) {
@@ -31,35 +24,10 @@ class Alumno {
     pos.x() >= 0 and pos.x() < game.width() and
     pos.y() >= 0 and pos.y() < game.height()
 
-  method pasarSegundo() {
-    if (tiempo > 0) {
-      self.consumirTiempo(1)
-      if (tiempo == 0 and not llegoBondi) {
-        llegoBondi = true
-        bondi.aparecer()
-      }
-    } else {
-      game.removeTickEvent("relojJuego")
-      game.say(self, "Uh la pucha, se me fue")
-      game.schedule(1500, {
-        game.clear()
-        game.addVisual(pantallaSinTiempo)
-      })
-    }
-  }
-
-  method consumirTiempo(perdida){
-    tiempo = (tiempo - perdida).max(0)
-  }
-  method agregarTiempo(cantidad) {
-    tiempo += cantidad
-  }
-
-  method tiempo() = tiempo
   method dinero() = dinero
   method saldo() = saldo
   method tieneSube() = tieneSube
-  method llegoBondi()=llegoBondi
+  method sueno() = sueno
 
   method conseguirDinero(cantidad) {
     dinero += cantidad
@@ -75,20 +43,24 @@ class Alumno {
   method cargarSube(carga) {
     if (tieneSube and dinero >= carga) {
       dinero = dinero - carga
-      saldo+=carga
+      saldo += carga
     }
   }
 
+  method aumentarSueno(cantidad) {
+    sueno = (sueno + cantidad).min(100)
+  }
 
-  method subirAlBondi() = saldo>=bondi.precioBoleto()
+  method reducirSueno(cantidad) {
+    sueno = (sueno - cantidad).max(0)
+  }
 
+  method subirAlBondi() = saldo >= bondi.precioBoleto()
 }
 
-const pinguino = new Alumno(imagenMenu= "pinguino_menu.gif", imagen = "alumno.gif", tiempo=100, dinero=0)
-const lucio    = new Alumno(imagenMenu= "lucio_menu.png", imagen = "lucio.png",tiempo=70, dinero=500)
-const lari   = new Alumno(imagenMenu= "personaje_lari.png", imagen = "personaje_lari.png",tiempo=60, dinero=1000)
-
-
+const pinguino = new Alumno(imagenMenu = "pinguino_menu.gif", imagen = "alumno.gif", dinero = 0, tiempo =100)
+const lucio    = new Alumno(imagenMenu = "lucio_menu.png", imagen = "lucio.png", dinero = 500, tiempo = 70)
+const lari     = new Alumno(imagenMenu = "personaje_lari.png", imagen = "personaje_lari.png", dinero = 1000, tiempo = 60)
 
 object juego {
   var property jugador = pinguino

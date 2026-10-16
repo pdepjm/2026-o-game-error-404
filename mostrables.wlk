@@ -1,23 +1,23 @@
 import wollok.game.*
 import alumno.*
 
-object reloj{
-    method position() = game.at(1, 14)
-    method text() = "Tiempo: " + juego.jugador().tiempo().toString()
-    method textColor() = "FFFFFFFF"
-    method interactuar(personaje){}
-}
-
-object plata{
+object plata {
     method position() = game.at(1, 13)
     method text() = "Plata: " + juego.jugador().dinero().toString()
     method textColor() = "FFFFFFFF"
-    method interactuar(personaje){}
+    method interactuar(personaje) {}
 }
 
-object saldo{
+object saldo {
     method position() = game.at(1, 12)
     method text() = "Saldo: " + juego.jugador().saldo().toString()
     method textColor() = "FFFFFFFF"
-    method interactuar(personaje){}
+    method interactuar(personaje) {}
+}
+
+object suenoVisual {
+    method position() = game.at(1, 13)
+    method text() = "Sueño: " + juego.jugador().sueno().toString() + "/100"
+    method textColor() = "FFFFFFFF"
+    method interactuar(personaje) {}
 }

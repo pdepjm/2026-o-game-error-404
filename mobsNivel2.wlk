@@ -1,53 +1,48 @@
 import wollok.game.*
 import pantallas.*
-import alumno2.*
+import alumno.*
+import efectos.*
+import nivel2.*
 
-//EN OTRO ARCHIVO PARA NO CONFUNDIR CON EL ALUMNO DEL NIVEL 1
 object pasajeroDormido {
     var property position = game.at(7, 6)
-
     method image() = "pasajeroDormido.png"
 
     method interactuar(personaje) {
         game.say(self, "¡Permiso, tengo que pasar!")
-        personaje.consumirTiempo(3)
+        nivel2.consumirTiempo(3)
         personaje.aumentarSueno(5)
     }
 }
 
 object pasajeroPesado {
     var property position = game.at(12, 8)
-
     method image() = "pasajero.png"
 
     method interactuar(personaje) {
         game.say(self, "Pará de empujar!")
-        personaje.consumirTiempo(5)
+        nivel2.consumirTiempo(5)
     }
 }
 
 object pasajeroMochila {
     var property position = game.at(19, 6)
-
     method image() = "pasajeroMochila.png"
 
     method interactuar(personaje) {
         game.say(self, "Cuidado con la mochila!")
-        personaje.consumirTiempo(5)
+        nivel2.consumirTiempo(5)
         personaje.aumentarSueno(10)
     }
 }
 
 object nubeSueno {
     var visible = false
-
     var property position = game.at(1, 6)
-
     method image() = "zzz.png"
 
     method mostrar() {
-        position = alumnoNivel2.posicionJugador().up(1) // Ajusta la posición de la nube sobre el jugador
-
+        position = juego.jugador().position().up(1)
         if (not visible) {
             visible = true
             game.addVisual(self)
@@ -61,14 +56,16 @@ object nubeSueno {
         }
     }
 
-    method interactuar(personaje) {}
+    method interactuar(personaje) {
+        nubeAlcanza.aplicarEfecto(personaje)
+    }
 }
-object puertaNivel2 {
-    var property position = game.at(28, 7)
 
-    method image() = "puerta.png"
+object exclamacion {
+    var property position = game.at(28, 7)
+    method image() = "exclamacion.gif"
 
     method interactuar(personaje) {
-        personaje.llegarALaPuerta()
+        nivel2.ganar()
     }
 }
