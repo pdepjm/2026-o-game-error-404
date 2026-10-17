@@ -27,12 +27,25 @@ object nivel2 {
     game.addVisual(pasajeroDormido)
     game.addVisual(pasajeroPesado)
     game.addVisual(pasajeroMochila)
+    game.onTick(500, "moverPasajeros", {
+    pasajeroDormido.moverse()
+    pasajeroPesado.moverse()
+    pasajeroMochila.moverse()
+  })
 
     game.addVisual(monster)
     game.addVisual(gomitas)
     game.addVisual(gomitas2)
 
-    game.addVisual(nubeSueno)
+    game.addVisual(nube1)
+    game.addVisual(nube2)
+    game.addVisual(nube3)
+    game.onTick(800, "moverNubes", {
+    nube1.moverse()
+    nube2.moverse()
+    nube3.moverse()
+    })
+
     game.addVisual(exclamacion)
     game.addVisual(relojNivel2Visual)
     game.addVisual(suenoVisual)
@@ -53,11 +66,6 @@ object nivel2 {
       const jugador = juego.jugador()
       jugador.aumentarSueno(5)
 
-      if (jugador.sueno() >= 40) {
-        nubeSueno.mostrar()
-      } else {
-        nubeSueno.ocultar()
-      }
 
       if (jugador.sueno() >= 100) {
         self.perder("¡Te quedaste dormido!")
@@ -74,19 +82,29 @@ object nivel2 {
     if (not finalizado) {
       finalizado = true
       game.removeTickEvent("relojNivel2")
+      game.removeTickEvent("moverNubes")
+     
       game.say(juego.jugador(), "¡Llegaste a la puerta! ¡A rendir!")
       game.schedule(1500, { game.stop() })
     }
   }
 
-  method perder(mensaje) {
+ method perder(mensaje) {
     if (not finalizado) {
-      finalizado = true
-      game.removeTickEvent("relojNivel2")
-      game.say(juego.jugador(), mensaje)
-      game.schedule(1500, { game.stop() })
+        finalizado = true
+        game.removeTickEvent("relojNivel2")
+        game.removeTickEvent("moverNubes")
+        game.removeTickEvent("moverPasajeros")
+
+        game.clear()
+
+        if (juego.jugador().sueno() >= 100) {
+            game.addVisual(pantallaDormiste)
+        } else if( juego.jugador().tiempo() <= 0) {
+            game.addVisual(pantallaSinTiempo)
+        }
     }
-  }
+}
 
   method consumirTiempo(cantidad) {
     tiempo = (tiempo - cantidad).max(0)
