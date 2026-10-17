@@ -27,11 +27,11 @@ object nivel2 {
     game.addVisual(pasajeroDormido)
     game.addVisual(pasajeroPesado)
     game.addVisual(pasajeroMochila)
-    game.onTick(500, "moverPasajeros", {
-    pasajeroDormido.moverse()
-    pasajeroPesado.moverse()
-    pasajeroMochila.moverse()
-  })
+   game.onTick(500, "moverPasajeros", {
+    pasajeroDormido.moverse(8, 9)
+    pasajeroPesado.moverse(6, 7)
+    pasajeroMochila.moverse(7, 8)
+})
 
     game.addVisual(monster)
     game.addVisual(gomitas)
@@ -78,16 +78,30 @@ object nivel2 {
   method posicionPermitida(pos) =
     pos.x().between(1, 28) and pos.y().between(4, 11)
 
-  method ganar() {
+ method ganar() {
+    const jugador = juego.jugador()
+
     if (not finalizado) {
-      finalizado = true
-      game.removeTickEvent("relojNivel2")
-      game.removeTickEvent("moverNubes")
-     
-      game.say(juego.jugador(), "¡Llegaste a la puerta! ¡A rendir!")
-      game.schedule(1500, { game.stop() })
+        if (tiempo > 0 and jugador.sueno() < 100) {
+            finalizado = true
+
+            game.removeTickEvent("relojNivel2")
+            game.removeTickEvent("moverNubes")
+            game.removeTickEvent("moverPasajeros")
+
+            game.clear()
+            game.addVisual(pantallaGanaste)
+
+            game.schedule(3000, {
+                game.stop()
+            })
+        } else if (jugador.sueno() >= 100) {
+            self.perder("¡Te quedaste dormido!")
+        } else {
+            self.perder("¡Se acabó el tiempo!")
+        }
     }
-  }
+}
 
  method perder(mensaje) {
     if (not finalizado) {

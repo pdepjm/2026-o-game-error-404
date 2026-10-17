@@ -4,87 +4,63 @@ import nivel2.*
 import efectos.*
 import interfaz.pantallas.*
 
-object pasajeroDormido {
-    var property position = game.at(22, 8)
-    method image() = "pasajeroDormido.png"
 
-    method interactuar(personaje) {
+class Pasajero {
+    var property position
+    var subiendo = true
+    const imagen
+
+    method image() = imagen
+
+    method moverse(limiteInferior, limiteSuperior) {
+        if (subiendo) {
+            if (position.y() < limiteSuperior) {
+                position = position.up(1)
+            } else {
+                subiendo = false
+            }
+        } else {
+            if (position.y() > limiteInferior) {
+                position = position.down(1)
+            } else {
+                subiendo = true
+            }
+        }
+    }
+
+    method interactuar(personaje) {}
+}
+
+object pasajeroDormido inherits Pasajero(
+    position = game.at(22, 8),
+    imagen = "pasajeroDormido.png"
+) {
+    override method interactuar(personaje) {
         game.say(self, "¡Permiso, tengo que pasar!")
         nivel2.consumirTiempo(3)
         personaje.aumentarSueno(5)
     }
-
-    var subiendo = true
-
-    method moverse() {
-    if (subiendo) {
-        if (position.y() < 9) {
-            position = position.up(1)
-        } else {
-            subiendo = false
-        }
-    } else {
-        if (position.y() > 8) {
-            position = position.down(1)
-        } else {
-            subiendo = true
-        }
-    }
-}
 }
 
-object pasajeroPesado {
-    var property position = game.at(15, 6)
-    method image() = "pasajero.png"
-    var subiendo = true
-    method interactuar(personaje) {
-        game.say(self, "Pará de empujar!")
+object pasajeroPesado inherits Pasajero(
+    position = game.at(15, 6),
+    imagen = "pasajero.png"
+) {
+    override method interactuar(personaje) {
+        game.say(self, "¡Pará de empujar!")
         nivel2.consumirTiempo(5)
     }
-    method moverse() {
-        if (subiendo) {
-            if (position.y() < 7) {
-                position = position.up(1)
-            } else {
-                subiendo = false
-            }
-        } else {
-            if (position.y() > 6) {
-                position = position.down(1)
-            } else {
-                subiendo = true
-            }
-        }
-    }
-
 }
 
-object pasajeroMochila {
-    var property position = game.at(8, 7)
-    method image() = "pasajeroMochila.png"
-    var subiendo = true
-    
-    method interactuar(personaje) {
-        game.say(self, "Cuidado con la mochila!")
+object pasajeroMochila inherits Pasajero(
+    position = game.at(8, 7),
+    imagen = "pasajeroMochila.png"
+) {
+    override method interactuar(personaje) {
+        game.say(self, "¡Cuidado con la mochila!")
         nivel2.consumirTiempo(5)
         personaje.aumentarSueno(10)
     }
-
-    method moverse() {
-        if (subiendo) {
-            if (position.y() < 8) {
-                position = position.up(1)
-            } else {
-                subiendo = false
-            }
-        } else {
-            if (position.y() > 7) {
-                position = position.down(1)
-            } else {
-                subiendo = true
-            }
-        }
-     }
 }
 class NubeSueno {
     // Cada nube tendrá su propia posición independiente en el mapa
