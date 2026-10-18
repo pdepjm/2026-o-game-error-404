@@ -27,6 +27,11 @@ program ElBondi {
         previewPersonaje.image(lari.imagenMenu())
     })
 
+      keyboard.num4().onPressDo({
+        juego.jugador(solci)
+        previewPersonaje.image(solci.imagenMenu())
+    })
+
     keyboard.enter().onPressDo({
         nivel1.iniciar()
     })
