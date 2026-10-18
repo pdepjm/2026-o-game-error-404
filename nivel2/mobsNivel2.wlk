@@ -33,7 +33,7 @@ class Pasajero {
 
 object pasajeroDormido inherits Pasajero(
     position = game.at(22, 8),
-    imagen = "pasajeroDormido.png"
+    imagen = "pasajero_dormido.png"
 ) {
     override method interactuar(personaje) {
         game.say(self, "¡Permiso, tengo que pasar!")
@@ -44,7 +44,7 @@ object pasajeroDormido inherits Pasajero(
 
 object pasajeroPesado inherits Pasajero(
     position = game.at(15, 6),
-    imagen = "pasajero.png"
+    imagen = "pasajero_pesado.png"
 ) {
     override method interactuar(personaje) {
         game.say(self, "¡Pará de empujar!")
@@ -54,7 +54,7 @@ object pasajeroPesado inherits Pasajero(
 
 object pasajeroMochila inherits Pasajero(
     position = game.at(8, 7),
-    imagen = "pasajeroMochila.png"
+    imagen = "pasajera_mochila.png"
 ) {
     override method interactuar(personaje) {
         game.say(self, "¡Cuidado con la mochila!")

@@ -90,7 +90,7 @@ object nivel2 {
             game.removeTickEvent("moverPasajeros")
 
             game.clear()
-            game.addVisual(pantallaGanaste)
+            game.addVisual(pantallaNivel2Completo)
 
             game.schedule(3000, {
                 game.stop()
