@@ -78,16 +78,10 @@ class Alumno {
 
 //el pinguino es de prueba para el nivel 2, ya tiene el saldo suficiente para viajar y no espera a q spawnee el bondi
 const pinguino = new Alumno(imagenMenu = "pinguino_menu.gif", imagen = "alumno.gif", dinero = 0, tiempo =5,saldo=4500)
-<<<<<<< Updated upstream
-const lucio   = new Alumno(imagenMenu = "lucio_menu.png", imagen = "lucio.png", dinero = 500, tiempo = 70)
-const lari    = new Alumno(imagenMenu = "lari_menu.png", imagen = "lari.png", dinero = 1000, tiempo = 60)
-const solci   = new Alumno(imagenMenu = "solci_menu.png", imagen = "solci.png", dinero = 800, tiempo = 50)
-const alvarez = new Alumno(imagenMenu = "AlvarezMunu.png", imagen = "AlvarezJuego.png", dinero = 0, tiempo = 60, saldo = 0)
-=======
 const lucio    = new Alumno(imagenMenu = "lucio_menu.png", imagen = "lucio.png", dinero = 500, tiempo = 70)
 const lari     = new Alumno(imagenMenu = "lari_menu.png", imagen = "lari.png", dinero = 1000, tiempo = 60)
 const solci    = new Alumno(imagenMenu = "solci_menu.png", imagen = "solci.png", dinero = 800, tiempo = 50)
->>>>>>> Stashed changes
+const alvarez = new Alumno(imagenMenu = "AlvarezMunu.png", imagen = "AlvarezJuego.png", dinero = 0, tiempo = 60, saldo = 0)
 
 object juego {
   var property jugador = pinguino
