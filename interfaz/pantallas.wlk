@@ -6,6 +6,7 @@ import nivel2.nivel2.*
 class Pantalla {
     var property image
     var property position = game.at(0, 0)
+    method recibirDano(cantidad) {}
 }
 
 object fondoMapa {

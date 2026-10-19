@@ -63,21 +63,27 @@ object pasajeroMochila inherits Pasajero(
     }
 }
 class NubeSueno {
-    // Cada nube tendrá su propia posición independiente en el mapa
     var property position = game.at(0, 0)
+    var vida = 20
 
     method image() = "zzz.png"
 
- method moverse() {
-    if (position.y() > 5) {
-        position = position.down(1)
-    } else {
-        position = game.at(position.x(), 11)
+    method moverse() {
+        if (position.y() > 5) {
+            position = position.down(1)
+        } else {
+            position = game.at(position.x(), 11)
+        }
     }
-}
+
+    method recibirDano(cantidad) {
+        vida -= cantidad
+        if (vida <= 0) {
+            game.removeVisual(self)
+        }
+    }
 
     method interactuar(personaje) {
-        // Si el alumno choca con la nube, le puede sumar sueño o restarle tiempo
         personaje.aumentarSueno(15)
         game.say(personaje, "¡Ay, me da sueño esta nube!")
     }

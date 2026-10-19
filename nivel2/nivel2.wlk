@@ -27,7 +27,7 @@ object nivel2 {
     game.addVisual(pasajeroDormido)
     game.addVisual(pasajeroPesado)
     game.addVisual(pasajeroMochila)
-   game.onTick(500, "moverPasajeros", {
+    game.onTick(500, "moverPasajeros", {
     pasajeroDormido.moverse(8, 9)
     pasajeroPesado.moverse(6, 7)
     pasajeroMochila.moverse(7, 8)
@@ -54,6 +54,7 @@ object nivel2 {
     keyboard.s().onPressDo({ jugador.mover(jugador.position().down(1)) })
     keyboard.a().onPressDo({ jugador.mover(jugador.position().left(1)) })
     keyboard.d().onPressDo({ jugador.mover(jugador.position().right(1)) })
+    keyboard.f().onPressDo({ jugador.disparar() })
 
     game.onCollideDo(jugador, { objetoChocado => objetoChocado.interactuar(jugador) })
 
@@ -64,7 +65,7 @@ object nivel2 {
     if (not finalizado) {
       tiempo = (tiempo - 1).max(0)
       const jugador = juego.jugador()
-      jugador.aumentarSueno(5)
+      jugador.aumentarSueno(1)
 
 
       if (jugador.sueno() >= 100) {
