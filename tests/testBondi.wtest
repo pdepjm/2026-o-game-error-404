@@ -14,4 +14,15 @@ describe "Bondi y su funcionamiento" {
         nivel1.pasarSegundo()
         assert.that(nivel1.llegoBondi())
     }
+
+    test "El precio del boleto del bondi es 670" {
+        assert.equals(670, bondi.precioBoleto())
+    }
+
+    test "El bondi aparece en la posicion esperada x=20 y=0" {
+        assert.equals(20, bondi.position().x())
+        assert.equals(0, bondi.position().y())
+    }
+
+
 }

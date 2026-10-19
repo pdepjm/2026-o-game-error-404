@@ -26,5 +26,11 @@ describe "test policia" {
 
         assert.equals(19, policia.position().x())
     }
-
+    
+     test "Cuando el policia llega al limite inferior cambia el sentido para volver a subir" {
+        policia.position(game.at(19, 0))
+        policia.moverse()
+        assert.equals(1, policia.position().y())
+    }
+    
 }

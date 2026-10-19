@@ -32,4 +32,29 @@ describe "Mobs y la interacción con alumno" {
 
         assert.equals(55, lucio.tiempo())
     }
+
+    test "El fisura se mueve hacia la derecha en su rango" {
+        fisura.position(game.at(7, 10))
+        fisura.direccion(1)
+        fisura.moverse()
+        assert.equals(8, fisura.position().x())
+    }
+
+    test "El fisura cambia de sentido hacia la izquierda al llegar a su limite maximo" {
+        fisura.position(game.at(12, 10))
+        fisura.moverse()
+        assert.equals(11, fisura.position().x())
+    }
+
+    test "El kiosco le carga SUBE al alumno si tiene mas de 500 de dinero" {
+        lucio.conseguirSube(sube)
+        lucio.conseguirDinero(1000 - lucio.dinero())
+        const saldoAnterior = lucio.saldo()
+        kiosco.interactuar(lucio)
+        assert.equals(saldoAnterior + 500, lucio.saldo())
+        assert.equals(500, lucio.dinero())
+    }
+
+
+    
 }
