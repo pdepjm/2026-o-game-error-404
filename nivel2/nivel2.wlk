@@ -6,14 +6,10 @@ import interfaz.mostrables.*
 import interfaz.pantallas.*
 
 object nivel2 {
-  var tiempo = 90
   var finalizado = false
-
-  method tiempo() = tiempo
 
   method iniciar() {
     juego.nivelActual(self)
-    tiempo = 90
     finalizado = false
 
     game.clear()
@@ -28,10 +24,10 @@ object nivel2 {
     game.addVisual(pasajeroPesado)
     game.addVisual(pasajeroMochila)
     game.onTick(500, "moverPasajeros", {
-    pasajeroDormido.moverse(8, 9)
-    pasajeroPesado.moverse(6, 7)
-    pasajeroMochila.moverse(7, 8)
-})
+    pasajeroDormido.moverse(4, 10)
+    pasajeroPesado.moverse(4, 10)
+    pasajeroMochila.moverse(4, 10)
+    })
 
     game.addVisual(monster)
     game.addVisual(gomitas)
@@ -40,14 +36,13 @@ object nivel2 {
     game.addVisual(nube1)
     game.addVisual(nube2)
     game.addVisual(nube3)
-    game.onTick(800, "moverNubes", {
+    game.onTick(170, "moverNubes", {
     nube1.moverse()
     nube2.moverse()
     nube3.moverse()
     })
 
     game.addVisual(exclamacion)
-    game.addVisual(relojNivel2Visual)
     game.addVisual(suenoVisual)
 
     keyboard.w().onPressDo({ jugador.mover(jugador.position().up(1)) })
@@ -58,21 +53,18 @@ object nivel2 {
 
     game.onCollideDo(jugador, { objetoChocado => objetoChocado.interactuar(jugador) })
 
-    game.onTick(1000, "relojNivel2", { self.pasarSegundo() })
+    game.onTick(1000, "suenoReloj", { self.pasarSegundo() })
   }
 
   method pasarSegundo() {
     if (not finalizado) {
-      tiempo = (tiempo - 1).max(0)
       const jugador = juego.jugador()
       jugador.aumentarSueno(1)
 
 
       if (jugador.sueno() >= 100) {
         self.perder("¡Te quedaste dormido!")
-      } else if (tiempo == 0) {
-        self.perder("¡El bondi llegó a destino y no alcanzaste la puerta!")
-      }
+      } 
     }
   }
 
@@ -83,10 +75,10 @@ object nivel2 {
     const jugador = juego.jugador()
 
     if (not finalizado) {
-        if (tiempo > 0 and jugador.sueno() < 100) {
+        if (jugador.sueno() < 100) {
             finalizado = true
 
-            game.removeTickEvent("relojNivel2")
+            game.removeTickEvent("suenoReloj")
             game.removeTickEvent("moverNubes")
             game.removeTickEvent("moverPasajeros")
 
@@ -98,16 +90,14 @@ object nivel2 {
             })
         } else if (jugador.sueno() >= 100) {
             self.perder("¡Te quedaste dormido!")
-        } else {
-            self.perder("¡Se acabó el tiempo!")
-        }
+        } 
     }
 }
 
  method perder(mensaje) {
     if (not finalizado) {
         finalizado = true
-        game.removeTickEvent("relojNivel2")
+        game.removeTickEvent("suenoReloj")
         game.removeTickEvent("moverNubes")
         game.removeTickEvent("moverPasajeros")
 
@@ -115,20 +105,8 @@ object nivel2 {
 
         if (juego.jugador().sueno() >= 100) {
             game.addVisual(pantallaDormiste)
-        } else if( juego.jugador().tiempo() <= 0) {
-            game.addVisual(pantallaSinTiempo)
-        }
+        } 
     }
 }
 
-  method consumirTiempo(cantidad) {
-    tiempo = (tiempo - cantidad).max(0)
-  }
-}
-
-object relojNivel2Visual {
-    method position() = game.at(1, 14)
-    method text() = "Tiempo: " + nivel2.tiempo().toString()
-    method textColor() = "FFFFFFFF"
-    method interactuar(personaje) {}
 }
