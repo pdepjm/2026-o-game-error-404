@@ -1,72 +1,76 @@
 import wollok.game.*
 import efectos.*
 
+class Mob{
+    var property position
+    const imagen
+    const frase
 
-object fisura{
-    method image() = "fisura.png"
-    var property position = game.at(7, 10)
-    var direccion = 1
+    method image()=imagen
 
-    method moverse() {
-        if (position.x() >= 12) {
+    method interactuar(personaje){
+        game.say(self, frase)
+        self.leDaEfecto(personaje)
+    }
+
+    method leDaEfecto(personaje)
+}
+
+class MobEnMovimiento inherits Mob{
+    var property direccion = 1
+    const limiteMaximo
+    const limiteMinimo
+
+    method cambiarSentido(posicionActual){
+        if (posicionActual >= limiteMaximo) {
             direccion = -1
-        } else if (position.x() <= 7) {
+        } else if (posicionActual <= limiteMinimo) {
             direccion = 1
         }
+    }
+
+    method moverse()
+}
+
+object fisura inherits MobEnMovimiento(position = game.at(7, 10),imagen = "fisura.png",frase = "Eh wacho dame todo",limiteMinimo = 7,limiteMaximo = 12){
+    override method moverse() {
+        self.cambiarSentido(position.x())
         position = position.right(direccion)
     }
 
-    method interactuar(personaje){
-        game.say(self, "Eh wacho dame todo")
+    override method leDaEfecto(personaje){
         robo.aplicarEfecto(personaje)
         frenar.aplicarEfecto(personaje)
     }
-
 }
 
-object vecino{
-    method image() = "vecino.png"
-    var property position = game.at(13, 10)
-
-    method interactuar(personaje){
-        game.say(self, "Tomá, un café")
-        cafe.aplicarEfecto(personaje)
-        game.schedule(2000, { game.removeVisual(self) })
-    }
-}
-
-object policia{
-    method image() = "policia.png"
-    var property position = game.at(18, 0)
-    var property direccion = 1
-
-    method moverse() {
-        if (position.y() >= 6) {
-            direccion = -1
-        } else if (position.y() <= 0) {
-            direccion = 1
-        }
+object policia inherits MobEnMovimiento(position = game.at(18, 0),imagen = "policia.png",frase = "A ver mostrame los documentos, veni a la comisaría",limiteMinimo = 0,limiteMaximo = 6){
+    override method moverse() {
+        self.cambiarSentido(position.y())
         position = position.up(direccion)
     }
 
-    method interactuar(personaje){
-        game.say(self, "A ver mostrame los documentos, veni a la comisaría")
+    override method leDaEfecto(personaje){
         meterEnCana.aplicarEfecto(personaje)
     }
 }
 
 
-object kiosco {
-    var property position = game.at(9, 11)
-    method image() = "kiosco.png"
-    method interactuar(personaje) {
+object vecino inherits Mob(position = game.at(13,10), imagen="vecino.png",frase="Tomá, un café"){
+    override method leDaEfecto(personaje){
+        cafe.aplicarEfecto(personaje)
+        game.schedule(2000, { game.removeVisual(self) })
+    }
+}
+
+object kiosco inherits Mob(position = game.at(9, 11), imagen="kiosco.gif",frase="Te cargo 500"){
+    override method leDaEfecto(personaje) {
         if(personaje.dinero()>500){
-            game.say(self, "Te cargo 500")
             game.schedule(2000, { game.say(self, "") })
             personaje.cargarSube(500)
         }
     }
-}
+} 
 
 class Auto {
     var property position

@@ -1,17 +1,14 @@
 import wollok.game.*
+import consumible.*
 import alumno.*
 
-class ConsumibleSueno {
+class ConsumibleSueno inherits Consumible 
+{
     const reduccionSueno
-    const imagen
-
-    var property position = game.at(0, 0)
-
-    method image() = imagen
-
-    method interactuar(personaje) {
+   
+    override method aplicarEfecto(personaje)
+    {
         personaje.reducirSueno(reduccionSueno)
-        game.removeVisual(self)
     }
 }
 

@@ -1,4 +1,5 @@
 import wollok.game.*
+import consumible.*
 import alumno.*
 import efectos.*
 
@@ -15,18 +16,16 @@ object sube{
     }
 }
 
-class PlataTirada{
-    const valor
-    const imagen
-    method valor()=valor
-    method image()=imagen
-    var property position = game.at(0, 0) 
+class PlataTirada inherits Consumible
+    {
+        const valor
+        method valor() = valor
 
-    method interactuar(personaje){
-        personaje.conseguirDinero(valor)
-        game.removeVisual(self)
+        override method aplicarEfecto(personaje)
+        {
+            personaje.conseguirDinero(valor)
+        }
     }
-}
 
 const billete100 = new PlataTirada(valor=100, imagen ="100pesos.png", position = game.at(4, 10))
 const billete200 = new PlataTirada(valor=200, imagen ="200pesos.png", position = game.at(7, 4))

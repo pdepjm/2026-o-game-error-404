@@ -32,52 +32,56 @@ class Pasajero {
 }
 
 object pasajeroDormido inherits Pasajero(
-    position = game.at(22, 8),
+    position = game.at(25, 8),
     imagen = "pasajero_dormido.png"
 ) {
     override method interactuar(personaje) {
         game.say(self, "¡Permiso, tengo que pasar!")
-        nivel2.consumirTiempo(3)
-        personaje.aumentarSueno(5)
+        personaje.aumentarSueno(15)
     }
 }
 
 object pasajeroPesado inherits Pasajero(
-    position = game.at(15, 6),
+    position = game.at(16, 6),
     imagen = "pasajero_pesado.png"
 ) {
     override method interactuar(personaje) {
         game.say(self, "¡Pará de empujar!")
-        nivel2.consumirTiempo(5)
+        personaje.aumentarSueno(35)
     }
 }
 
 object pasajeroMochila inherits Pasajero(
-    position = game.at(8, 7),
+    position = game.at(9, 7),
     imagen = "pasajera_mochila.png"
 ) {
     override method interactuar(personaje) {
         game.say(self, "¡Cuidado con la mochila!")
-        nivel2.consumirTiempo(5)
-        personaje.aumentarSueno(10)
+        personaje.aumentarSueno(20)
     }
 }
 class NubeSueno {
-    // Cada nube tendrá su propia posición independiente en el mapa
     var property position = game.at(0, 0)
+    var vida = 25
 
     method image() = "zzz.png"
 
- method moverse() {
-    if (position.y() > 5) {
-        position = position.down(1)
-    } else {
-        position = game.at(position.x(), 11)
+    method moverse() {
+        if (position.y() > 5) {
+            position = position.down(1)
+        } else {
+            position = game.at(position.x(), 11)
+        }
     }
-}
+
+    method recibirDano(cantidad) {
+        vida -= cantidad
+        if (vida <= 0) {
+            game.removeVisual(self)
+        }
+    }
 
     method interactuar(personaje) {
-        // Si el alumno choca con la nube, le puede sumar sueño o restarle tiempo
         personaje.aumentarSueno(15)
         game.say(personaje, "¡Ay, me da sueño esta nube!")
     }
