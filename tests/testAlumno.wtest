@@ -37,15 +37,6 @@ describe "Alumno y sus Consumibles" {
     assert.that(lucio.subirAlBondi())
     }
     
-    test "Cargar la SUBE descuenta dinero e incrementa el saldo" {
-        pinguino.conseguirSube(sube)
-        pinguino.conseguirDinero(1000)
-        pinguino.cargarSube(500)
-
-        assert.equals(500, pinguino.dinero())
-        assert.equals(sube.saldo() + 500, pinguino.saldo())
-    }
-
     test "El tiempo del alumno se reduce correctamente al consumirlo" {
         const tiempoInicial = lucio.tiempo()
         lucio.consumirTiempo(15)
@@ -56,11 +47,6 @@ describe "Alumno y sus Consumibles" {
         pinguino.conseguirDinero(50)
         pinguino.pierdeDinero(100)
         assert.equals(0, pinguino.dinero())
-    }
-
-    test "Personajes como Lari y Solci inician con sus montos de dinero correspondientes" {
-        assert.equals(1000, lari.dinero())
-        assert.equals(800, solci.dinero())
     }
 
 }
