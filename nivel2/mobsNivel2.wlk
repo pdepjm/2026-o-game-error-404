@@ -28,7 +28,7 @@ class Pasajero {
         }
     }
 
-    method interactuar(personaje) {}
+    method interactuar(personaje) 
 }
 
 object pasajeroDormido inherits Pasajero(
