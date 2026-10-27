@@ -4,6 +4,9 @@ import mobsNivel2.*
 import consumiblesNivel2.*
 import interfaz.mostrables.*
 import interfaz.pantallas.*
+import nivel1.nivel1.*
+import efectos.*
+import controles.*
 
 object nivel2 {
   var finalizado = false
@@ -44,11 +47,9 @@ object nivel2 {
 
     game.addVisual(exclamacion)
     game.addVisual(suenoVisual)
-
-    keyboard.w().onPressDo({ jugador.mover(jugador.position().up(1)) })
-    keyboard.s().onPressDo({ jugador.mover(jugador.position().down(1)) })
-    keyboard.a().onPressDo({ jugador.mover(jugador.position().left(1)) })
-    keyboard.d().onPressDo({ jugador.mover(jugador.position().right(1)) })
+    
+    controles.keyboardControls(jugador)
+    
     keyboard.f().onPressDo({ jugador.disparar() })
 
     game.onCollideDo(jugador, { objetoChocado => objetoChocado.interactuar(jugador) })

@@ -14,7 +14,7 @@ object fondoMapa {
     method position() = game.at(0, 0)
 }
 
-const pantallaInicio    = new Pantalla(image = "inicio.png")
+const pantallaInicio    = new Pantalla(image = "fondoMenu2.png")
 const pantallaGanaste   = new Pantalla(image = "ganaste.png")
 const pantallaSinSaldo  = new Pantalla(image = "sin_saldo.png")
 const pantallaSinTiempo = new Pantalla(image = "sin_tiempo.png")

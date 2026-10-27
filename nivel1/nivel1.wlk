@@ -6,6 +6,7 @@ import efectos.*
 import mobs.*
 import interfaz.mostrables.*
 import interfaz.pantallas.*
+import controles.*
 
 object reloj {
   method position() = game.at(1, 14)
@@ -27,6 +28,7 @@ object nivel1 {
     game.addVisual(fondoMapa)
 
     const jugadorElegido = juego.jugador()
+
     jugadorElegido.position(game.at(0, 0))
     game.addVisual(jugadorElegido)
 
@@ -50,11 +52,8 @@ object nivel1 {
     game.addVisual(autoVerde)
     game.addVisual(taxi)
 
-    keyboard.w().onPressDo({ jugadorElegido.mover(jugadorElegido.position().up(1)) })
-    keyboard.s().onPressDo({ jugadorElegido.mover(jugadorElegido.position().down(1)) })
-    keyboard.a().onPressDo({ jugadorElegido.mover(jugadorElegido.position().left(1)) })
-    keyboard.d().onPressDo({ jugadorElegido.mover(jugadorElegido.position().right(1)) })
-    
+    controles.keyboardControls(jugadorElegido)
+
     game.onCollideDo(jugadorElegido, { objetoChocado => objetoChocado.interactuar(jugadorElegido) })
 
     game.onTick(150, "seMueveFisura", { fisura.moverse() })
@@ -85,7 +84,8 @@ object nivel1 {
     }
   }
 
-  
+
+
   method posicionPermitida(pos) = not self.estaEnZonaBloqueada(pos)
 
   method estaEnZonaBloqueada(pos) {
