@@ -40,9 +40,7 @@ class Alumno {
   }
 
   method consumirTiempo(cantidad) {
-    if (tiempo > cantidad) {
-      tiempo -= cantidad
-    }
+    tiempo= (tiempo-cantidad).max(0)
   }
 
   method pasarSegundo() {

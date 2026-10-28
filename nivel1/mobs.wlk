@@ -78,11 +78,8 @@ class Auto {
     const property image 
 
     method moverse() {
-        if (position.x() >= game.width() - 1) {
-            position = game.at(0, carrilY) 
-        } else {
-            position = position.right(1)
-        }
+        const siguienteX = (position.x() + 1) % game.width() //% calcula el resto de la division y hace que el auto vuelva a la izquierda cuando llega al final
+        position = game.at(siguienteX, carrilY)
     }
 
     method interactuar(personaje) {

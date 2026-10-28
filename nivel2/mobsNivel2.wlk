@@ -26,6 +26,7 @@ class Pasajero {
                 subiendo = true
             }
         }
+
     }
 
     method interactuar(personaje) 

@@ -74,31 +74,32 @@ object nivel2 {
 
  method ganar() {
     const jugador = juego.jugador()
-
     if (not finalizado) {
-        if (jugador.sueno() < 100) {
-            finalizado = true
+            if (jugador.sueno() < 100) {
+                finalizado = true
 
-            game.removeTickEvent("suenoReloj")
-            game.removeTickEvent("moverNubes")
-            game.removeTickEvent("moverPasajeros")
+                game.removeTickEvent("suenoReloj")
+                game.removeTickEvent("moverNubes")
+                game.removeTickEvent("moverPasajeros")
 
-            game.clear()
-            game.addVisual(pantallaNivel2Completo)
+                game.clear()
+                game.addVisual(pantallaNivel2Completo)
 
-            game.schedule(3000, {
-                game.stop()
-            })
-        } else if (jugador.sueno() >= 100) {
-            self.perder("¡Te quedaste dormido!")
-        } 
-    }
+                game.schedule(3000, {
+                    game.stop()
+                })
+            } else if (jugador.sueno() >= 100) {
+                self.perder("¡Te quedaste dormido!")
+            } 
+        }
+        
 }
 
  method perder(mensaje) {
-    if (not finalizado) {
-        finalizado = true
-        game.removeTickEvent("suenoReloj")
+    if (not finalizado) 
+    {
+       finalizado = true
+          game.removeTickEvent("suenoReloj")
         game.removeTickEvent("moverNubes")
         game.removeTickEvent("moverPasajeros")
 
@@ -106,8 +107,7 @@ object nivel2 {
 
         if (juego.jugador().sueno() >= 100) {
             game.addVisual(pantallaDormiste)
-        } 
+        }
     }
-}
-
+  }
 }
