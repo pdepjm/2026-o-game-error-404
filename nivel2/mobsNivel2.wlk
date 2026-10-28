@@ -29,6 +29,11 @@ class Pasajero {
     }
 
     method interactuar(personaje) 
+
+    method empujar(personaje)
+    {
+        personaje.mover(personaje.position().left(1))
+    }
 }
 
 object pasajeroDormido inherits Pasajero(
@@ -38,6 +43,7 @@ object pasajeroDormido inherits Pasajero(
     override method interactuar(personaje) {
         game.say(self, "¡Permiso, tengo que pasar!")
         personaje.aumentarSueno(15)
+        self.empujar(personaje)
     }
 }
 
@@ -48,6 +54,7 @@ object pasajeroPesado inherits Pasajero(
     override method interactuar(personaje) {
         game.say(self, "¡Pará de empujar!")
         personaje.aumentarSueno(35)
+        self.empujar(personaje)
     }
 }
 
@@ -58,6 +65,7 @@ object pasajeroMochila inherits Pasajero(
     override method interactuar(personaje) {
         game.say(self, "¡Cuidado con la mochila!")
         personaje.aumentarSueno(20)
+        self.empujar(personaje)
     }
 }
 class NubeSueno {
