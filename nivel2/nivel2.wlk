@@ -54,10 +54,10 @@ object nivel2 {
 
     game.onCollideDo(jugador, { objetoChocado => objetoChocado.interactuar(jugador) })
 
-    game.onTick(1000, "suenoReloj", { self.pasarSegundo() })
+    game.onTick(1000, "suenoReloj", { self.suenioPorSegundo() })
   }
 
-  method pasarSegundo() {
+  method suenioPorSegundo() {
     if (not finalizado) {
       const jugador = juego.jugador()
       jugador.aumentarSueno(1)

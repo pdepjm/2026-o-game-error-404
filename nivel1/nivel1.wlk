@@ -7,6 +7,7 @@ import mobs.*
 import interfaz.mostrables.*
 import interfaz.pantallas.*
 import controles.*
+import fases.*
 
 object reloj {
   method position() = game.at(1, 14)
@@ -16,13 +17,10 @@ object reloj {
 }
 
 object nivel1 {
-  var llegoBondi = false
-
-  method llegoBondi() = llegoBondi
+  var faseActual = faseEsperandoBondi
 
   method iniciar() {
     juego.nivelActual(self)
-    llegoBondi = false
     game.clear()
 
     game.addVisual(fondoMapa)
@@ -67,24 +65,22 @@ object nivel1 {
     game.onTick(1000, "relojNivel1", { self.pasarSegundo() })
   }
 
-  method pasarSegundo() {
-    const jugador = juego.jugador()
-    jugador.pasarSegundo()
+  method pasarSegundo(){
+    faseActual.pasarSegundo()
+  }
 
-    if (jugador.tiempo() == 0 and not llegoBondi) {
-      llegoBondi = true
-      bondi.aparecer()
-    }   else if (jugador.tiempo() == 0 and llegoBondi) {
-      game.removeTickEvent("relojNivel1")
-      game.say(jugador, "Uh la pucha, se me fue el bondi")
-      game.schedule(1500, {
+  method cambiarFase(faseNueva) {
+    faseActual = faseNueva
+  }
+
+  method terminarPorTiempo() {
+    game.removeTickEvent("relojNivel1")
+    game.say(juego.jugador(), "Uh la pucha, se me fue el bondi")
+    game.schedule(1500, {
         game.clear()
         game.addVisual(pantallaSinTiempo)
       })
-    }
   }
-
-
 
   method posicionPermitida(pos) = not self.estaEnZonaBloqueada(pos)
 
