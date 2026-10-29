@@ -1,7 +1,7 @@
 import alumno.*
 import bondi.*
 import nivel1.*
-
+import interfaz.pantallas.*
 
 object faseEsperandoBondi {
     method pasarSegundo() {
@@ -23,6 +23,9 @@ object faseLlegoBondi {
 
         if(jugador.tiempo() == 0) {
             nivel1.terminarPorTiempo()
+             keyboard.enter().onPressDo({
+            menuPrincipal.mostrar()
+    })
         }
     }
 }

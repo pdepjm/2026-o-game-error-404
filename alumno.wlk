@@ -95,4 +95,5 @@ const salva    = new Alumno(imagenMenu = "salvaMenu.png", imagen = "salva.png", 
 object juego {
   var property jugador = pinguino
   var property nivelActual = null
+  var property estadoPantalla = "menu"
 }

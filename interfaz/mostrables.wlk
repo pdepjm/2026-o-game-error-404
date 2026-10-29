@@ -11,6 +11,13 @@ object plata {
     method interactuar(personaje) {}
 }
 
+object reloj {
+  method position() = game.at(1, 14)
+  method text() = "Tiempo: " + juego.jugador().tiempo().toString()
+  method textColor() = "FFFFFFFF"
+  method interactuar(personaje) {}
+}
+
 object saldo {
     method position() = game.at(1, 12) //para agra
     method text() = "Saldo: " + juego.jugador().saldo().toString()
@@ -20,7 +27,7 @@ object saldo {
 
 object suenoVisual {
     method position() = game.at(1, 13)
-    method text() = "Sueño: " + juego.jugador().sueno().toString() + "/100"
+    method text() = "Sueño: " + juego.jugador().sueno().toString() + "/70"
     method textColor() = "FFFFFFFF"
     method interactuar(personaje) {}
 }

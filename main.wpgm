@@ -13,39 +13,34 @@ program ElBondi {
     game.addVisual(previewPersonaje)
 
     keyboard.num1().onPressDo({
-        juego.jugador(pinguino)
-        previewPersonaje.image(pinguino.imagenMenu())
-    })
-
-    keyboard.num2().onPressDo({
         juego.jugador(lucio)
         previewPersonaje.image(lucio.imagenMenu())
     })
 
-    keyboard.num3().onPressDo({
+    keyboard.num2().onPressDo({
         juego.jugador(lari)
         previewPersonaje.image(lari.imagenMenu())
+       
     })
 
-    keyboard.num4().onPressDo({
+    keyboard.num3().onPressDo({
         juego.jugador(salva)
         previewPersonaje.image(salva.imagenMenu())
     })
 
-      keyboard.num5().onPressDo({
-        juego.jugador(alvarez)
+    keyboard.num4().onPressDo({
+       juego.jugador(alvarez)
         previewPersonaje.image(alvarez.imagenMenu())
     })
 
-      keyboard.num6().onPressDo({
-        juego.jugador(solci)
+      keyboard.num5().onPressDo({
+      juego.jugador(solci)
         previewPersonaje.image(solci.imagenMenu())
     })
 
-
-    keyboard.enter().onPressDo({
-        nivel1.iniciar()
-    })
+    keyboard.space().onPressDo({
+  instrucciones.mostrar()
+})
 
     game.start()
 }

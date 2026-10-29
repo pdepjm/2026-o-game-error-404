@@ -4,12 +4,18 @@ import alumno.*
 import efectos.*
 
 object sube{
-    const saldo = (-1000 .. 1000).anyOne()
+    var saldo = (-1000 .. 1000).anyOne()
 
     var property position = game.at(3, 0)
     method image() = "sube.png"
     method saldo() = saldo
 
+    method cargar(personaje, monto) {
+        if (personaje.dinero() >= monto) {
+            personaje.pierdeDinero(monto)
+            saldo += monto
+        }
+    }
     method interactuar(personaje){
         personaje.conseguirSube(self)
         game.removeVisual(self)

@@ -1,6 +1,7 @@
 import wollok.game.*
 import interfaz.pantallas.*
 import nivel1.nivel1.*
+import alumno.*
 
 object cafe {
   method aplicarEfecto(personaje) {
@@ -20,14 +21,16 @@ object frenar {
   }
 }
 
+
 object meterEnCana {
   method aplicarEfecto(personaje) {
     game.schedule(1500, {
-      game.clear()
-      game.addVisual(pantallaPreso)
+      nivel1.finalizarCon(pantallaPreso)
+      juego.estadoPantalla("volverMenu")
     })
   }
 }
+
 
 object pisar {
   method aplicarEfecto(personaje) {
@@ -43,3 +46,4 @@ object nubeAlcanza {
     personaje.aumentarSueno(20)
   }
 }
+

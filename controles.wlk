@@ -6,4 +6,5 @@ object controles {
         keyboard.a().onPressDo({ jugadorElegido.mover(jugadorElegido.position().left(1)) })
         keyboard.d().onPressDo({ jugadorElegido.mover(jugadorElegido.position().right(1)) })
     }
+
 }

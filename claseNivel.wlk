@@ -1,0 +1,38 @@
+
+import wollok.game.*
+import alumno.*
+import interfaz.pantallas.*
+
+class Nivel {
+
+  method preparar() {
+    self.limpiarEventos()
+    game.clear()
+    juego.nivelActual(self)
+  }
+
+  method limpiarEventos() {
+    self.eventosAEliminar().forEach({ evento =>
+      game.removeTickEvent(evento)
+    })
+  }
+
+  method eventosAEliminar() = []
+
+method finalizarCon(pantalla) {
+  self.limpiarEventos()
+  game.clear()
+  game.addVisual(pantalla)
+
+  keyboard.enter().onPressDo({
+    juego.estadoPantalla("menu")
+    menuPrincipal.mostrar()
+  })
+
+  keyboard.r().onPressDo({
+    juego.estadoPantalla("menu")
+    menuPrincipal.mostrar()
+  })
+}
+  
+}
