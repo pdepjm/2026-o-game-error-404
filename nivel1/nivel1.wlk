@@ -10,10 +10,6 @@ import controles.*
 import fases.*
 import claseNivel.*
 
-
-// Conservá también el import del paquete donde definiste
-// faseEsperandoBondi, si está en otro archivo/paquete.
-
 object nivel1 inherits Nivel() {
 
   var faseActual = faseEsperandoBondi

@@ -1,16 +1,17 @@
 import wollok.game.*
 import nivel1.bondi.*
+import nivel1.consumibles.*
 import nivel2.balas.*
 
 class Alumno {
   var dinero 
-  var tieneSube = false
-  var saldo = 0
   var sueno = 0
   const imagen
   const imagenMenu
   var tiempo = 20
   const danoAlumno
+  var property sube = null
+
 
   var property position = game.at(0, 0)
   method image() = imagen
@@ -30,8 +31,6 @@ class Alumno {
     pos.y() >= 0 and pos.y() < game.height()
 
   method dinero() = dinero
-  method saldo() = saldo
-  method tieneSube() = tieneSube
   method sueno() = sueno
   method tiempo() = tiempo
 
@@ -54,15 +53,16 @@ class Alumno {
     dinero = (dinero - cantidadPerdida).max(0)
   }
 
-  method conseguirSube(subeEncontrada) {
-    saldo += subeEncontrada.saldo()
-    tieneSube = true
+  method tieneSube() = sube != null
+
+  method saldo() = if (self.tieneSube()) sube.saldo() else 0
+
+  method asignarSube(unaSube) {
+    sube = unaSube
   }
-  method cargarSube(carga) {
-    if (tieneSube and dinero >= carga) {
-      dinero = dinero - carga
-      saldo += carga
-    }
+
+  method pagar(monto) {
+    self.pierdeDinero(monto)
   }
 
   method aumentarSueno(cantidad) {
@@ -73,7 +73,7 @@ class Alumno {
     sueno = (sueno - cantidad).max(0)
   }
 
-  method subirAlBondi() = saldo >= bondi.precioBoleto()
+  method subirAlBondi() = self.saldo() >= bondi.precioBoleto()
 
   method disparar() {
     const bala = new Bala(position = position.right(1), dano = danoAlumno)
@@ -84,8 +84,14 @@ class Alumno {
 
 }
 
-//el pinguino es de prueba para el nivel 2, ya tiene el saldo suficiente para viajar y no espera a q spawnee el bondi
-const pinguino = new Alumno(imagenMenu = "pinguino_menu.gif", imagen = "alumno.gif", dinero = 0, tiempo =5,saldo=4500,danoAlumno=15)
+//el pinguino es de prueba para el nivel 2, ya tiene el dinero suficiente para viajar y no espera a q spawnee el bondi
+const pinguino = new Alumno(
+  imagenMenu = "pinguino_menu.gif",
+  imagen = "alumno.gif",
+  dinero = 200000,
+  tiempo = 10,
+  danoAlumno = 15
+)
 const lucio    = new Alumno(imagenMenu = "lucio_menu.png", imagen = "lucio.png", dinero = 500, tiempo = 70, danoAlumno=13)
 const lari     = new Alumno(imagenMenu = "lari_menu.png", imagen = "lari.png", dinero = 1000, tiempo = 60, danoAlumno=9)
 const solci    = new Alumno(imagenMenu = "solci_menu.png", imagen = "solci.png", dinero = 900, tiempo = 80, danoAlumno=12)
