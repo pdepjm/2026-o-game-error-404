@@ -3,21 +3,23 @@ import consumible.*
 import alumno.*
 import efectos.*
 
-object sube{
-    var saldo = (-1000 .. 1000).anyOne()
+class TarjetaSube {
+    var saldo = 0
 
-    var property position = game.at(3, 0)
-    method image() = "sube.png"
     method saldo() = saldo
 
-    method cargar(personaje, monto) {
-        if (personaje.dinero() >= monto) {
-            personaje.pierdeDinero(monto)
-            saldo += monto
-        }
+    method cargar(monto) {
+        saldo += monto
     }
-    method interactuar(personaje){
-        personaje.conseguirSube(self)
+}
+
+object sube inherits TarjetaSube(saldo = (-1000 .. 1000).anyOne()) {
+    var property position = game.at(3, 0)
+
+    method image() = "sube.png"
+
+    method interactuar(personaje) {
+        personaje.asignarSube(self)
         game.removeVisual(self)
     }
 }

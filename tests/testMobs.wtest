@@ -47,7 +47,7 @@ describe "Mobs y la interacción con alumno" {
     }
 
     test "El kiosco le carga SUBE al alumno si tiene mas de 500 de dinero" {
-        lucio.conseguirSube(sube)
+        lucio.asignarSube(sube)
         lucio.conseguirDinero(1000 - lucio.dinero())
         const saldoAnterior = lucio.saldo()
         kiosco.interactuar(lucio)

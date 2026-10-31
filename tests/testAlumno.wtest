@@ -31,9 +31,9 @@ describe "Alumno y sus Consumibles" {
     }
 
     test "Si tiene saldo suficiente puede subir al bondi" {
-    lucio.conseguirSube(sube)
+    lucio.asignarSube(sube)
     lucio.conseguirDinero(10000)
-    lucio.cargarSube(3000)
+    lucio.sube().cargar(3000)
     assert.that(lucio.subirAlBondi())
     }
     
