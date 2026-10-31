@@ -22,9 +22,11 @@ object frenar {
 }
 
 
+const tiempoTransicionPantalla = 1500
+
 object meterEnCana {
   method aplicarEfecto(personaje) {
-    game.schedule(1500, {
+    game.schedule(tiempoTransicionPantalla, {
       nivel1.finalizarCon(pantallaPreso)
       juego.estadoPantalla("volverMenu")
     })

@@ -75,7 +75,7 @@ object nivel2 inherits Nivel() {
       const jugador = juego.jugador()
       jugador.aumentarSueno(1)
 
-      if (jugador.sueno() >= 70) {
+      if (jugador.sueno() >= 40) {
         self.perder("¡Te quedaste dormido!")
       }
     }
@@ -89,7 +89,7 @@ object nivel2 inherits Nivel() {
     if (not finalizado) {
       const jugador = juego.jugador()
 
-      if (jugador.sueno() < 100) {
+      if (jugador.sueno() < 40) {
         finalizado = true
         self.finalizarCon(pantallaNivel2Completo)
 

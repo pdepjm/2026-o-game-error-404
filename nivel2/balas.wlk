@@ -13,8 +13,10 @@ class Bala {
     self.avanzar()
   }
 
+  method alcanceMaximoX() = game.width() - 2
+
   method avanzar() {
-    if (activa and position.x() < 28) {
+    if (activa and position.x() < self.alcanceMaximoX()) {
       game.schedule(10, {
         if (activa) {
           position = position.right(1)
