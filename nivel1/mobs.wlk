@@ -16,41 +16,80 @@ class Mob{
     method leDaEfecto(personaje)
 }
 
-class MobEnMovimiento inherits Mob{
-    var property direccion = 1
+object derecha {
+    method siguientePosicion(pos) = pos.right(1)
+    method opuesta() = izquierda
+}
+
+object izquierda {
+    method siguientePosicion(pos) = pos.left(1)
+    method opuesta() = derecha
+}
+
+object arriba {
+    method siguientePosicion(pos) = pos.up(1)
+    method opuesta() = abajo
+}
+
+object abajo {
+    method siguientePosicion(pos) = pos.down(1)
+    method opuesta() = arriba
+}
+
+class MobEnMovimiento inherits Mob {
+    var property direccion
     const limiteMaximo
     const limiteMinimo
 
-    method cambiarSentido(posicionActual){
-        if (posicionActual >= limiteMaximo) {
-            direccion = -1
-        } else if (posicionActual <= limiteMinimo) {
-            direccion = 1
+    method coordenadaActual()
+    method direccionHaciaMaximo()
+    method direccionHaciaMinimo()
+
+    method cambiarSentido() {
+        if (self.coordenadaActual() >= limiteMaximo and direccion == self.direccionHaciaMaximo()) {
+            direccion = direccion.opuesta()
+        } else if (self.coordenadaActual() <= limiteMinimo and direccion == self.direccionHaciaMinimo()) {
+            direccion = direccion.opuesta()
         }
     }
 
-    method moverse()
+    method moverse() {
+        self.cambiarSentido()
+        position = direccion.siguientePosicion(position)
+    }
 }
 
-object fisura inherits MobEnMovimiento(position = game.at(7, 10),imagen = "fisura.png",frase = "Eh wacho dame todo",limiteMinimo = 7,limiteMaximo = 12){
-    override method moverse() {
-        self.cambiarSentido(position.x())
-        position = position.right(direccion)
-    }
+object fisura inherits MobEnMovimiento(
+    position = game.at(7, 10),
+    imagen = "fisura.png",
+    frase = "Eh wacho dame todo",
+    direccion = derecha,
+    limiteMinimo = 7,
+    limiteMaximo = 12
+) {
+    override method coordenadaActual() = position.x()
+    override method direccionHaciaMaximo() = derecha
+    override method direccionHaciaMinimo() = izquierda
 
-    override method leDaEfecto(personaje){
+    override method leDaEfecto(personaje) {
         robo.aplicarEfecto(personaje)
         frenar.aplicarEfecto(personaje)
     }
 }
 
-object policia inherits MobEnMovimiento(position = game.at(18, 0),imagen = "policia.png",frase = "A ver mostrame los documentos, veni a la comisaría",limiteMinimo = 0,limiteMaximo = 6){
-    override method moverse() {
-        self.cambiarSentido(position.y())
-        position = position.up(direccion)
-    }
+object policia inherits MobEnMovimiento(
+    position = game.at(18, 0),
+    imagen = "policia.png",
+    frase = "A ver mostrame los documentos, veni a la comisaría",
+    direccion = arriba,
+    limiteMinimo = 0,
+    limiteMaximo = 6
+) {
+    override method coordenadaActual() = position.y()
+    override method direccionHaciaMaximo() = arriba
+    override method direccionHaciaMinimo() = abajo
 
-    override method leDaEfecto(personaje){
+    override method leDaEfecto(personaje) {
         meterEnCana.aplicarEfecto(personaje)
     }
 }

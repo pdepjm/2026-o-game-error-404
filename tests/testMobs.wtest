@@ -35,7 +35,7 @@ describe "Mobs y la interacción con alumno" {
 
     test "El fisura se mueve hacia la derecha en su rango" {
         fisura.position(game.at(7, 10))
-        fisura.direccion(1)
+        fisura.direccion(derecha)
         fisura.moverse()
         assert.equals(8, fisura.position().x())
     }
