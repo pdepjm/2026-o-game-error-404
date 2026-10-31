@@ -7,12 +7,12 @@ import nivel1.mobs.*
 
 describe "Alumno y sus Consumibles" {
     test "El alumno suma 100 de dinero al interactuar con un billete de 100" {
+        pinguino.pierdeDinero(pinguino.dinero()) 
         assert.equals(0, pinguino.dinero())
 
         game.addVisual(billete100)
-        
         billete100.interactuar(pinguino)
-        
+
         assert.equals(100, pinguino.dinero())
         
     }
@@ -44,10 +44,11 @@ describe "Alumno y sus Consumibles" {
     }
     
     test "Pierde dinero de manera correcta sin bajar de cero" {
+        pinguino.pierdeDinero(pinguino.dinero()) 
         pinguino.conseguirDinero(50)
         pinguino.pierdeDinero(100)
         assert.equals(0, pinguino.dinero())
-    }
+    }   
 
 }
 
