@@ -1,64 +1,127 @@
-/*
-import nivel1.consumibles.*
+
 import wollok.game.*
 import alumno.*
-import nivel2.mobsNivel2.*
-import nivel2.consumiblesNivel2.*
+import controles.*
 import interfaz.mostrables.*
 import interfaz.pantallas.*
-import nivel1.nivel1.*
-import efectos.*
-import controles.*
+import claseNivel.*
+import consumible.*
+import consumiblesNivel3.*
 
-*/
-/* ¡Llegaste a la facultad, pero todavía falta encontrar dónde rendís!
+object nivel3 inherits Nivel() {
 
-Recolectá tu legajo para averiguar en qué comisión estás.
-
-Pasá por Bedelía para conseguir la información que necesitás.
-
-Encontrá tu DNI, la hoja de fórmulas y los útiles necesarios para rendir.
-
-¡Conseguí todo lo necesario y encontrá el aula correcta!
-
-¿Estás listo para rendir? ¡Movete rápido, esquivá los obstáculos y no te olvides de nada!*/
-
-
-/*
-object nivel3{ 
+  var tiempo = 50
   var finalizado = false
 
+  var tieneID = false
+  var sabeComision = false
+  var aulaAsignada = false
+  var tieneDNI = false
+  var tieneHojaFormulas = false
+  var tieneUtiles = false
+
+  const comision = "B"
+  var aula = null
+
   method iniciar() {
-    juego.nivelActual(self)
+    juego.estadoPantalla("nivel3")
+    self.preparar()
+
+    tiempo = 50
     finalizado = false
 
-    game.clear()
+    tieneID = false
+    sabeComision = false
+    aulaAsignada = false
+    tieneDNI = false
+    tieneHojaFormulas = false
+    tieneUtiles = false
+    aula = null
 
     const jugador = juego.jugador()
     jugador.position(game.at(1, 7))
 
-    game.addVisual(pantallaNivel3)
-    game.addVisual(jugador)
-
-    game.addVisual(legajo)
-    game.addVisual(sube)
-    game.addVisual(hojaFormulas)
-    game.addVisual(utiles)
-
-    game.onTick(500, "moverObstaculos", {
-      legajo.moverse(4, 10)
-      dni.moverse(4, 10)
-      hojaFormulas.moverse(4, 10)
-      utiles.moverse(4, 10)
-    })
+    [
+      jugador,id, dni,  hojaFormulas, utiles, bedelia,
+      nubeAula101, nubeAula204, nubeAula305
+    ].forEach({ elemento => game.addVisual(elemento)})
 
     controles.keyboardControls(jugador)
 
-    game.onCollideDo(jugador, { objetoChocado => objetoChocado.interactuar(jugador) })
+    game.onCollideDo(jugador, {objetoChocado => objetoChocado.interactuar(jugador)})
 
+    game.onTick(1000, "relojNivel3", {
+      self.pasarSegundo()
+    })
   }
 
-  method pasarSegundo() {}
- 
+  method pasarSegundo() {
+    if (not finalizado) {
+      tiempo = (tiempo - 1).max(0)
+
+      if (tiempo == 0) {
+        self.perder()
+      }
+    }
+  }
+
+  method conseguirID() {
+    tieneID = true
+  }
+
+  method tieneID() = tieneID
+
+  method conseguirDNI() {
+    tieneDNI = true
+  }
+
+  method conseguirHojaFormulas() {
+    tieneHojaFormulas = true
+  }
+
+  method conseguirUtiles() {
+    tieneUtiles = true
+  }
+
+  method sabeComision() = sabeComision
+  method comision() = comision
+  method aulaAsignada() = aulaAsignada
+  method aula() = aula
+  method tiempo() = tiempo
+
+  method informarComision() {
+    if (not sabeComision) {
+      sabeComision = true
+      game.say(juego.jugador(), "¡Sos de la comisión B!")
+    }
+  }
+
+  method asignarAula(unaAula) {
+    aula = unaAula
+    aulaAsignada = true
+  }
+
+  method puedeRendir() =
+    tieneID and sabeComision and aulaAsignada and
+    tieneDNI and tieneHojaFormulas and tieneUtiles
+
+  method ganar() {
+    if (not finalizado) {
+      if (self.puedeRendir()) {
+        finalizado = true
+        self.finalizarCon(pantallaNivel3Completo)
+      }
+    }
+  }
+
+  method perder() {
+    if (not finalizado) {
+      finalizado = true
+      self.finalizarCon(pantallaSinTiempo)
+    }
+  }
+
+  override method eventosAEliminar() = [
+    "relojNivel3"
+  ]
 }
-*/

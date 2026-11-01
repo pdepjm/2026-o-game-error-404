@@ -102,7 +102,7 @@ object vecino inherits Mob(position = game.at(13,10), imagen="vecino.png",frase=
     }
 }
 
-object kiosco inherits Mob(position = game.at(9, 11), imagen="kiosco.gif",frase=""){
+object kiosco inherits Mob(position = game.at(9, 11), imagen="kiosco.png",frase=""){
     override method leDaEfecto(personaje) {
         if (personaje.tieneSube() and personaje.dinero() >= 500) {
             game.schedule(2000, { game.say(self, "Te cargo 500") })

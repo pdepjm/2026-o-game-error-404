@@ -2,6 +2,7 @@
 import wollok.game.*
 import alumno.*
 import interfaz.pantallas.*
+import nivel1.nivel1.*
 
 class Nivel {
 
@@ -23,16 +24,11 @@ method finalizarCon(pantalla) {
   self.limpiarEventos()
   game.clear()
   game.addVisual(pantalla)
-
-  keyboard.enter().onPressDo({
-    juego.estadoPantalla("menu")
-    menuPrincipal.mostrar()
-  })
+ 
 
   keyboard.r().onPressDo({
     juego.estadoPantalla("menu")
     menuPrincipal.mostrar()
   })
 }
-  
 }
