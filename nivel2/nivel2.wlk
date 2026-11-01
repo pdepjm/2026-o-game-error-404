@@ -65,7 +65,7 @@ object nivel2 inherits Nivel() {
       const jugador = juego.jugador()
       jugador.aumentarSueno(1)
 
-      if (jugador.sueno() >= 40) {
+      if (jugador.sueno() >= 70) {
         self.perder("¡Te quedaste dormido!")
       }
     }
@@ -79,7 +79,7 @@ method ganar() {
   if (not finalizado) {
     const jugador = juego.jugador()
 
-    if (jugador.sueno() < 40) {
+    if (jugador.sueno() < 70) {
       finalizado = true
       self.limpiarEventos()
 

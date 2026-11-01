@@ -30,7 +30,7 @@ const pantallaNivel3 = new Pantalla(image="fondoNivel3.png")
 const pantallaNivel3Completo= new Pantalla(image="ganaste3.png")
  
 object previewPersonaje {
-  var property image = "pinguino_menu.gif"
+  var property image = "lucio.png"
   method position() = game.at(14, 6) 
 }
 

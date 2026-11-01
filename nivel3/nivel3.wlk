@@ -1,3 +1,5 @@
+import nivel1.consumibles.*
+import nivel2.mobsNivel2.*
 
 import wollok.game.*
 import alumno.*
@@ -15,13 +17,12 @@ object nivel3 inherits Nivel() {
   var finalizado = false
 
   var tieneID = false
-  var sabeComision = false
   var aulaAsignada = false
   var tieneDNI = false
   var tieneHojaFormulas = false
   var tieneUtiles = false
 
-  const comision = "B"
+
   var aula = null
 
   method iniciar() {
@@ -33,7 +34,6 @@ object nivel3 inherits Nivel() {
     finalizado = false
 
     tieneID = false
-    sabeComision = false
     aulaAsignada = false
     tieneDNI = false
     tieneHojaFormulas = false
@@ -47,8 +47,8 @@ object nivel3 inherits Nivel() {
     game.addVisual(pantallaNivel3)
 
     [
-      jugador,id, dni,  hojaFormulas, utiles, bedelia, 
-      nubeAula101, nubeAula204, nubeAula305
+      jugador,id, sube,  hojaFormulas, utiles, bedelia,relojNivel3
+    
     ].forEach({ elemento => game.addVisual(elemento)})
 
     controles.keyboardControls(jugador)
@@ -59,9 +59,9 @@ object nivel3 inherits Nivel() {
       self.pasarSegundo()
     })
   }
-  method posicionPermitida(pos) =
+ method posicionPermitida(pos) =
   pos.x().between(1, 28) and
-  pos.y().between(4, 11)
+  pos.y().between(3, 12)
 
   method pasarSegundo() {
     if (not finalizado) {
@@ -91,27 +91,24 @@ object nivel3 inherits Nivel() {
     tieneUtiles = true
   }
 
-  method sabeComision() = sabeComision
-  method comision() = comision
+ 
   method aulaAsignada() = aulaAsignada
   method aula() = aula
   method tiempo() = tiempo
 
-  method informarComision() {
-    if (not sabeComision) {
-      sabeComision = true
-      game.say(juego.jugador(), "¡Sos de la comisión B!")
-    }
-  }
-
-  method asignarAula(unaAula) {
-    aula = unaAula
+ 
+method asignarAula() {
+  if (not aulaAsignada) {
+    aula = (201..210).anyOne()
     aulaAsignada = true
+    game.say(juego.jugador(), "¡Te tocó el aula " + aula.toString() + "!")
+    exclamacionNivel3.aparecerEnAula(aula)
   }
+}
 
   method puedeRendir() =
-    tieneID and sabeComision and aulaAsignada and
-    tieneDNI and tieneHojaFormulas and tieneUtiles
+  tieneID and aulaAsignada and
+  tieneDNI and tieneHojaFormulas and tieneUtiles
 
   method ganar() {
     if (not finalizado) {
@@ -121,6 +118,8 @@ object nivel3 inherits Nivel() {
       }
     }
   }
+
+
 
   method perder() {
     if (not finalizado) {
