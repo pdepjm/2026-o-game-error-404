@@ -47,7 +47,7 @@ object nivel3 inherits Nivel() {
     game.addVisual(pantallaNivel3)
 
     [
-      jugador,id, sube,  hojaFormulas, utiles, bedelia,relojNivel3
+      jugador,id, dni,  hojaFormulas, utiles, bedelia,relojNivel3
     
     ].forEach({ elemento => game.addVisual(elemento)})
 
