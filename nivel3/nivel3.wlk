@@ -10,6 +10,7 @@ import consumiblesNivel3.*
 
 object nivel3 inherits Nivel() {
 
+
   var tiempo = 50
   var finalizado = false
 
@@ -24,6 +25,7 @@ object nivel3 inherits Nivel() {
   var aula = null
 
   method iniciar() {
+    
     juego.estadoPantalla("nivel3")
     self.preparar()
 
@@ -38,11 +40,14 @@ object nivel3 inherits Nivel() {
     tieneUtiles = false
     aula = null
 
+
     const jugador = juego.jugador()
     jugador.position(game.at(1, 7))
 
+    game.addVisual(pantallaNivel3)
+
     [
-      jugador,id, dni,  hojaFormulas, utiles, bedelia,
+      jugador,id, dni,  hojaFormulas, utiles, bedelia, 
       nubeAula101, nubeAula204, nubeAula305
     ].forEach({ elemento => game.addVisual(elemento)})
 
@@ -54,6 +59,9 @@ object nivel3 inherits Nivel() {
       self.pasarSegundo()
     })
   }
+  method posicionPermitida(pos) =
+  pos.x().between(1, 28) and
+  pos.y().between(4, 11)
 
   method pasarSegundo() {
     if (not finalizado) {
