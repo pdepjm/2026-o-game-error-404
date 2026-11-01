@@ -9,6 +9,8 @@ class Pasajero {
     var property position
     var subiendo = true
     const imagen
+    const mensaje
+    const cantidadSueno
 
     method image() = imagen
 
@@ -29,7 +31,12 @@ class Pasajero {
 
     }
 
-    method interactuar(personaje) 
+    method interactuar(personaje)
+    {
+        game.say(self, mensaje)
+        personaje.aumentarSueno(cantidadSueno)
+        self.empujar(personaje)
+    } 
 
     method empujar(personaje)
     {
@@ -37,38 +44,28 @@ class Pasajero {
     }
 }
 
-object pasajeroDormido inherits Pasajero(
+const pasajeroDormido = new Pasajero(
     position = game.at(25, 8),
-    imagen = "pasajero_dormido.png"
-) {
-    override method interactuar(personaje) {
-        game.say(self, "¡Permiso, tengo que pasar!")
-        personaje.aumentarSueno(15)
-        self.empujar(personaje)
-    }
-}
+    imagen = "pasajero_dormido.png",
+    mensaje = "¡Permiso, tengo que pasar!",
+    cantidadSueno = 15
+)
 
-object pasajeroPesado inherits Pasajero(
+const pasajeroPesado = new Pasajero(
     position = game.at(16, 6),
-    imagen = "pasajero_pesado.png"
-) {
-    override method interactuar(personaje) {
-        game.say(self, "¡Pará de empujar!")
-        personaje.aumentarSueno(35)
-        self.empujar(personaje)
-    }
-}
+    imagen = "pasajero_pesado.png",
+    mensaje = "¡Pará de empujar!",
+    cantidadSueno = 35
+)
 
-object pasajeroMochila inherits Pasajero(
+const pasajeroMochila = new Pasajero(
     position = game.at(9, 7),
-    imagen = "pasajera_mochila.png"
-) {
-    override method interactuar(personaje) {
-        game.say(self, "¡Cuidado con la mochila!")
-        personaje.aumentarSueno(20)
-        self.empujar(personaje)
-    }
-}
+    imagen = "pasajera_mochila.png",
+    mensaje = "¡Cuidado con la mochila!",
+    cantidadSueno = 20
+)
+ 
+  
 class NubeSueno {
     var property position = game.at(0, 0)
     var vida = 25
