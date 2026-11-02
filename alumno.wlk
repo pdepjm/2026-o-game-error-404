@@ -4,11 +4,13 @@ import nivel1.consumibles.*
 import nivel2.balas.*
 
 class Alumno {
-  var dinero 
+  const dineroInicial
+  var dinero = dineroInicial
   var sueno = 0
   const imagen
   const imagenMenu
-  var tiempo = 20
+  const tiempoInicial = 20
+  var tiempo = tiempoInicial
   const danoAlumno
   var property sube = null
 
@@ -33,6 +35,14 @@ class Alumno {
   method estaDentroDelMapa(pos) =
     pos.x() >= 0 and pos.x() < game.width() and
     pos.y() >= 0 and pos.y() < game.height()
+
+  method reiniciar() {
+    dinero = dineroInicial
+    tiempo = tiempoInicial
+    sueno = 0
+    sube = null
+    position = game.at(0, 0)
+  }
 
   method agregarTiempo(cantidad) {
     tiempo += cantidad
@@ -85,11 +95,11 @@ class Alumno {
 }
 
 
-const lucio    = new Alumno(imagenMenu = "lucio_menu.png", imagen = "lucio.png", dinero = 500, tiempo = 70, danoAlumno=13)
-const lari     = new Alumno(imagenMenu = "lari_menu.png", imagen = "lari.png", dinero = 1000, tiempo = 60, danoAlumno=9)
-const solci    = new Alumno(imagenMenu = "solci_menu.png", imagen = "solci.png", dinero = 900, tiempo = 80, danoAlumno=12)
-const alvarez  = new Alumno(imagenMenu = "AlvarezMenu.png", imagen = "AlvarezJuego.png", dinero = 0, tiempo = 60, danoAlumno=18)
-const salva    = new Alumno(imagenMenu = "salvaMenu.png", imagen = "salva.png", dinero = 12, tiempo = 74 , danoAlumno=12)
+const lucio   = new Alumno(imagenMenu = "lucio_menu.png", imagen = "lucio.png", dineroInicial = 500, tiempoInicial = 70, danoAlumno = 13)
+const lari    = new Alumno(imagenMenu = "lari_menu.png", imagen = "lari.png", dineroInicial = 1000, tiempoInicial = 60, danoAlumno = 9)
+const solci   = new Alumno(imagenMenu = "solci_menu.png", imagen = "solci.png", dineroInicial = 900, tiempoInicial = 80, danoAlumno = 12)
+const alvarez = new Alumno(imagenMenu = "AlvarezMenu.png", imagen = "AlvarezJuego.png", dineroInicial = 0, tiempoInicial = 60, danoAlumno = 18)
+const salva   = new Alumno(imagenMenu = "salvaMenu.png", imagen = "salva.png", dineroInicial = 12, tiempoInicial = 74, danoAlumno = 12)
 
 object juego {
   var property jugador = lucio

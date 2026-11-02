@@ -27,8 +27,9 @@ method finalizarCon(pantalla) {
  
 
   keyboard.r().onPressDo({
-    juego.estadoPantalla("menu")
-    menuPrincipal.mostrar()
+      juego.jugador().reiniciar()
+      juego.estadoPantalla("menu")
+      menuPrincipal.mostrar()
   })
 }
 }
