@@ -88,7 +88,7 @@ class NubeSueno {
     }
 
     method interactuar(personaje) {
-        personaje.aumentarSueno(15)
+        personaje.aumentarSueno(25)
         game.say(personaje, "¡Ay, me da sueño esta nube!")
     }
 }

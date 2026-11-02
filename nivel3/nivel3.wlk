@@ -63,7 +63,7 @@ object nivel3 inherits Nivel() {
     })
 
 
-    game.onTick(900, "moverAyudante", {
+    game.onTick(600, "moverAyudante", {
       ayudante.perseguirA(jugador)
     })
   }

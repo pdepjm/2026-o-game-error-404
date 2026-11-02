@@ -42,7 +42,7 @@ object nivel1 inherits Nivel() {
     game.onTick(150, "seMueveFisura", { fisura.moverse() })
     game.onTick(100, "seMuevePolicia", { policia.moverse() })
 
-    game.onTick(60, "moverAutos", {
+    game.onTick(45, "moverAutos", {
       autoRojo.moverse()
       autoAzul.moverse()
       autoVerde.moverse()

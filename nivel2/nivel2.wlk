@@ -31,14 +31,14 @@ object nivel2 inherits Nivel() {
       gomitas, gomitas2, nube1, nube2, nube3, exclamacion, suenoVisual
      ].forEach({ elemento => game.addVisual(elemento)})
 
-    game.onTick(500, "moverPasajeros", {
+    game.onTick(200, "moverPasajeros", {
       pasajeroDormido.moverse(4, 10)
       pasajeroPesado.moverse(4, 10)
       pasajeroMochila.moverse(4, 10)
     })
 
     
-    game.onTick(170, "moverNubes", {
+    game.onTick(100, "moverNubes", {
       nube1.moverse()
       nube2.moverse()
       nube3.moverse()
