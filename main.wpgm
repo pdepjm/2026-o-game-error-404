@@ -3,6 +3,7 @@ import alumno.*
 import interfaz.pantallas.*
 import nivel1.nivel1.*
 import nivel2.nivel2.*
+import nivel3.nivel3.*
 
 program ElBondi {
     game.title("elBondi")
@@ -37,9 +38,14 @@ program ElBondi {
         previewPersonaje.image(solci.imagenMenu())
     })
 
+    keyboard.j().onPressDo({
+        juego.estadoPantalla("nivel3")
+        nivel3.iniciar()
+    })
+
     keyboard.space().onPressDo({
-  instrucciones.mostrar()
-})
+        instrucciones.mostrar()
+    })
 
     game.start()
 }
