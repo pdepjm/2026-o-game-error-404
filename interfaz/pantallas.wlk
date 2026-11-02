@@ -12,15 +12,15 @@ class Pantalla {
 }
 
 object fondoMapa {
-    method image() = "fondo.png"
+    method image() = "fondoNivel1.png"
     method position() = game.at(0, 0)
 }
 
-const pantallaInicio    = new Pantalla(image = "fondoMenu3.png")
+const pantallaInicio    = new Pantalla(image = "fondoMenuPrincipal.png")
 const pantallaInstrucciones = new Pantalla(image = "instrucciones.png")
 const pantallaInstrucciones2= new Pantalla(image="instrucciones2.png")
 const pantallaInstrucciones3= new Pantalla(image="instrucciones3.png")
-const pantallaGanaste   = new Pantalla(image = "ganaste.png")
+const pantallaGanaste   = new Pantalla(image = "ganaste1.png")
 const pantallaSinSaldo  = new Pantalla(image = "sin_saldo.png")
 const pantallaSinTiempo = new Pantalla(image = "sin_tiempo.png")
 const pantallaDormiste= new Pantalla(image= "dormiste.png")
@@ -32,7 +32,7 @@ const pantallaNivel3Completo= new Pantalla(image="ganaste3.png")
  
 object previewPersonaje {
   var property image = "lucio_menu.png"
-  method position() = game.at(14, 6) 
+  method position() = game.at(14, 5) 
 }
 
 object menuPrincipal {
