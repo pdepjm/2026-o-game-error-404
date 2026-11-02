@@ -1,5 +1,6 @@
 import wollok.game.*
 import alumno.*
+import mostrables.*
 import nivel1.nivel1.*
 import nivel2.nivel2.*
 import nivel3.nivel3.*
@@ -30,7 +31,7 @@ const pantallaNivel3 = new Pantalla(image="fondoNivel3.png")
 const pantallaNivel3Completo= new Pantalla(image="ganaste3.png")
  
 object previewPersonaje {
-  var property image = "lucio.png"
+  var property image = "lucio_menu.png"
   method position() = game.at(14, 6) 
 }
 
@@ -41,6 +42,10 @@ object menuPrincipal {
     game.clear()
     game.addVisual(pantallaInicio)
     game.addVisual(previewPersonaje)
+
+    game.addVisual(infoDinero)
+  game.addVisual(infoTiempo)
+  game.addVisual(infoDano)
 
     keyboard.num1().onPressDo({
       juego.jugador(lucio)

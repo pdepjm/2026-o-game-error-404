@@ -4,6 +4,24 @@ import nivel1.nivel1.*
 import nivel2.nivel2.*
 import nivel3.nivel3.*
 
+object infoDinero {
+  method position() = game.at(18, 9)
+  method text() = "Dinero: $" + juego.jugador().dinero().toString()
+  method textColor() = "FFFFFFFF"
+}
+
+object infoTiempo {
+  method position() = game.at(18, 8)
+  method text() = "Tiempo: " + juego.jugador().tiempo().toString() + "s"
+  method textColor() = "FFFFFFFF"
+}
+
+object infoDano {
+  method position() = game.at(18, 7)
+  method text() = "Daño: " + juego.jugador().danoAlumno().toString()
+  method textColor() = "FFFFFFFF"
+}
+
 
 object plata {
     method position() = game.at(1, 13)

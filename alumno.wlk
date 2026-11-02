@@ -12,6 +12,10 @@ class Alumno {
   const danoAlumno
   var property sube = null
 
+  method dinero() = dinero
+  method sueno() = sueno
+  method tiempo() = tiempo
+  method danoAlumno() = danoAlumno
 
   var property position = game.at(0, 0)
   method image() = imagen
@@ -29,10 +33,6 @@ class Alumno {
   method estaDentroDelMapa(pos) =
     pos.x() >= 0 and pos.x() < game.width() and
     pos.y() >= 0 and pos.y() < game.height()
-
-  method dinero() = dinero
-  method sueno() = sueno
-  method tiempo() = tiempo
 
   method agregarTiempo(cantidad) {
     tiempo += cantidad
