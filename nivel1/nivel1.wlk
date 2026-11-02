@@ -9,6 +9,7 @@ import interfaz.pantallas.*
 import controles.*
 import fases.*
 import claseNivel.*
+import mapaNivel1.*
 
 object nivel1 inherits Nivel() {
 
@@ -73,38 +74,8 @@ object nivel1 inherits Nivel() {
     })
 }
 
-  method posicionPermitida(pos) =
-    not self.estaEnZonaBloqueada(pos)
-
-  method estaEnZonaBloqueada(pos) {
-    const x = pos.x()
-    const y = pos.y()
-
-    // Manzana izquierda (la del kiosco)
-    const casasArribaIzq =
-      x <= 16 and y >= 12
-
-    const cercaIzqKiosco =
-      x <= 6 and y == 11
-
-    const cercaDerKiosco =
-      x >= 13 and x <= 16 and y == 11
-
-    // Manzana derecha arriba
-    const casasArribaDer =
-      x >= 22 and y >= 11
-
-    // Manzana abajo (la de la parada)
-    const casasAbajoDer =
-      x >= 22 and y >= 1 and y <= 5
-
-    return casasArribaIzq or
-      casasArribaDer or
-      casasAbajoDer or
-      cercaIzqKiosco or
-      cercaDerKiosco
-  }
-
+  method posicionPermitida(pos) = mapaNivel1.esTransitable(pos)
+  
   override method eventosAEliminar() = [
     "relojNivel1",
     "seMueveFisura",

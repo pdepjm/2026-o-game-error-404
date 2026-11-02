@@ -4,68 +4,66 @@ import consumible.*
 import nivel3.*
 import interfaz.mostrables.*
 import alumno.*
-object id inherits Consumible(
+
+class ItemExamen inherits Consumible {
+  const property nombre
+  const mensaje
+
+  override method aplicarEfecto(personaje) {
+    nivel3.recolectar(self)
+    game.say(personaje, mensaje)
+  }
+}
+
+const id = new ItemExamen(
+  nombre = "id",
   imagen = "id.png",
-  position = game.at(7, 9)
-) {
-  override method aplicarEfecto(personaje) {
-    nivel3.conseguirID()
-    game.say(personaje, "¡Encontraste tu legajo!")
-  }
-}
+  position = game.at(5, 12),
+  mensaje = "¡Encontraste tu legajo!"
+)
 
-object dni inherits Consumible(
+const dni = new ItemExamen(
+  nombre = "dni",
   imagen = "dni.png",
-  position = game.at(10, 9)
-) {
-  override method aplicarEfecto(personaje) {
-    nivel3.conseguirDNI()
-    game.say(personaje, "¡Encontraste tu DNI!")
-  }
-}
+  position = game.at(10, 2),
+  mensaje = "¡Encontraste tu DNI!"
+)
 
-object hojaFormulas inherits Consumible(
+const hojaFormulas = new ItemExamen(
+  nombre = "hojaFormulas",
   imagen = "hojaFormulas.png",
-  position = game.at(14, 7)
-) {
-  override method aplicarEfecto(personaje) {
-    nivel3.conseguirHojaFormulas()
-    game.say(personaje, "¡Encontraste la hoja de fórmulas!")
-  }
-}
+  position = game.at(15, 12),
+  mensaje = "¡Encontraste la hoja de fórmulas!"
+)
 
-object utiles inherits Consumible(
+const utiles = new ItemExamen(
+  nombre = "utiles",
   imagen = "utiles.png",
-  position = game.at(25, 8)
-) {
-  override method aplicarEfecto(personaje) {
-    nivel3.conseguirUtiles()
-    game.say(personaje, "¡Encontraste los útiles!")
+  position = game.at(24, 2),
+  mensaje = "¡Encontraste los útiles!"
+)
+
+class Aula {
+  const property numero
+  const property position
+
+  method activarMeta() {
+    metaExamen.position(position)
+    game.addVisual(metaExamen)
   }
 }
 
-object exclamacionNivel3 {
-  var property position = game.at(1, 1)
-
+object metaExamen {
+  var property position = game.at(0, 0)
   method image() = "exclamacion.gif"
 
- method aparecerEnAula(unAula) {
-  if (unAula == 201) { self.position(game.at(6, 12)) }
-  if (unAula == 202) { self.position(game.at(11, 12)) }
-  if (unAula == 203) { self.position(game.at(15, 12)) }
-  if (unAula == 204) { self.position(game.at(20, 12)) }
-  if (unAula == 205) { self.position(game.at(25, 12)) }
-
-  if (unAula == 206) { self.position(game.at(6, 4)) }
-  if (unAula == 207) { self.position(game.at(11, 4)) }
-  if (unAula == 208) { self.position(game.at(15, 4)) }
-  if (unAula == 209) { self.position(game.at(20, 4)) }
-  if (unAula == 210) { self.position(game.at(25, 4)) }
-
-  game.addVisual(self)
-}
-
   method interactuar(personaje) {
-    nivel3.ganar()
+    if (nivel3.puedeRendir()) {
+      nivel3.ganar()
+    } else {
+      game.say(personaje, "¡Todavía me faltan cosas para rendir!")
+    }
   }
 }
+
+

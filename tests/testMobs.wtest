@@ -5,6 +5,7 @@ import nivel1.consumibles.*
 import nivel1.bondi.*
 import nivel1.mobs.*
 import nivel1.nivel1.*
+import direcciones.*
 
 describe "Mobs y la interacción con alumno" {
     test "Cuando el fisura choca con el alumno le saca 15 de tiempo y la mitad de la plata" {

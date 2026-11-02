@@ -9,21 +9,31 @@ import interfaz.pantallas.*
 import claseNivel.*
 import consumible.*
 import consumiblesNivel3.*
+import mobsNivel3.*
+import mapaNivel3.*
 
 object nivel3 inherits Nivel() {
 
 
   var tiempo = 50
   var finalizado = false
+  var aulaAsignada = null
+  const itemsRecolectados = #{}
+  const itemsRequeridos = #{id, dni, hojaFormulas, utiles}
 
-  var tieneID = false
-  var aulaAsignada = false
-  var tieneDNI = false
-  var tieneHojaFormulas = false
-  var tieneUtiles = false
+  const aulas = [
+    new Aula(numero = 201, position = game.at(5, 13)),
+    new Aula(numero = 202, position = game.at(10, 13)),
+    new Aula(numero = 203, position = game.at(15, 13)),
+    new Aula(numero = 204, position = game.at(20, 13)),
+    new Aula(numero = 205, position = game.at(24, 13)),
 
-
-  var aula = null
+    new Aula(numero = 206, position = game.at(5, 2)),
+    new Aula(numero = 207, position = game.at(10, 2)),
+    new Aula(numero = 208, position = game.at(15, 2)),
+    new Aula(numero = 209, position = game.at(20, 2)),
+    new Aula(numero = 210, position = game.at(24, 2))
+  ]
 
   method iniciar() {
     
@@ -32,24 +42,17 @@ object nivel3 inherits Nivel() {
 
     tiempo = 50
     finalizado = false
-
-    tieneID = false
-    aulaAsignada = false
-    tieneDNI = false
-    tieneHojaFormulas = false
-    tieneUtiles = false
-    aula = null
-
+    aulaAsignada = null
+    itemsRecolectados.clear()
 
     const jugador = juego.jugador()
     jugador.position(game.at(1, 7))
 
     game.addVisual(pantallaNivel3)
 
-    [
-      jugador,id, dni,  hojaFormulas, utiles, bedelia,relojNivel3
-    
-    ].forEach({ elemento => game.addVisual(elemento)})
+    [jugador, id, dni, hojaFormulas, utiles, bedelia, relojNivel3, ayudante].forEach({ elemento => 
+      game.addVisual(elemento)
+    })
 
     controles.keyboardControls(jugador)
 
@@ -58,10 +61,13 @@ object nivel3 inherits Nivel() {
     game.onTick(1000, "relojNivel3", {
       self.pasarSegundo()
     })
+
+
+    game.onTick(900, "moverAyudante", {
+      ayudante.perseguirA(jugador)
+    })
   }
- method posicionPermitida(pos) =
-  pos.x().between(1, 28) and
-  pos.y().between(3, 12)
+ method posicionPermitida(pos) = mapaNivel3.esTransitable(pos)
 
   method pasarSegundo() {
     if (not finalizado) {
@@ -73,52 +79,39 @@ object nivel3 inherits Nivel() {
     }
   }
 
-  method conseguirID() {
-    tieneID = true
+  method restarTiempo(segundos) {
+    tiempo = (tiempo - segundos).max(0)
+    if (tiempo == 0) {
+      self.perder()
+    }
   }
 
-  method tieneID() = tieneID
-
-  method conseguirDNI() {
-    tieneDNI = true
+  method recolectar(unItem) {
+    itemsRecolectados.add(unItem)
   }
 
-  method conseguirHojaFormulas() {
-    tieneHojaFormulas = true
-  }
-
-  method conseguirUtiles() {
-    tieneUtiles = true
-  }
-
+  method tieneID() = itemsRecolectados.contains(id)
  
-  method aulaAsignada() = aulaAsignada
-  method aula() = aula
   method tiempo() = tiempo
 
  
 method asignarAula() {
-  if (not aulaAsignada) {
-    aula = (201..210).anyOne()
-    aulaAsignada = true
-    game.say(juego.jugador(), "¡Te tocó el aula " + aula.toString() + "!")
-    exclamacionNivel3.aparecerEnAula(aula)
-  }
-}
-
-  method puedeRendir() =
-  tieneID and aulaAsignada and
-  tieneDNI and tieneHojaFormulas and tieneUtiles
-
-  method ganar() {
-    if (not finalizado) {
-      if (self.puedeRendir()) {
-        finalizado = true
-        self.finalizarCon(pantallaNivel3Completo)
-      }
+    if (aulaAsignada == null) {
+      aulaAsignada = aulas.anyOne()
+      game.say(juego.jugador(), "¡Te tocó el aula " + aulaAsignada.numero().toString() + "!")
+      aulaAsignada.activarMeta()
     }
   }
 
+  method puedeRendir() =
+    aulaAsignada != null and itemsRequeridos.all({ item => itemsRecolectados.contains(item) })
+
+  method ganar() {
+    if (not finalizado and self.puedeRendir()) {
+      finalizado = true
+      self.finalizarCon(pantallaNivel3Completo)
+    }
+  }
 
 
   method perder() {
@@ -129,6 +122,7 @@ method asignarAula() {
   }
 
   override method eventosAEliminar() = [
-    "relojNivel3"
+    "relojNivel3",
+    "moverAyudante"
   ]
 }
