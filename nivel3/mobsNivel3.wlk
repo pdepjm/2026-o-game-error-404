@@ -5,7 +5,7 @@ import direcciones.*
 
 object ayudante {
   var property position = game.at(24, 7)
-  method image() = "profesor.png"
+  method image() = "ayudante.png"
 
   method perseguirA(alumno) {
     const destino = alumno.position()

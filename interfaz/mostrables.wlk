@@ -52,7 +52,7 @@ object suenoVisual {
 }
 
 object bedelia {
-  var property position = game.at(21, 7)
+  var property position = game.at(25,7)
 
   method image() = "bedelia.png"
 
