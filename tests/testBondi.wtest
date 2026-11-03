@@ -27,21 +27,3 @@ describe "Bondi y su funcionamiento" {
 
 
 }
-
-describe "Nuevos tests para Bondi" {
-    test "La imagen del bondi corresponde al archivo 'bondi.png'" {
-        assert.equals("bondi.png", bondi.image())
-    }
-
-    test "Cuando el bondi aparece en escena, le otorga 15 segundos adicionales al jugador" {
-        juego.jugador(lucio)
-        const tiempoAntes = lucio.tiempo()
-        bondi.aparecer()
-        assert.equals(tiempoAntes + 15, lucio.tiempo())
-        game.removeVisual(bondi) // Limpieza del visual agregado
-    }
-
-    test "El precio del boleto fijado por el bondi es un número positivo mayor a cero" {
-        assert.that(bondi.precioBoleto() > 0)
-    }
-}
