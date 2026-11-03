@@ -95,11 +95,11 @@ class Alumno {
 }
 
 
-const lucio   = new Alumno(imagenMenu = "lucio_menu.png", imagen = "lucio.png", dineroInicial = 500, tiempoInicial = 70, danoAlumno = 13)
-const lari    = new Alumno(imagenMenu = "lari_menu.png", imagen = "lari.png", dineroInicial = 1000, tiempoInicial = 60, danoAlumno = 9)
-const solci   = new Alumno(imagenMenu = "solci_menu.png", imagen = "solci.png", dineroInicial = 900, tiempoInicial = 80, danoAlumno = 12)
-const alvarez = new Alumno(imagenMenu = "AlvarezMenu.png", imagen = "AlvarezJuego.png", dineroInicial = 0, tiempoInicial = 60, danoAlumno = 18)
-const salva   = new Alumno(imagenMenu = "salvaMenu.png", imagen = "salva.png", dineroInicial = 12, tiempoInicial = 74, danoAlumno = 12)
+const lucio   = new Alumno(imagenMenu = "lucio_menu.gif", imagen = "lucio.png", dineroInicial = 500, tiempoInicial = 70, danoAlumno = 13)
+const lari    = new Alumno(imagenMenu = "lari_menu.gif", imagen = "lari.png", dineroInicial = 1000, tiempoInicial = 60, danoAlumno = 9)
+const solci   = new Alumno(imagenMenu = "solci_menu.gif", imagen = "solci.png", dineroInicial = 900, tiempoInicial = 80, danoAlumno = 12)
+const alvarez = new Alumno(imagenMenu = "AlvarezMenu.gif", imagen = "AlvarezJuego.png", dineroInicial = 0, tiempoInicial = 60, danoAlumno = 18)
+const salva   = new Alumno(imagenMenu = "salvaMenu.gif", imagen = "salva.png", dineroInicial = 12, tiempoInicial = 74, danoAlumno = 12)
 
 object juego {
   var property jugador = lucio

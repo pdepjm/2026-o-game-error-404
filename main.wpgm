@@ -12,31 +12,8 @@ program ElBondi {
 
     menuPrincipal.mostrar()
     
-    keyboard.num1().onPressDo({
-        juego.jugador(lucio)
-        previewPersonaje.image(lucio.imagenMenu())
-    })
-
-    keyboard.num2().onPressDo({
-        juego.jugador(lari)
-        previewPersonaje.image(lari.imagenMenu())
-       
-    })
-
-    keyboard.num3().onPressDo({
-        juego.jugador(salva)
-        previewPersonaje.image(salva.imagenMenu())
-    })
-
-    keyboard.num4().onPressDo({
-       juego.jugador(alvarez)
-        previewPersonaje.image(alvarez.imagenMenu())
-    })
-
-      keyboard.num5().onPressDo({
-      juego.jugador(solci)
-        previewPersonaje.image(solci.imagenMenu())
-    })
+    keyboard.right().onPressDo({ selectorPersonaje.siguiente() })
+    keyboard.left().onPressDo({ selectorPersonaje.anterior() })
 
     keyboard.j().onPressDo({
         juego.estadoPantalla("nivel3")

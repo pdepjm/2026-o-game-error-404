@@ -5,6 +5,29 @@ import nivel1.nivel1.*
 import nivel2.nivel2.*
 import nivel3.nivel3.*
 
+object selectorPersonaje {
+  const personajes = [lucio, lari, salva, alvarez, solci]
+  var indice = 0
+
+  method personajeActual() = personajes.get(indice)
+
+  method siguiente() {
+    indice = (indice + 1) % personajes.size()
+    self.actualizar()
+  }
+
+  method anterior() {
+    indice = (indice - 1 + personajes.size()) % personajes.size()
+    self.actualizar()
+  }
+
+  method actualizar() {
+    const elegido = self.personajeActual()
+    juego.jugador(elegido)
+    previewPersonaje.image(elegido.imagenMenu())
+  }
+}
+
 class Pantalla {
     var property image
     var property position = game.at(0, 0)
@@ -31,7 +54,7 @@ const pantallaNivel3 = new Pantalla(image="fondoNivel3.png")
 const pantallaNivel3Completo= new Pantalla(image="ganaste3.png")
  
 object previewPersonaje {
-  var property image = "lucio_menu.png"
+  var property image = "lucio_menu.gif"
   method position() = game.at(14, 5) 
 }
 
@@ -42,35 +65,6 @@ object menuPrincipal {
     game.clear()
     game.addVisual(pantallaInicio)
     game.addVisual(previewPersonaje)
-
-    game.addVisual(infoDinero)
-  game.addVisual(infoTiempo)
-  game.addVisual(infoDano)
-
-    keyboard.num1().onPressDo({
-      juego.jugador(lucio)
-      previewPersonaje.image(lucio.imagenMenu())
-    })
-
-    keyboard.num2().onPressDo({
-      juego.jugador(lari)
-      previewPersonaje.image(lari.imagenMenu())
-    })
-
-    keyboard.num3().onPressDo({
-      juego.jugador(salva)
-      previewPersonaje.image(salva.imagenMenu())
-    })
-
-    keyboard.num4().onPressDo({
-      juego.jugador(alvarez)
-      previewPersonaje.image(alvarez.imagenMenu())
-    })
-
-    keyboard.num5().onPressDo({
-      juego.jugador(solci)
-      previewPersonaje.image(solci.imagenMenu())
-    })
 
     keyboard.enter().onPressDo({
   if (juego.estadoPantalla() == "menu") {
