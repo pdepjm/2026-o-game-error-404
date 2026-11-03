@@ -1,5 +1,6 @@
 import wollok.game.*
 import nivel1.mobs.*
+import direcciones.*
 
 describe "test policia" {
 
@@ -33,4 +34,27 @@ describe "test policia" {
         assert.equals(1, policia.position().y())
     }
     
+}
+
+describe "Nuevos tests para Policía" {
+    test "La imagen asignada a la entidad policía es 'policia.png'" {
+        assert.equals("policia.png", policia.image())
+    }
+
+    test "El policía reporta correctamente su coordenada actual en el eje Y" {
+        policia.position(game.at(19, 5))
+        assert.equals(5, policia.coordenadaActual())
+    }
+
+    test "Las direcciones de límite máximo y mínimo del policía están configuradas hacia arriba y abajo respectivamente" {
+        assert.equals(arriba, policia.direccionHaciaMaximo())
+        assert.equals(abajo, policia.direccionHaciaMinimo())
+    }
+
+    test "El policía al encontrarse en el límite inferior y moverse hacia abajo invierte su sentido para ascender" {
+        policia.position(game.at(19, 0))
+        policia.direccion(abajo)
+        policia.moverse()
+        assert.equals(1, policia.position().y())
+    }
 }
