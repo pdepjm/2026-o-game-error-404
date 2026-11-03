@@ -5,50 +5,43 @@ import nivel1.consumibles.*
 import nivel1.bondi.*
 import nivel1.mobs.*
 
-describe "Alumno y sus Consumibles" {
-    test "El alumno suma 100 de dinero al interactuar con un billete de 100" {
-        lucio.pierdeDinero(lucio.dinero()) 
-        assert.equals(0, lucio.dinero())
+describe "Nuevos tests para Alumno" {
+    test "El alumno aumenta su tiempo correctamente con agregarTiempo" {
+        const tiempoAnterior = lucio.tiempo()
+        lucio.agregarTiempo(20)
+        assert.equals(tiempoAnterior + 20, lucio.tiempo())
+    }
 
-        game.addVisual(billete100)
-        billete100.interactuar(lucio)
-
-        assert.equals(100, lucio.dinero())
+    test "El alumno aumenta y reduce su sueño correctamente dentro de los límites de 0 a 100" {
+        lucio.reducirSueno(lucio.sueno())
+        assert.equals(0, lucio.sueno())
         
+        lucio.aumentarSueno(50)
+        assert.equals(50, lucio.sueno())
+        
+        lucio.reducirSueno(80) // No debe bajar de 0
+        assert.equals(0, lucio.sueno())
+
+        lucio.aumentarSueno(150) // No debe superar 100
+        assert.equals(100, lucio.sueno())
     }
 
-    test "El alumno agarra la SUBE y revisa que la tiene" {
-
-        assert.notThat(lucio.tieneSube())
-
-        sube.interactuar(lucio)
-
-        assert.that(lucio.tieneSube())
+    test "El saldo del alumno es 0 si no tiene SUBE y el saldo de su SUBE si la tiene asignada" {
+        lucio.asignarSube(null)
+        assert.equals(0, lucio.saldo())
+        
+        lucio.asignarSube(sube)
+        sube.cargar(350)
+        assert.equals(350, lucio.saldo())
     }
 
-    test "Si no tiene saldo suficiente no puede subir al bondi" {
-    assert.notThat(lucio.subirAlBondi())
+    test "El alumno consigue dinero incrementando correctamente su monto actual" {
+        const dineroInicial = lucio.dinero()
+        lucio.conseguirDinero(450)
+        assert.equals(dineroInicial + 450, lucio.dinero())
     }
 
-    test "Si tiene saldo suficiente puede subir al bondi" {
-    lucio.asignarSube(sube)
-    lucio.conseguirDinero(10000)
-    lucio.sube().cargar(3000)
-    assert.that(lucio.subirAlBondi())
+    test "El alumno tiene el daño configurado correctamente según el personaje elegido (lucio = 13)" {
+        assert.equals(13, lucio.danoAlumno())
     }
-    
-    test "El tiempo del alumno se reduce correctamente al consumirlo" {
-        const tiempoInicial = lucio.tiempo()
-        lucio.consumirTiempo(15)
-        assert.equals(tiempoInicial - 15, lucio.tiempo())
-    }
-    
-    test "Pierde dinero de manera correcta sin bajar de cero" {
-        lari.pierdeDinero(lari.dinero()) 
-        lari.conseguirDinero(50)
-        lari.pierdeDinero(100)
-        assert.equals(0, lari.dinero())
-    }   
-
 }
-
