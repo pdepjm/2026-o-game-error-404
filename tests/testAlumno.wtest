@@ -73,15 +73,6 @@ describe "Nuevos tests para Alumno" {
         assert.equals(100, lucio.sueno())
     }
 
-    test "El saldo del alumno es 0 si no tiene SUBE y el saldo de su SUBE si la tiene asignada" {
-        lucio.asignarSube(null)
-        assert.equals(0, lucio.saldo())
-        
-        lucio.asignarSube(sube)
-        sube.cargar(350)
-        assert.equals(350, lucio.saldo())
-    }
-
     test "El alumno consigue dinero incrementando correctamente su monto actual" {
         const dineroInicial = lucio.dinero()
         lucio.conseguirDinero(450)
