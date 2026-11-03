@@ -33,12 +33,6 @@ describe "Nuevos tests para Bondi" {
         assert.equals("bondi.png", bondi.image())
     }
 
-    test "El alumno no puede subir al bondi si el saldo de su SUBE es menor al precio del boleto" {
-        lucio.asignarSube(sube)
-        sube.cargar(200) // Menor a 670
-        assert.notThat(lucio.subirAlBondi())
-    }
-
     test "El alumno puede subir al bondi si el saldo de su SUBE es igual o mayor al precio del boleto" {
         lucio.asignarSube(sube)
         sube.cargar(1000) // Mayor a 670

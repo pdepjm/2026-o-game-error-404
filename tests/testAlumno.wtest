@@ -26,6 +26,9 @@ describe "Alumno y sus Consumibles" {
         assert.that(lucio.tieneSube())
     }
 
+    test "Si no tiene saldo suficiente no puede subir al bondi" {
+    assert.notThat(lucio.subirAlBondi())
+    }
 
     test "Si tiene saldo suficiente puede subir al bondi" {
     lucio.asignarSube(sube)
