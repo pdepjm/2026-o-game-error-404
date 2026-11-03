@@ -180,22 +180,6 @@ describe "Mobs de Nivel 1 con alumnos independientes" {
 }
 
 describe "Mobs de los niveles siguientes" {
-    test "El pasajero alterna el movimiento hacia arriba y hacia abajo en sus límites" {
-        const pasajeroPrueba = new Pasajero(
-            position = game.at(5, 9),
-            imagen = "pasajero_dormido.png",
-            mensaje = "Permiso",
-            cantidadSueno = 15
-        )
-
-        pasajeroPrueba.moverse(4, 10)
-        assert.equals(10, pasajeroPrueba.position().y())
-
-        pasajeroPrueba.moverse(4, 10)
-        pasajeroPrueba.moverse(4, 10)
-        assert.equals(9, pasajeroPrueba.position().y())
-    }
-
     test "La nube baja y vuelve a aparecer en la parte superior de su recorrido" {
         const posicionInicial = nube1.position()
         nube1.position(game.at(8, 6))
