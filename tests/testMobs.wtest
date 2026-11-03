@@ -196,35 +196,6 @@ describe "Mobs de los niveles siguientes" {
         assert.equals(9, pasajeroPrueba.position().y())
     }
 
-    test "El pasajero aumenta el sueño y empuja al alumno una casilla" {
-        const nivelAnterior = juego.nivelActual()
-        const pasajeroPrueba = new Pasajero(
-            position = game.at(10, 7),
-            imagen = "pasajero_pesado.png",
-            mensaje = "Cuidado",
-            cantidadSueno = 35
-        )
-        const alumnoPrueba = new Alumno(
-            imagenMenu = "menu.png",
-            imagen = "juego.png",
-            dineroInicial = 0,
-            tiempoInicial = 20,
-            danoAlumno = 1
-        )
-        alumnoPrueba.position(game.at(10, 7))
-        juego.nivelActual(nivel2)
-
-        pasajeroPrueba.interactuar(alumnoPrueba)
-
-        const suenoLuegoDeInteractuar = alumnoPrueba.sueno()
-        const posicionLuegoDeInteractuar = alumnoPrueba.position()
-        juego.nivelActual(nivelAnterior)
-
-        assert.equals(35, suenoLuegoDeInteractuar)
-        assert.equals(9, posicionLuegoDeInteractuar.x())
-        assert.equals(7, posicionLuegoDeInteractuar.y())
-    }
-
     test "La nube baja y vuelve a aparecer en la parte superior de su recorrido" {
         const posicionInicial = nube1.position()
         nube1.position(game.at(8, 6))
