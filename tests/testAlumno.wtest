@@ -5,6 +5,53 @@ import nivel1.consumibles.*
 import nivel1.bondi.*
 import nivel1.mobs.*
 
+describe "Alumno y sus Consumibles" {
+    test "El alumno suma 100 de dinero al interactuar con un billete de 100" {
+        lucio.pierdeDinero(lucio.dinero()) 
+        assert.equals(0, lucio.dinero())
+
+        game.addVisual(billete100)
+        billete100.interactuar(lucio)
+
+        assert.equals(100, lucio.dinero())
+        
+    }
+
+    test "El alumno agarra la SUBE y revisa que la tiene" {
+
+        assert.notThat(lucio.tieneSube())
+
+        sube.interactuar(lucio)
+
+        assert.that(lucio.tieneSube())
+    }
+
+    test "Si no tiene saldo suficiente no puede subir al bondi" {
+    assert.notThat(lucio.subirAlBondi())
+    }
+
+    test "Si tiene saldo suficiente puede subir al bondi" {
+    lucio.asignarSube(sube)
+    lucio.conseguirDinero(10000)
+    lucio.sube().cargar(3000)
+    assert.that(lucio.subirAlBondi())
+    }
+    
+    test "El tiempo del alumno se reduce correctamente al consumirlo" {
+        const tiempoInicial = lucio.tiempo()
+        lucio.consumirTiempo(15)
+        assert.equals(tiempoInicial - 15, lucio.tiempo())
+    }
+    
+    test "Pierde dinero de manera correcta sin bajar de cero" {
+        lari.pierdeDinero(lari.dinero()) 
+        lari.conseguirDinero(50)
+        lari.pierdeDinero(100)
+        assert.equals(0, lari.dinero())
+    }   
+
+}
+
 describe "Nuevos tests para Alumno" {
     test "El alumno aumenta su tiempo correctamente con agregarTiempo" {
         const tiempoAnterior = lucio.tiempo()

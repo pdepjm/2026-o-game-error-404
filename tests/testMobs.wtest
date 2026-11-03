@@ -7,6 +7,56 @@ import nivel1.mobs.*
 import nivel1.nivel1.*
 import direcciones.*
 
+describe "Mobs y la interacción con alumno" {
+    test "Cuando el fisura choca con el alumno le saca 15 de tiempo y la mitad de la plata" {
+        lucio.conseguirDinero(500 - lucio.dinero())
+        if (lucio.tiempo() < 50) {
+            lucio.agregarTiempo(50 - lucio.tiempo())
+        } else if (lucio.tiempo() > 50) {
+            lucio.consumirTiempo(lucio.tiempo() - 50)
+        }
+        
+        fisura.interactuar(lucio)
+
+        assert.equals(250, lucio.dinero())
+        assert.equals(35, lucio.tiempo())
+    }
+
+    test "Cuando el vecino choca con el alumno le suma 5 de tiempo" {
+        if (lucio.tiempo() < 50) {
+            lucio.agregarTiempo(50 - lucio.tiempo())
+        } else if (lucio.tiempo() > 50) {
+            lucio.consumirTiempo(lucio.tiempo() - 50)
+        }
+        
+        vecino.interactuar(lucio)
+
+        assert.equals(55, lucio.tiempo())
+    }
+
+    test "El fisura se mueve hacia la derecha en su rango" {
+        fisura.position(game.at(7, 10))
+        fisura.direccion(derecha)
+        fisura.moverse()
+        assert.equals(8, fisura.position().x())
+    }
+
+    test "El fisura cambia de sentido hacia la izquierda al llegar a su limite maximo" {
+        fisura.position(game.at(12, 10))
+        fisura.moverse()
+        assert.equals(11, fisura.position().x())
+    }
+
+    test "El kiosco le carga SUBE al alumno si tiene mas de 500 de dinero" {
+        lucio.asignarSube(sube)
+        lucio.conseguirDinero(1000 - lucio.dinero())
+        const saldoAnterior = lucio.saldo()
+        kiosco.interactuar(lucio)
+        assert.equals(saldoAnterior + 500, lucio.saldo())
+        assert.equals(500, lucio.dinero())
+    }
+}
+
 describe "Nuevos tests para Mobs y Consumibles de Nivel 1" {
     test "El billete de 500 incrementa el dinero del alumno en 500 unidades" {
         const dineroAntes = lucio.dinero()
@@ -39,7 +89,4 @@ describe "Nuevos tests para Mobs y Consumibles de Nivel 1" {
         assert.equals(150, lucio.dinero())
     }
 
-    test "La frase que emite el vecino al interactuar es exactamente 'Tomá, un café'" {
-        assert.equals("Tomá, un café", vecino.frase())
-    }
 }

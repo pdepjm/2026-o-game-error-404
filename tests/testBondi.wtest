@@ -6,6 +6,28 @@ import nivel1.mobs.*
 import nivel1.nivel1.*
 import nivel1.fases.*
 
+describe "Bondi y su funcionamiento" {
+    //test "Cuando el tiempo llega a 0 el bondi spawnea" {
+    //    juego.jugador(pinguino)
+    //    pinguino.consumirTiempo(pinguino.tiempo() - 1)
+    //    assert.notThat(nivel1.llegoBondi())
+
+    //    nivel1.pasarSegundo()
+    //    assert.that(nivel1.llegoBondi())
+    //}
+
+    test "El precio del boleto del bondi es 670" {
+        assert.equals(670, bondi.precioBoleto())
+    }
+
+    test "El bondi aparece en la posicion esperada x=20 y=0" {
+        assert.equals(20, bondi.position().x())
+        assert.equals(0, bondi.position().y())
+    }
+
+
+}
+
 describe "Nuevos tests para Bondi" {
     test "La imagen del bondi corresponde al archivo 'bondi.png'" {
         assert.equals("bondi.png", bondi.image())
