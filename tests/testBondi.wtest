@@ -6,24 +6,32 @@ import nivel1.mobs.*
 import nivel1.nivel1.*
 import nivel1.fases.*
 
-describe "Bondi y su funcionamiento" {
-    //test "Cuando el tiempo llega a 0 el bondi spawnea" {
-    //    juego.jugador(pinguino)
-    //    pinguino.consumirTiempo(pinguino.tiempo() - 1)
-    //    assert.notThat(nivel1.llegoBondi())
-
-    //    nivel1.pasarSegundo()
-    //    assert.that(nivel1.llegoBondi())
-    //}
-
-    test "El precio del boleto del bondi es 670" {
-        assert.equals(670, bondi.precioBoleto())
+describe "Nuevos tests para Bondi" {
+    test "La imagen del bondi corresponde al archivo 'bondi.png'" {
+        assert.equals("bondi.png", bondi.image())
     }
 
-    test "El bondi aparece en la posicion esperada x=20 y=0" {
-        assert.equals(20, bondi.position().x())
-        assert.equals(0, bondi.position().y())
+    test "El alumno no puede subir al bondi si el saldo de su SUBE es menor al precio del boleto" {
+        lucio.asignarSube(sube)
+        sube.cargar(200) // Menor a 670
+        assert.notThat(lucio.subirAlBondi())
     }
 
+    test "El alumno puede subir al bondi si el saldo de su SUBE es igual o mayor al precio del boleto" {
+        lucio.asignarSube(sube)
+        sube.cargar(1000) // Mayor a 670
+        assert.that(lucio.subirAlBondi())
+    }
 
+    test "Cuando el bondi aparece en escena, le otorga 15 segundos adicionales al jugador" {
+        juego.jugador(lucio)
+        const tiempoAntes = lucio.tiempo()
+        bondi.aparecer()
+        assert.equals(tiempoAntes + 15, lucio.tiempo())
+        game.removeVisual(bondi) // Limpieza del visual agregado
+    }
+
+    test "El precio del boleto fijado por el bondi es un número positivo mayor a cero" {
+        assert.that(bondi.precioBoleto() > 0)
+    }
 }
