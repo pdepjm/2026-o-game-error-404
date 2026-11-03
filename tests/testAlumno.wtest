@@ -4,6 +4,7 @@ import interfaz.mostrables.*
 import nivel1.consumibles.*
 import nivel1.bondi.*
 import nivel1.mobs.*
+import nivel1.nivel1.*
 
 describe "Alumno y sus Consumibles" {
     test "El alumno suma 100 de dinero al interactuar con un billete de 100" {
@@ -27,7 +28,8 @@ describe "Alumno y sus Consumibles" {
     }
 
     test "Si no tiene saldo suficiente no puede subir al bondi" {
-    assert.notThat(lucio.subirAlBondi())
+        lucio.asignarSube(new TarjetaSube(saldo = 0))
+        assert.notThat(lucio.subirAlBondi())
     }
 
     test "Si tiene saldo suficiente puede subir al bondi" {
@@ -81,5 +83,148 @@ describe "Nuevos tests para Alumno" {
 
     test "El alumno tiene el daño configurado correctamente según el personaje elegido (lucio = 13)" {
         assert.equals(13, lucio.danoAlumno())
+    }
+
+
+    test "Si el alumno no tiene SUBE, subir al bondi retorna false" {
+        lucio.asignarSube(null)
+        assert.notThat(lucio.subirAlBondi())
+    }
+
+}
+
+describe "Estado y límites de Alumno" {
+    test "El alumno conserva los valores configurados al crearse" {
+        const alumnoPrueba = new Alumno(
+            imagenMenu = "menu.png",
+            imagen = "juego.png",
+            dineroInicial = 250,
+            tiempoInicial = 40,
+            danoAlumno = 7
+        )
+
+        assert.equals(250, alumnoPrueba.dinero())
+        assert.equals(40, alumnoPrueba.tiempo())
+        assert.equals(7, alumnoPrueba.danoAlumno())
+        assert.equals("juego.png", alumnoPrueba.image())
+        assert.equals("menu.png", alumnoPrueba.imagenMenu())
+        assert.equals(0, alumnoPrueba.sueno())
+        assert.notThat(alumnoPrueba.tieneSube())
+    }
+
+    test "El tiempo no puede quedar por debajo de cero y pasar un segundo lo reduce en uno" {
+        const alumnoPrueba = new Alumno(
+            imagenMenu = "menu.png",
+            imagen = "juego.png",
+            dineroInicial = 0,
+            tiempoInicial = 10,
+            danoAlumno = 1
+        )
+
+        alumnoPrueba.consumirTiempo(15)
+        assert.equals(0, alumnoPrueba.tiempo())
+
+        alumnoPrueba.agregarTiempo(3)
+        alumnoPrueba.pasarSegundo()
+        assert.equals(2, alumnoPrueba.tiempo())
+
+        alumnoPrueba.pasarSegundo()
+        alumnoPrueba.pasarSegundo()
+        assert.equals(0, alumnoPrueba.tiempo())
+    }
+
+    test "Pagar descuenta dinero sin permitir saldo negativo" {
+        const alumnoPrueba = new Alumno(
+            imagenMenu = "menu.png",
+            imagen = "juego.png",
+            dineroInicial = 100,
+            tiempoInicial = 10,
+            danoAlumno = 1
+        )
+
+        alumnoPrueba.pagar(35)
+        assert.equals(65, alumnoPrueba.dinero())
+
+        alumnoPrueba.pagar(100)
+        assert.equals(0, alumnoPrueba.dinero())
+    }
+
+    test "El saldo es cero sin SUBE y refleja el saldo de la tarjeta al asignarla" {
+        const alumnoPrueba = new Alumno(
+            imagenMenu = "menu.png",
+            imagen = "juego.png",
+            dineroInicial = 0,
+            tiempoInicial = 10,
+            danoAlumno = 1
+        )
+
+        assert.equals(0, alumnoPrueba.saldo())
+        alumnoPrueba.asignarSube(sube)
+
+        assert.that(alumnoPrueba.tieneSube())
+        assert.equals(sube.saldo(), alumnoPrueba.saldo())
+    }
+
+    test "Reiniciar restaura el estado inicial del alumno" {
+        const alumnoPrueba = new Alumno(
+            imagenMenu = "menu.png",
+            imagen = "juego.png",
+            dineroInicial = 250,
+            tiempoInicial = 40,
+            danoAlumno = 1
+        )
+
+        alumnoPrueba.conseguirDinero(100)
+        alumnoPrueba.consumirTiempo(10)
+        alumnoPrueba.aumentarSueno(30)
+        alumnoPrueba.asignarSube(sube)
+        alumnoPrueba.position(game.at(5, 5))
+
+        alumnoPrueba.reiniciar()
+
+        assert.equals(250, alumnoPrueba.dinero())
+        assert.equals(40, alumnoPrueba.tiempo())
+        assert.equals(0, alumnoPrueba.sueno())
+        assert.notThat(alumnoPrueba.tieneSube())
+        assert.equals(0, alumnoPrueba.position().x())
+        assert.equals(0, alumnoPrueba.position().y())
+    }
+
+    test "Mover permite posiciones transitables y conserva la posición ante una casilla bloqueada" {
+        const nivelAnterior = juego.nivelActual()
+        const alumnoPrueba = new Alumno(
+            imagenMenu = "menu.png",
+            imagen = "juego.png",
+            dineroInicial = 0,
+            tiempoInicial = 10,
+            danoAlumno = 1
+        )
+        juego.nivelActual(nivel1)
+
+        alumnoPrueba.mover(game.at(1, 5))
+        assert.equals(1, alumnoPrueba.position().x())
+        assert.equals(5, alumnoPrueba.position().y())
+
+        alumnoPrueba.mover(game.at(0, 14))
+        assert.equals(1, alumnoPrueba.position().x())
+        assert.equals(5, alumnoPrueba.position().y())
+
+        juego.nivelActual(nivelAnterior)
+    }
+
+    test "Las posiciones fuera del mapa no son válidas" {
+        const alumnoPrueba = new Alumno(
+            imagenMenu = "menu.png",
+            imagen = "juego.png",
+            dineroInicial = 0,
+            tiempoInicial = 10,
+            danoAlumno = 1
+        )
+
+        assert.that(alumnoPrueba.estaDentroDelMapa(game.at(0, 0)))
+        assert.notThat(alumnoPrueba.estaDentroDelMapa(game.at(-1, 0)))
+        assert.notThat(alumnoPrueba.estaDentroDelMapa(game.at(game.width(), 0)))
+        assert.notThat(alumnoPrueba.estaDentroDelMapa(game.at(0, -1)))
+        assert.notThat(alumnoPrueba.estaDentroDelMapa(game.at(0, game.height())))
     }
 }
