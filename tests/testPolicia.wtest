@@ -57,4 +57,38 @@ describe "Nuevos tests para Policía" {
         policia.moverse()
         assert.equals(1, policia.position().y())
     }
+
+    test "Al alcanzar el límite superior la policía invierte la dirección y avanza hacia abajo" {
+        const posicionAnterior = policia.position()
+        const direccionAnterior = policia.direccion()
+        policia.position(game.at(19, 6))
+        policia.direccion(arriba)
+
+        policia.moverse()
+
+        const posicionLuegoDeMoverse = policia.position()
+        const direccionLuegoDeMoverse = policia.direccion()
+        policia.position(posicionAnterior)
+        policia.direccion(direccionAnterior)
+
+        assert.equals(5, posicionLuegoDeMoverse.y())
+        assert.equals(abajo, direccionLuegoDeMoverse)
+    }
+
+    test "Al alcanzar el límite inferior la policía invierte la dirección y avanza hacia arriba" {
+        const posicionAnterior = policia.position()
+        const direccionAnterior = policia.direccion()
+        policia.position(game.at(19, 0))
+        policia.direccion(abajo)
+
+        policia.moverse()
+
+        const posicionLuegoDeMoverse = policia.position()
+        const direccionLuegoDeMoverse = policia.direccion()
+        policia.position(posicionAnterior)
+        policia.direccion(direccionAnterior)
+
+        assert.equals(1, posicionLuegoDeMoverse.y())
+        assert.equals(arriba, direccionLuegoDeMoverse)
+    }
 }

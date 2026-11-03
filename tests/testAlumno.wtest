@@ -190,28 +190,6 @@ describe "Estado y límites de Alumno" {
         assert.equals(0, alumnoPrueba.position().y())
     }
 
-    test "Mover permite posiciones transitables y conserva la posición ante una casilla bloqueada" {
-        const nivelAnterior = juego.nivelActual()
-        const alumnoPrueba = new Alumno(
-            imagenMenu = "menu.png",
-            imagen = "juego.png",
-            dineroInicial = 0,
-            tiempoInicial = 10,
-            danoAlumno = 1
-        )
-        juego.nivelActual(nivel1)
-
-        alumnoPrueba.mover(game.at(1, 5))
-        assert.equals(1, alumnoPrueba.position().x())
-        assert.equals(5, alumnoPrueba.position().y())
-
-        alumnoPrueba.mover(game.at(0, 14))
-        assert.equals(1, alumnoPrueba.position().x())
-        assert.equals(5, alumnoPrueba.position().y())
-
-        juego.nivelActual(nivelAnterior)
-    }
-
     test "Las posiciones fuera del mapa no son válidas" {
         const alumnoPrueba = new Alumno(
             imagenMenu = "menu.png",

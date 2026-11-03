@@ -25,5 +25,27 @@ describe "Bondi y su funcionamiento" {
         assert.equals(0, bondi.position().y())
     }
 
+    test "El bondi muestra su imagen" {
+        assert.equals("bondi.png", bondi.image())
+    }
 
+    test "Cuando aparece agrega 15 segundos al jugador" {
+        const jugadorAnterior = juego.jugador()
+        const alumnoPrueba = new Alumno(
+            imagenMenu = "menu.png",
+            imagen = "juego.png",
+            dineroInicial = 0,
+            tiempoInicial = 10,
+            danoAlumno = 1
+        )
+        juego.jugador(alumnoPrueba)
+
+        bondi.aparecer()
+
+        const tiempoLuegoDeAparecer = alumnoPrueba.tiempo()
+        juego.jugador(jugadorAnterior)
+        game.removeVisual(bondi)
+
+        assert.equals(25, tiempoLuegoDeAparecer)
+    }
 }

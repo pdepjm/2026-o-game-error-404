@@ -6,6 +6,10 @@ import nivel1.bondi.*
 import nivel1.mobs.*
 import nivel1.nivel1.*
 import direcciones.*
+import nivel2.mobsNivel2.*
+import nivel2.nivel2.*
+import nivel3.mobsNivel3.*
+import nivel3.nivel3.*
 
 describe "Mobs y la interacción con alumno" {
     test "Cuando el fisura choca con el alumno le saca 15 de tiempo y la mitad de la plata" {
@@ -87,6 +91,167 @@ describe "Nuevos tests para Mobs y Consumibles de Nivel 1" {
         kiosco.interactuar(lucio)
         assert.equals(saldoAnterior, lucio.saldo())
         assert.equals(150, lucio.dinero())
+    }
+
+}
+
+describe "Mobs de Nivel 1 con alumnos independientes" {
+    test "El fisura roba la mitad del dinero y resta 15 segundos" {
+        const alumnoPrueba = new Alumno(
+            imagenMenu = "menu.png",
+            imagen = "juego.png",
+            dineroInicial = 500,
+            tiempoInicial = 50,
+            danoAlumno = 1
+        )
+
+        fisura.interactuar(alumnoPrueba)
+
+        assert.equals(250, alumnoPrueba.dinero())
+        assert.equals(35, alumnoPrueba.tiempo())
+    }
+
+    test "El vecino agrega cinco segundos al alumno" {
+        const alumnoPrueba = new Alumno(
+            imagenMenu = "menu.png",
+            imagen = "juego.png",
+            dineroInicial = 0,
+            tiempoInicial = 20,
+            danoAlumno = 1
+        )
+
+        vecino.interactuar(alumnoPrueba)
+
+        assert.equals(25, alumnoPrueba.tiempo())
+    }
+
+    test "El kiosco carga 500 en la SUBE y cobra 500 si el alumno puede pagarlo" {
+        const tarjeta = new TarjetaSube(saldo = 100)
+        const alumnoPrueba = new Alumno(
+            imagenMenu = "menu.png",
+            imagen = "juego.png",
+            dineroInicial = 700,
+            tiempoInicial = 20,
+            danoAlumno = 1
+        )
+        alumnoPrueba.asignarSube(tarjeta)
+
+        kiosco.interactuar(alumnoPrueba)
+
+        assert.equals(200, alumnoPrueba.dinero())
+        assert.equals(600, alumnoPrueba.saldo())
+    }
+
+    test "Un auto atropella al alumno, le resta tiempo y dinero, y lo devuelve al inicio" {
+        const autoPrueba = new Auto(
+            position = game.at(8, 8),
+            carrilY = 8,
+            image = "rojo.png"
+        )
+        const alumnoPrueba = new Alumno(
+            imagenMenu = "menu.png",
+            imagen = "juego.png",
+            dineroInicial = 80,
+            tiempoInicial = 10,
+            danoAlumno = 1
+        )
+        alumnoPrueba.position(game.at(8, 8))
+
+        autoPrueba.interactuar(alumnoPrueba)
+
+        assert.equals(0, alumnoPrueba.tiempo())
+        assert.equals(0, alumnoPrueba.dinero())
+        assert.equals(0, alumnoPrueba.position().x())
+        assert.equals(0, alumnoPrueba.position().y())
+    }
+
+    test "El auto avanza una casilla y conserva su carril" {
+        const autoPrueba = new Auto(
+            position = game.at(3, 7),
+            carrilY = 7,
+            image = "taxi.png"
+        )
+
+        autoPrueba.moverse()
+
+        assert.equals(4, autoPrueba.position().x())
+        assert.equals(7, autoPrueba.position().y())
+    }
+}
+
+describe "Mobs de los niveles siguientes" {
+    test "El pasajero alterna el movimiento hacia arriba y hacia abajo en sus límites" {
+        const pasajeroPrueba = new Pasajero(
+            position = game.at(5, 9),
+            imagen = "pasajero_dormido.png",
+            mensaje = "Permiso",
+            cantidadSueno = 15
+        )
+
+        pasajeroPrueba.moverse(4, 10)
+        assert.equals(10, pasajeroPrueba.position().y())
+
+        pasajeroPrueba.moverse(4, 10)
+        pasajeroPrueba.moverse(4, 10)
+        assert.equals(9, pasajeroPrueba.position().y())
+    }
+
+    test "El pasajero aumenta el sueño y empuja al alumno una casilla" {
+        const nivelAnterior = juego.nivelActual()
+        const pasajeroPrueba = new Pasajero(
+            position = game.at(10, 7),
+            imagen = "pasajero_pesado.png",
+            mensaje = "Cuidado",
+            cantidadSueno = 35
+        )
+        const alumnoPrueba = new Alumno(
+            imagenMenu = "menu.png",
+            imagen = "juego.png",
+            dineroInicial = 0,
+            tiempoInicial = 20,
+            danoAlumno = 1
+        )
+        alumnoPrueba.position(game.at(10, 7))
+        juego.nivelActual(nivel2)
+
+        pasajeroPrueba.interactuar(alumnoPrueba)
+
+        const suenoLuegoDeInteractuar = alumnoPrueba.sueno()
+        const posicionLuegoDeInteractuar = alumnoPrueba.position()
+        juego.nivelActual(nivelAnterior)
+
+        assert.equals(35, suenoLuegoDeInteractuar)
+        assert.equals(9, posicionLuegoDeInteractuar.x())
+        assert.equals(7, posicionLuegoDeInteractuar.y())
+    }
+
+    test "La nube baja y vuelve a aparecer en la parte superior de su recorrido" {
+        const posicionInicial = nube1.position()
+        nube1.position(game.at(8, 6))
+
+        nube1.moverse()
+        const posicionLuegoDeBajar = nube1.position()
+
+        nube1.moverse()
+        const posicionLuegoDeReaparecer = nube1.position()
+        nube1.position(posicionInicial)
+
+        assert.equals(5, posicionLuegoDeBajar.y())
+        assert.equals(11, posicionLuegoDeReaparecer.y())
+    }
+
+    test "La nube aumenta el sueño del alumno" {
+        const alumnoPrueba = new Alumno(
+            imagenMenu = "menu.png",
+            imagen = "juego.png",
+            dineroInicial = 0,
+            tiempoInicial = 20,
+            danoAlumno = 1
+        )
+
+        nube1.interactuar(alumnoPrueba)
+
+        assert.equals(25, alumnoPrueba.sueno())
     }
 
 }
