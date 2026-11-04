@@ -79,7 +79,7 @@ method ganar() {
   if (not finalizado) {
     const jugador = juego.jugador()
 
-    if (jugador.sueno() < 70) {
+    if (jugador.sueno() < 50) {
       finalizado = true
       self.limpiarEventos()
 

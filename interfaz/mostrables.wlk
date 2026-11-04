@@ -27,7 +27,7 @@ object saldo {
 
 object suenoVisual {
     method position() = game.at(1, 13)
-    method text() = "Sueño: " + juego.jugador().sueno().toString() + "/70"
+    method text() = "Sueño: " + juego.jugador().sueno().toString() + "/50"
     method textColor() = "FFFFFFFF"
     method interactuar(personaje) {}
 }
