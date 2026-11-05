@@ -89,7 +89,11 @@ object instrucciones {
 
     keyboard.m().onPressDo({
       if (juego.estadoPantalla() == "instrucciones") {
+        
         menuPrincipal.mostrar()
+         juego.estadoPantalla("menu")
+           keyboard.right().onPressDo({ selectorPersonaje.siguiente() })
+     keyboard.left().onPressDo({ selectorPersonaje.anterior() })
       }
     })
 
@@ -132,6 +136,9 @@ object instruccionesNivel3 {
 
     keyboard.m().onPressDo({
       menuPrincipal.mostrar()
+      keyboard.right().onPressDo({ selectorPersonaje.siguiente() })
+      keyboard.left().onPressDo({ selectorPersonaje.anterior() })
+
     })
   }
 }

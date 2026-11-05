@@ -30,6 +30,9 @@ method finalizarCon(pantalla) {
       juego.jugador().reiniciar()
       juego.estadoPantalla("menu")
       menuPrincipal.mostrar()
+      keyboard.right().onPressDo({ selectorPersonaje.siguiente() })
+     keyboard.left().onPressDo({ selectorPersonaje.anterior() })
+  
   })
 }
 }
