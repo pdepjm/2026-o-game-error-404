@@ -76,7 +76,7 @@ class Alumno {
   }
 
   method aumentarSueno(cantidad) {
-    sueno = (sueno + cantidad).min(100)
+    sueno = (sueno + cantidad).min(50)
   }
 
   method reducirSueno(cantidad) {
