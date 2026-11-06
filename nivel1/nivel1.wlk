@@ -27,7 +27,7 @@ object nivel1 inherits Nivel() {
     game.addVisual(jugadorElegido)
 
   [
-  reloj,plata, saldo, sube, kiosco, fisura, vecino,policia,billete100,
+  reloj,plata, saldo, conSube, kiosco, fisura, vecino,policia,billete100,
   billete200,billete500,billete1000, autoRojo, autoAzul, autoVerde,taxi
 ].forEach({ elemento => game.addVisual(elemento)
 })

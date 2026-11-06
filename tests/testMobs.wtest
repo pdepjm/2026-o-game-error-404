@@ -52,7 +52,7 @@ describe "Mobs y la interacción con alumno" {
     }
 
     test "El kiosco le carga SUBE al alumno si tiene mas de 500 de dinero" {
-        lucio.asignarSube(sube)
+        lucio.asignarSube(conSube)
         lucio.conseguirDinero(1000 - lucio.dinero())
         const saldoAnterior = lucio.saldo()
         kiosco.interactuar(lucio)
@@ -75,7 +75,7 @@ describe "Nuevos tests para Mobs y Consumibles de Nivel 1" {
     }
 
     test "El kiosco no realiza la recarga de SUBE si el alumno no posee una tarjeta asignada" {
-        lucio.asignarSube(null)
+        lucio.asignarSube(sinSube)
         lucio.conseguirDinero(1000 - lucio.dinero())
         const dineroAntes = lucio.dinero()
         kiosco.interactuar(lucio)
@@ -84,7 +84,7 @@ describe "Nuevos tests para Mobs y Consumibles de Nivel 1" {
     }
 
     test "El kiosco no recarga la SUBE si el alumno tiene la tarjeta pero menos de 500 de dinero" {
-        lucio.asignarSube(sube)
+        lucio.asignarSube(conSube)
         lucio.pierdeDinero(lucio.dinero())
         lucio.conseguirDinero(150) // Menor a 500
         const saldoAnterior = lucio.saldo()
@@ -126,7 +126,6 @@ describe "Mobs de Nivel 1 con alumnos independientes" {
     }
 
     test "El kiosco carga 500 en la SUBE y cobra 500 si el alumno puede pagarlo" {
-        const tarjeta = new TarjetaSube(saldo = 100)
         const alumnoPrueba = new Alumno(
             imagenMenu = "menu.png",
             imagen = "juego.png",
@@ -134,7 +133,8 @@ describe "Mobs de Nivel 1 con alumnos independientes" {
             tiempoInicial = 20,
             danoAlumno = 1
         )
-        alumnoPrueba.asignarSube(tarjeta)
+        alumnoPrueba.asignarSube(conSube)
+        alumnoPrueba.sube().saldo(100)
 
         kiosco.interactuar(alumnoPrueba)
 

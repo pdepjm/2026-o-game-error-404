@@ -25,7 +25,7 @@ describe "Alumno y sus Consumibles" {
 
         assert.notThat(alumnoPrueba.tieneSube())
 
-        sube.interactuar(alumnoPrueba)
+        conSube.interactuar(alumnoPrueba)
 
         assert.that(alumnoPrueba.tieneSube())
     }
@@ -33,14 +33,14 @@ describe "Alumno y sus Consumibles" {
     test "Si no tiene saldo suficiente no puede subir al bondi" {
         const alumnoPrueba = new Alumno(imagenMenu = "_", imagen = "_", dineroInicial = 100, tiempoInicial = 60, danoAlumno = 60)
 
-        alumnoPrueba.asignarSube(new TarjetaSube(saldo = 0))
+        alumnoPrueba.asignarSube(conSube)
         assert.notThat(alumnoPrueba.subirAlBondi())
     }
 
     test "Si tiene saldo suficiente puede subir al bondi" {
         const alumnoPrueba = new Alumno(imagenMenu = "_", imagen = "_", dineroInicial = 100, tiempoInicial = 60, danoAlumno = 60)
 
-        alumnoPrueba.asignarSube(sube)
+        alumnoPrueba.asignarSube(conSube)
         alumnoPrueba.conseguirDinero(10000)
         alumnoPrueba.sube().cargar(3000)
         assert.that(alumnoPrueba.subirAlBondi())
@@ -178,10 +178,10 @@ describe "Estado y límites de Alumno" {
         )
 
         assert.equals(0, alumnoPrueba.saldo())
-        alumnoPrueba.asignarSube(sube)
+        alumnoPrueba.asignarSube(conSube)
 
         assert.that(alumnoPrueba.tieneSube())
-        assert.equals(sube.saldo(), alumnoPrueba.saldo())
+        assert.equals(conSube.saldo(), alumnoPrueba.saldo())
     }
 
     test "Reiniciar restaura el estado inicial del alumno" {
@@ -196,7 +196,7 @@ describe "Estado y límites de Alumno" {
         alumnoPrueba.conseguirDinero(100)
         alumnoPrueba.consumirTiempo(10)
         alumnoPrueba.aumentarSueno(30)
-        alumnoPrueba.asignarSube(sube)
+        alumnoPrueba.asignarSube(conSube)
         alumnoPrueba.position(game.at(5, 5))
 
         alumnoPrueba.reiniciar()

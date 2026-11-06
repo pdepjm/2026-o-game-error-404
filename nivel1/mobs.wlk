@@ -88,7 +88,7 @@ object kiosco inherits Mob(position = game.at(9, 11), imagen="kiosco.png",frase=
         if (personaje.tieneSube() and personaje.dinero() >= 500) {
             game.schedule(2000, { game.say(self, "Te cargo 500") })
             personaje.pagar(500)
-            personaje.sube().cargar(500)
+            personaje.cargarSube(500)
         }
     }
 } 

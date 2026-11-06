@@ -12,7 +12,7 @@ class Alumno {
   const tiempoInicial = 20
   var tiempo = tiempoInicial
   const danoAlumno
-  var property sube = null
+  var property sube = sinSube
 
   method dinero() = dinero
   method sueno() = sueno
@@ -40,7 +40,7 @@ class Alumno {
     dinero = dineroInicial
     tiempo = tiempoInicial
     sueno = 0
-    sube = null
+    sube = sinSube
     position = game.at(0, 0)
   }
 
@@ -63,12 +63,16 @@ class Alumno {
     dinero = (dinero - cantidadPerdida).max(0)
   }
 
-  method tieneSube() = sube != null
+  method tieneSube() = sube.tieneSube()
 
-  method saldo() = if (self.tieneSube()) sube.saldo() else 0
+  method saldo() = sube.saldo()
 
   method asignarSube(unaSube) {
     sube = unaSube
+  }
+
+  method cargarSube(monto) {
+    sube.cargar(monto)
   }
 
   method pagar(monto) {
