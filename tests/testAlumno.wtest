@@ -106,7 +106,7 @@ describe "Nuevos tests para Alumno" {
     test "Si el alumno no tiene SUBE, subir al bondi retorna false" {
         const alumnoPrueba = new Alumno(imagenMenu = "_", imagen = "_", dineroInicial = 100, tiempoInicial = 60, danoAlumno = 60)
         
-        alumnoPrueba.asignarSube(null)
+        alumnoPrueba.asignarSube(sinSube)
         assert.notThat(alumnoPrueba.subirAlBondi())
     }
 
