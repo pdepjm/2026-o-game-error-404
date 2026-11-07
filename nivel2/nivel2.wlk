@@ -9,6 +9,7 @@ import efectos.*
 import controles.*
 import claseNivel.*
 import nivel3.nivel3.*
+import estadosPantalla.*
 
 
 object nivel2 inherits Nivel() {
@@ -17,7 +18,7 @@ object nivel2 inherits Nivel() {
 
   method iniciar() {
 
-    juego.estadoPantalla("nivel2")
+    juego.estadoActual(estadoNivel2)
     self.preparar()
     finalizado = false
 
@@ -65,7 +66,7 @@ object nivel2 inherits Nivel() {
       const jugador = juego.jugador()
       jugador.aumentarSueno(1)
 
-      if (jugador.sueno() >= 70) {
+      if (jugador.sueno() >= 50) {
         self.perder("¡Te quedaste dormido!")
       }
     }
@@ -82,29 +83,26 @@ method ganar() {
     if (jugador.sueno() < 50) {
       finalizado = true
       self.limpiarEventos()
-
-      game.clear()
-      game.addVisual(pantallaNivel2Completo)
-      juego.estadoPantalla("pasarNivel3")
-
-      keyboard.enter().onPressDo({
-        if (juego.estadoPantalla() == "pasarNivel3") {
-          nivel3.iniciar()
-        }
-      })
+      juego.cambiarEstado(estadoPasarNivel3)
     } else {
       self.perder("¡Te quedaste dormido!")
     }
   }
 }
+method perder(mensaje) {
+  if (not finalizado) {
+    finalizado = true
+    self.limpiarEventos()
+    self.finalizarCon(pantallaDormiste)
 
-  method perder(mensaje) {
-    if (not finalizado) {
-      finalizado = true
-      self.finalizarCon(pantallaDormiste)
-      juego.estadoPantalla("volverMenu")
-    }
+    juego.estadoActual(estadoVolverMenu)
+    juego.puedeReiniciarNivel(true)
+    keyboard.j().onPressDo({
+    juego.puedeReiniciarNivel(false)
+    juego.reiniciarNivel()
+  })
   }
+}
 
   override method eventosAEliminar() = [
     "suenoReloj",

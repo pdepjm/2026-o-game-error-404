@@ -4,6 +4,7 @@ import mostrables.*
 import nivel1.nivel1.*
 import nivel2.nivel2.*
 import nivel3.nivel3.*
+import estadosPantalla.*
 
 object selectorPersonaje {
   const personajes = [lucio, lari, salva, alvarez, solci]
@@ -59,48 +60,31 @@ object previewPersonaje {
 }
 
 object menuPrincipal {
-  
   method mostrar() {
-    juego.estadoPantalla("menu")
     game.clear()
     game.addVisual(pantallaInicio)
     game.addVisual(previewPersonaje)
 
     keyboard.enter().onPressDo({
-  if (juego.estadoPantalla() == "menu") {
-    juego.estadoPantalla("nivel1")
-    nivel1.iniciar()
-  }
+  juego.cambiarEstado(estadoNivel1)
 })
 
-  
-    keyboard.space().onPressDo({
-    instrucciones.mostrar()
-    })
+keyboard.space().onPressDo({
+  juego.cambiarEstado(estadoInstrucciones)
+})
   }
-
-  
 }
 object instrucciones {
   method mostrar() {
     game.clear()
-    juego.estadoPantalla("instrucciones")
+    juego.estadoActual(estadoInstrucciones)
     game.addVisual(pantallaInstrucciones)
 
     keyboard.m().onPressDo({
-      if (juego.estadoPantalla() == "instrucciones") {
-        
-        menuPrincipal.mostrar()
-         juego.estadoPantalla("menu")
+          juego.cambiarEstado(estadoMenu)
            keyboard.right().onPressDo({ selectorPersonaje.siguiente() })
-     keyboard.left().onPressDo({ selectorPersonaje.anterior() })
-      }
+            keyboard.left().onPressDo({ selectorPersonaje.anterior() })
+      
     })
-
-    keyboard.enter().onPressDo({
-      if (juego.estadoPantalla() == "instrucciones") {
-        menuPrincipal.mostrar()
-      }
-    })
-  }
+}
 }

@@ -1,7 +1,9 @@
 import wollok.game.*
 import nivel1.bondi.*
 import nivel1.consumibles.*
+import nivel1.nivel1.*
 import nivel2.balas.*
+import estadosPantalla.*
 
 class Alumno {
   const dineroInicial
@@ -107,6 +109,20 @@ const salva   = new Alumno(imagenMenu = "salvaMenu.gif", imagen = "salva.png", d
 
 object juego {
   var property jugador = lucio
-  var property nivelActual = null
-  var property estadoPantalla = "menu"
+  var property estadoActual = estadoMenu
+  var property nivelActual= nivel1
+  var property puedeReiniciarNivel = false
+
+  method cambiarEstado(nuevoEstado) {
+    estadoActual = nuevoEstado
+    estadoActual.activar()
+  }
+
+   method reiniciarNivel() {
+  if (puedeReiniciarNivel) {
+    puedeReiniciarNivel = false
+    self.jugador().reiniciar()
+    nivelActual.iniciar()
+  }
+}
 }

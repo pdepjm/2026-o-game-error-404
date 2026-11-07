@@ -3,14 +3,14 @@ import wollok.game.*
 import alumno.*
 import interfaz.pantallas.*
 import nivel1.nivel1.*
-
+import estadosPantalla.*
 class Nivel {
 
   method preparar() {
-    self.limpiarEventos()
-    game.clear()
-    juego.nivelActual(self)
-  }
+  self.limpiarEventos()
+  game.clear()
+  juego.nivelActual(self)
+}
 
   method limpiarEventos() {
     self.eventosAEliminar().forEach({ evento =>
@@ -25,14 +25,10 @@ method finalizarCon(pantalla) {
   game.clear()
   game.addVisual(pantalla)
  
+ keyboard.r().onPressDo({
+  juego.jugador().reiniciar()
+  juego.cambiarEstado(estadoMenu)
+})
 
-  keyboard.r().onPressDo({
-      juego.jugador().reiniciar()
-      juego.estadoPantalla("menu")
-      menuPrincipal.mostrar()
-      keyboard.right().onPressDo({ selectorPersonaje.siguiente() })
-     keyboard.left().onPressDo({ selectorPersonaje.anterior() })
-  
-  })
 }
 }

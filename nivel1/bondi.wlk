@@ -3,6 +3,7 @@ import alumno.*
 import nivel1.*
 import nivel2.nivel2.*
 import interfaz.pantallas.*
+import estadosPantalla.*
 
 object bondi {
     const precioBoleto = 670
@@ -19,24 +20,23 @@ object bondi {
 
     const tiempoEsperaTransicion = 1500
 
-    method interactuar(personaje) {
-        if (personaje.subirAlBondi()) {
-            game.say(self, "Te alcanza, subite")
-            game.schedule(tiempoEsperaTransicion, {
-                nivel1.finalizarCon(pantallaGanaste)
-                juego.estadoPantalla("pasarNivel2")
+   method interactuar(personaje) {
+  if (personaje.subirAlBondi()) {
+    game.say(self, "Te alcanza, subite")
 
-                keyboard.enter().onPressDo({
-                    nivel2.iniciar()
-                })
-            })
-        } else {
-            game.say(self, "No llegas, bajate que la gente está yendo al trabajo pibe")
-            game.schedule(tiempoEsperaTransicion, {
-                nivel1.finalizarCon(pantallaSinSaldo)
-                juego.estadoPantalla("volverMenu")
-            })
-        }
-    }
-    
+    game.schedule(tiempoEsperaTransicion, {
+      nivel1.finalizarCon(pantallaGanaste)
+      juego.estadoActual(estadoPasarNivel2)
+      estadoPasarNivel2.activar()
+    })
+
+  } else {
+    game.say(self, "No llegas, bajate que la gente está yendo al trabajo pibe")
+
+    game.schedule(tiempoEsperaTransicion, {
+      nivel1.finalizarCon(pantallaSinSaldo)
+      juego.estadoActual(estadoVolverMenu)
+    })
+  }
+}
 }

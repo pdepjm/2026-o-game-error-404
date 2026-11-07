@@ -2,7 +2,7 @@ import wollok.game.*
 import interfaz.pantallas.*
 import nivel1.nivel1.*
 import alumno.*
-
+import estadosPantalla.*
 object cafe {
   method aplicarEfecto(personaje) {
     personaje.agregarTiempo(5)
@@ -28,7 +28,7 @@ object meterEnCana {
   method aplicarEfecto(personaje) {
     game.schedule(tiempoTransicionPantalla, {
       nivel1.finalizarCon(pantallaPreso)
-      juego.estadoPantalla("volverMenu")
+      juego.estadoActual(estadoMenu)
     })
   }
 }

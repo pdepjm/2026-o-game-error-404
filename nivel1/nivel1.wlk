@@ -10,13 +10,14 @@ import controles.*
 import fases.*
 import claseNivel.*
 import mapaNivel1.*
+import estadosPantalla.*
 
 object nivel1 inherits Nivel() {
 
   var faseActual = faseEsperandoBondi
 
   method iniciar() {
-    juego.estadoPantalla("nivel1")
+    juego.estadoActual(estadoNivel1)
     self.preparar()
     faseActual = faseEsperandoBondi
     
@@ -70,7 +71,7 @@ object nivel1 inherits Nivel() {
 
     game.schedule(1500, {
         self.finalizarCon(pantallaSinTiempo)
-        juego.estadoPantalla("volverMenu")
+        juego.estadoActual(estadoVolverMenu)
     })
 }
 
