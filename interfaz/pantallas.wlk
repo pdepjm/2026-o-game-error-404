@@ -65,10 +65,18 @@ object menuPrincipal {
     game.addVisual(pantallaInicio)
     game.addVisual(previewPersonaje)
 
+  selectorPersonaje.actualizar()
     keyboard.enter().onPressDo({
   juego.cambiarEstado(estadoNivel1)
 })
 
+        keyboard.right().onPressDo({
+            selectorPersonaje.siguiente()
+        })
+
+        keyboard.left().onPressDo({
+            selectorPersonaje.anterior()
+        })
 keyboard.space().onPressDo({
   juego.cambiarEstado(estadoInstrucciones)
 })
@@ -82,9 +90,6 @@ object instrucciones {
 
     keyboard.m().onPressDo({
           juego.cambiarEstado(estadoMenu)
-           keyboard.right().onPressDo({ selectorPersonaje.siguiente() })
-            keyboard.left().onPressDo({ selectorPersonaje.anterior() })
-      
     })
 }
 }

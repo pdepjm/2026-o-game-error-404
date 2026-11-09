@@ -12,11 +12,6 @@ program ElBondi {
     game.width(30)
 
     menuPrincipal.mostrar()
-    
-    keyboard.right().onPressDo({ selectorPersonaje.siguiente() })
-    keyboard.left().onPressDo({ selectorPersonaje.anterior() })
-
-
 
     keyboard.space().onPressDo({
         instrucciones.mostrar()
