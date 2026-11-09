@@ -51,6 +51,12 @@ class Aula {
     metaExamen.position(position)
     game.addVisual(metaExamen)
   }
+
+  method estaAsignada() = true
+}
+
+object sinAula{
+  method estaAsignada() = false
 }
 
 object metaExamen {

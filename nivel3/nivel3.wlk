@@ -16,7 +16,7 @@ object nivel3 inherits Nivel() {
 
   var estado = enCurso
   var tiempo = 50
-  var aulaAsignada = null
+  var aulaAsignada = sinAula
 
   const itemsRecolectados = #{}
   const itemsRequeridos = #{id, dni, hojaFormulas, utiles}
@@ -41,7 +41,7 @@ object nivel3 inherits Nivel() {
     self.preparar()
 
     tiempo = 50
-    aulaAsignada = null
+    aulaAsignada = sinAula
     itemsRecolectados.clear()
 
     const jugador = juego.jugador()
@@ -102,7 +102,7 @@ object nivel3 inherits Nivel() {
   method tiempo() = tiempo
 
   method asignarAula() {
-    if (aulaAsignada == null) {
+    if ( !aulaAsignada.estaAsignada() ) {
       aulaAsignada = aulas.anyOne()
       game.say(juego.jugador(), "¡Te tocó el aula " + aulaAsignada.numero().toString() + "!")
       aulaAsignada.activarMeta()
@@ -110,7 +110,7 @@ object nivel3 inherits Nivel() {
   }
 
   method puedeRendir() =
-    aulaAsignada != null and
+    aulaAsignada.estaAsignada() and
     itemsRequeridos.all({ item =>
       itemsRecolectados.contains(item)
     })
