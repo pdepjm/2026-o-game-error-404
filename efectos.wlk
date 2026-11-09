@@ -2,7 +2,7 @@ import wollok.game.*
 import interfaz.pantallas.*
 import nivel1.nivel1.*
 import alumno.*
-import estadosPantalla.*
+import estados.*
 object cafe {
   method aplicarEfecto(personaje) {
     personaje.agregarTiempo(5)

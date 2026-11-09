@@ -68,3 +68,28 @@ object estadoPasarNivel2 inherits Estado {
     })
   }
 }
+
+object enCurso {
+  method suenioPorSegundo(nivel) {
+    nivel.aumentarSueno()
+  }
+
+  method pasarSegundo(nivel) {
+    nivel.disminuirTiempo()
+  }
+
+  method ganar(nivel) {
+    nivel.ganarEnCurso()
+  }
+
+  method perder(nivel) {
+    nivel.perderEnCurso()
+  }
+}
+
+object finalizado {
+  method suenioPorSegundo(nivel) {}
+  method pasarSegundo(nivel) {}
+  method ganar(nivel) {}
+  method perder(nivel) {}
+}

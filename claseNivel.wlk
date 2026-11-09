@@ -3,7 +3,7 @@ import wollok.game.*
 import alumno.*
 import interfaz.pantallas.*
 import nivel1.nivel1.*
-import estadosPantalla.*
+import estados.*
 class Nivel {
 
   method preparar() {

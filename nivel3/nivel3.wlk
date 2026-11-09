@@ -10,14 +10,14 @@ import consumible.*
 import consumiblesNivel3.*
 import mobsNivel3.*
 import mapaNivel3.*
-import estadosPantalla.*
+import estados.*
 
 object nivel3 inherits Nivel() {
 
-
+  var estado = enCurso
   var tiempo = 50
-  var finalizado = false
   var aulaAsignada = null
+
   const itemsRecolectados = #{}
   const itemsRequeridos = #{id, dni, hojaFormulas, utiles}
 
@@ -27,7 +27,6 @@ object nivel3 inherits Nivel() {
     new Aula(numero = 203, position = game.at(15, 13)),
     new Aula(numero = 204, position = game.at(20, 13)),
     new Aula(numero = 205, position = game.at(24, 13)),
-
     new Aula(numero = 206, position = game.at(5, 2)),
     new Aula(numero = 207, position = game.at(10, 2)),
     new Aula(numero = 208, position = game.at(15, 2)),
@@ -35,53 +34,61 @@ object nivel3 inherits Nivel() {
     new Aula(numero = 210, position = game.at(24, 2))
   ]
 
-  
   method iniciar() {
-  juego.estadoActual(estadoNivel3)
-  self.preparar()
+    estado = enCurso
 
-  tiempo = 50
-  finalizado = false
-  aulaAsignada = null
-  itemsRecolectados.clear()
+    juego.estadoActual(estadoNivel3)
+    self.preparar()
 
-  const jugador = juego.jugador()
-  jugador.position(game.at(1, 7))
+    tiempo = 50
+    aulaAsignada = null
+    itemsRecolectados.clear()
 
-  game.addVisual(pantallaNivel3)
+    const jugador = juego.jugador()
+    jugador.position(game.at(1, 7))
 
-  [jugador, id, dni, hojaFormulas, utiles, bedelia, relojNivel3, ayudante].forEach({ elemento =>
-    game.addVisual(elemento)
-  })
+    game.addVisual(pantallaNivel3)
 
-  controles.keyboardControls(jugador)
+    [
+      jugador, id, dni, hojaFormulas, utiles,
+      bedelia, relojNivel3, ayudante
+    ].forEach({ elemento =>
+      game.addVisual(elemento)
+    })
 
-  game.onCollideDo(jugador, { objetoChocado =>
-    objetoChocado.interactuar(jugador)
-  })
+    controles.keyboardControls(jugador)
 
-  game.onTick(1000, "relojNivel3", {
-    self.pasarSegundo()
-  })
+    game.onCollideDo(jugador, { objetoChocado =>
+      objetoChocado.interactuar(jugador)
+    })
 
-  game.onTick(600, "moverAyudante", {
-    ayudante.perseguirA(jugador)
-  })
-}
- method posicionPermitida(pos) = mapaNivel3.esTransitable(pos)
+    game.onTick(1000, "relojNivel3", {
+      self.pasarSegundo()
+    })
+
+    game.onTick(600, "moverAyudante", {
+      ayudante.perseguirA(jugador)
+    })
+  }
+
+  method posicionPermitida(pos) =
+    mapaNivel3.esTransitable(pos)
 
   method pasarSegundo() {
-    if (not finalizado) {
-      tiempo = (tiempo - 1).max(0)
+    estado.pasarSegundo(self)
+  }
 
-      if (tiempo == 0) {
-        self.perder()
-      }
+  method disminuirTiempo() {
+    tiempo = (tiempo - 1).max(0)
+
+    if (tiempo == 0) {
+      self.perder()
     }
   }
 
   method restarTiempo(segundos) {
     tiempo = (tiempo - segundos).max(0)
+
     if (tiempo == 0) {
       self.perder()
     }
@@ -92,11 +99,10 @@ object nivel3 inherits Nivel() {
   }
 
   method tieneID() = itemsRecolectados.contains(id)
- 
+
   method tiempo() = tiempo
 
- 
-method asignarAula() {
+  method asignarAula() {
     if (aulaAsignada == null) {
       aulaAsignada = aulas.anyOne()
       game.say(juego.jugador(), "¡Te tocó el aula " + aulaAsignada.numero().toString() + "!")
@@ -105,28 +111,36 @@ method asignarAula() {
   }
 
   method puedeRendir() =
-    aulaAsignada != null and itemsRequeridos.all({ item => itemsRecolectados.contains(item) })
+    aulaAsignada != null and
+    itemsRequeridos.all({ item =>
+      itemsRecolectados.contains(item)
+    })
 
   method ganar() {
-    if (not finalizado and self.puedeRendir()) {
-      finalizado = true
+    estado.ganar(self)
+  }
+
+  method ganarEnCurso() {
+    if (self.puedeRendir()) {
+      estado = finalizado
+      self.limpiarEventos()
       self.finalizarCon(pantallaNivel3Completo)
     }
   }
 
+  method perder() {
+    estado.perder(self)
+  }
 
- method perder() {
-  if (not finalizado) {
-    finalizado = true
+  method perderEnCurso() {
+    estado = finalizado
+    self.limpiarEventos()
     self.finalizarCon(pantallaSinTiempo)
+
     juego.estadoActual(estadoVolverMenu)
     juego.puedeReiniciarNivel(true)
-    keyboard.j().onPressDo({
-    juego.puedeReiniciarNivel(false)
-    juego.reiniciarNivel()
-  })
   }
-}
+
   override method eventosAEliminar() = [
     "relojNivel3",
     "moverAyudante"

@@ -10,7 +10,7 @@ import controles.*
 import fases.*
 import claseNivel.*
 import mapaNivel1.*
-import estadosPantalla.*
+import estados.*
 
 object nivel1 inherits Nivel() {
 

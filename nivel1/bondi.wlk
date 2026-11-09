@@ -3,7 +3,7 @@ import alumno.*
 import nivel1.*
 import nivel2.nivel2.*
 import interfaz.pantallas.*
-import estadosPantalla.*
+import estados.*
 
 object bondi {
     const precioBoleto = 670

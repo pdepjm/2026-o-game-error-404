@@ -3,7 +3,7 @@ import nivel1.bondi.*
 import nivel1.consumibles.*
 import nivel1.nivel1.*
 import nivel2.balas.*
-import estadosPantalla.*
+import estados.*
 
 class Alumno {
   const dineroInicial

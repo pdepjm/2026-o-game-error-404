@@ -4,7 +4,7 @@ import mostrables.*
 import nivel1.nivel1.*
 import nivel2.nivel2.*
 import nivel3.nivel3.*
-import estadosPantalla.*
+import estados.*
 
 object selectorPersonaje {
   const personajes = [lucio, lari, salva, alvarez, solci]

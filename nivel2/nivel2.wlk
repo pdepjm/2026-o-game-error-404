@@ -9,28 +9,28 @@ import efectos.*
 import controles.*
 import claseNivel.*
 import nivel3.nivel3.*
-import estadosPantalla.*
-
+import estados.*
 
 object nivel2 inherits Nivel() {
 
-  var finalizado = false
+  var estado = enCurso
 
   method iniciar() {
+    estado = enCurso
 
     juego.estadoActual(estadoNivel2)
     self.preparar()
-    finalizado = false
 
     const jugador = juego.jugador()
     jugador.position(game.at(1, 7))
 
     game.addVisual(pantallaNivel2)
     game.addVisual(jugador)
-    [ 
-      pasajeroDormido, pasajeroPesado, pasajeroMochila,monster,
+
+    [
+      pasajeroDormido, pasajeroPesado, pasajeroMochila, monster,
       gomitas, gomitas2, nube1, nube2, nube3, exclamacion, suenoVisual
-     ].forEach({ elemento => game.addVisual(elemento)})
+    ].forEach({ elemento => game.addVisual(elemento) })
 
     game.onTick(200, "moverPasajeros", {
       pasajeroDormido.moverse(4, 10)
@@ -38,7 +38,6 @@ object nivel2 inherits Nivel() {
       pasajeroMochila.moverse(4, 10)
     })
 
-    
     game.onTick(100, "moverNubes", {
       nube1.moverse()
       nube2.moverse()
@@ -62,13 +61,15 @@ object nivel2 inherits Nivel() {
   }
 
   method suenioPorSegundo() {
-    if (not finalizado) {
-      const jugador = juego.jugador()
-      jugador.aumentarSueno(1)
+    estado.suenioPorSegundo(self)
+  }
 
-      if (jugador.sueno() >= 50) {
-        self.perder("¡Te quedaste dormido!")
-      }
+  method aumentarSueno() {
+    const jugador = juego.jugador()
+    jugador.aumentarSueno(1)
+
+    if (jugador.sueno() >= 50) {
+      self.perder()
     }
   }
 
@@ -76,33 +77,36 @@ object nivel2 inherits Nivel() {
     pos.x().between(1, 28) and
     pos.y().between(4, 11)
 
-method ganar() {
-  if (not finalizado) {
+  method ganar() {
+    estado.ganar(self)
+  }
+
+  method ganarEnCurso() {
     const jugador = juego.jugador()
 
     if (jugador.sueno() < 50) {
-      finalizado = true
+      estado = finalizado
       self.limpiarEventos()
       juego.cambiarEstado(estadoPasarNivel3)
-    } else {
-      self.perder("¡Te quedaste dormido!")
+    }
+
+    if (jugador.sueno() >= 50) {
+      self.perder()
     }
   }
-}
-method perder(mensaje) {
-  if (not finalizado) {
-    finalizado = true
+
+  method perder() {
+    estado.perder(self)
+  }
+
+  method perderEnCurso() {
+    estado = finalizado
     self.limpiarEventos()
     self.finalizarCon(pantallaDormiste)
 
     juego.estadoActual(estadoVolverMenu)
     juego.puedeReiniciarNivel(true)
-    keyboard.j().onPressDo({
-    juego.puedeReiniciarNivel(false)
-    juego.reiniciarNivel()
-  })
   }
-}
 
   override method eventosAEliminar() = [
     "suenoReloj",
@@ -110,4 +114,3 @@ method perder(mensaje) {
     "moverPasajeros"
   ]
 }
-
