@@ -27,4 +27,10 @@ object ayudante {
         position = mejorDireccion.siguientePosicion(position)
     }
 }
+
+    method interactuar(personaje) {
+    game.say(self, "¡Llegás tarde al parcial!")
+    nivel3.restarTiempo(5)
+    position = game.at(24, 7)
+  }
 }
