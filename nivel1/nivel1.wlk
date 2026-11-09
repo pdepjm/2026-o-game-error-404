@@ -33,7 +33,7 @@ object nivel1 inherits Nivel() {
 ].forEach({ elemento => game.addVisual(elemento)
 })
    
-    controles.keyboardControls(jugadorElegido)
+  
 
     game.onCollideDo(jugadorElegido, {
       objetoChocado =>

@@ -56,7 +56,6 @@ object nivel3 inherits Nivel() {
       game.addVisual(elemento)
     })
 
-    controles.keyboardControls(jugador)
 
     game.onCollideDo(jugador, { objetoChocado =>
       objetoChocado.interactuar(jugador)

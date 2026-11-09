@@ -4,12 +4,14 @@ import alumno.*
 import interfaz.pantallas.*
 import nivel1.nivel1.*
 import estados.*
+import controles.*
 class Nivel {
 
   method preparar() {
   self.limpiarEventos()
   game.clear()
   juego.nivelActual(self)
+  controles.keyboardControls(juego.jugador())
 }
 
   method limpiarEventos() {

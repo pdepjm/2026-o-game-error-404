@@ -44,7 +44,6 @@ object nivel2 inherits Nivel() {
       nube3.moverse()
     })
 
-    controles.keyboardControls(jugador)
 
     keyboard.f().onPressDo({
       jugador.disparar()
