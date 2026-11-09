@@ -31,10 +31,12 @@ describe "Alumno y sus Consumibles" {
     }
 
     test "Si no tiene saldo suficiente no puede subir al bondi" {
-        const alumnoPrueba = new Alumno(imagenMenu = "_", imagen = "_", dineroInicial = 100, tiempoInicial = 60, danoAlumno = 60)
+    const alumnoPrueba = new Alumno(imagenMenu = "_", imagen = "_", dineroInicial = 100, tiempoInicial = 60, danoAlumno = 60)
 
-        alumnoPrueba.asignarSube(conSube)
-        assert.notThat(alumnoPrueba.subirAlBondi())
+    conSube.saldo(0)
+    alumnoPrueba.asignarSube(conSube)
+
+    assert.notThat(alumnoPrueba.subirAlBondi())
     }
 
     test "Si tiene saldo suficiente puede subir al bondi" {
