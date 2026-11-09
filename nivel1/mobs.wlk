@@ -34,10 +34,12 @@ class MobEnMovimiento inherits Mob {
         }
     }
 
-    method moverse() {
-        self.cambiarSentido()
-        position = direccion.siguientePosicion(position)
+   method moverse() {
+    if (direccion.llegoAlLimite(position, limiteMinimo, limiteMaximo)) {
+        direccion = direccion.opuesta()
     }
+    position = direccion.siguientePosicion(position)
+}
 }
 
 object fisura inherits MobEnMovimiento(
