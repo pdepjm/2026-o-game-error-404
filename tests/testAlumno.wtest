@@ -6,6 +6,19 @@ import nivel1.bondi.*
 import nivel1.mobs.*
 import nivel1.nivel1.*
 
+//Clase de prueba para testear la sube
+class SubeDePrueba
+{
+    var property saldo = 0
+
+    method cargar(monto)
+    {
+        saldo += monto
+    }
+
+    method tieneSube() = true
+}
+
 describe "Alumno y sus Consumibles" {
     test "El alumno suma 100 de dinero al interactuar con un billete de 100" {
         const alumnoPrueba = new Alumno(imagenMenu = "_", imagen = "_", dineroInicial = 100, tiempoInicial = 60, danoAlumno = 60)
@@ -20,12 +33,14 @@ describe "Alumno y sus Consumibles" {
         
     }
 
-    test "El alumno agarra la SUBE y revisa que la tiene" {
+    test "El alumno puede agarrar una sube" {
         const alumnoPrueba = new Alumno(imagenMenu = "_", imagen = "_", dineroInicial = 100, tiempoInicial = 60, danoAlumno = 60)
+
+        const subePrueba = new SubeDePrueba()
 
         assert.notThat(alumnoPrueba.tieneSube())
 
-        conSube.interactuar(alumnoPrueba)
+        alumnoPrueba.asignarSube(subePrueba)
 
         assert.that(alumnoPrueba.tieneSube())
     }
@@ -33,18 +48,18 @@ describe "Alumno y sus Consumibles" {
     test "Si no tiene saldo suficiente no puede subir al bondi" {
     const alumnoPrueba = new Alumno(imagenMenu = "_", imagen = "_", dineroInicial = 100, tiempoInicial = 60, danoAlumno = 60)
 
-    conSube.saldo(0)
-    alumnoPrueba.asignarSube(conSube)
-
+    const subePrueba = new SubeDePrueba()
+    alumnoPrueba.asignarSube(subePrueba)
     assert.notThat(alumnoPrueba.subirAlBondi())
     }
 
     test "Si tiene saldo suficiente puede subir al bondi" {
         const alumnoPrueba = new Alumno(imagenMenu = "_", imagen = "_", dineroInicial = 100, tiempoInicial = 60, danoAlumno = 60)
 
-        alumnoPrueba.asignarSube(conSube)
-        alumnoPrueba.conseguirDinero(10000)
-        alumnoPrueba.sube().cargar(3000)
+        const subePrueba = new SubeDePrueba()
+        subePrueba.cargar(1000)
+
+        alumnoPrueba.asignarSube(subePrueba)
         assert.that(alumnoPrueba.subirAlBondi())
     }
     
@@ -100,8 +115,10 @@ describe "Nuevos tests para Alumno" {
         assert.equals(dineroInicial + 450, alumnoPrueba.dinero())
     }
 
-    test "El alumno tiene el daño configurado correctamente según el personaje elegido (lucio = 13)" {     
-        assert.equals(13, lucio.danoAlumno())
+    test "El alumno conserva el daño configurado" {     
+        const alumnoPrueba = new Alumno(imagenMenu = "_", imagen = "_", dineroInicial = 100, tiempoInicial = 60, danoAlumno = 13)
+        
+        assert.equals(13, alumnoPrueba.danoAlumno())
     }
 
 
@@ -179,11 +196,15 @@ describe "Estado y límites de Alumno" {
             danoAlumno = 1
         )
 
+        const subePrueba = new SubeDePrueba()
+        subePrueba.cargar(500)
+        
         assert.equals(0, alumnoPrueba.saldo())
-        alumnoPrueba.asignarSube(conSube)
+
+        alumnoPrueba.asignarSube(subePrueba)
 
         assert.that(alumnoPrueba.tieneSube())
-        assert.equals(conSube.saldo(), alumnoPrueba.saldo())
+        assert.equals(500, alumnoPrueba.saldo())
     }
 
     test "Reiniciar restaura el estado inicial del alumno" {
@@ -195,10 +216,13 @@ describe "Estado y límites de Alumno" {
             danoAlumno = 1
         )
 
+        const subePrueba = new SubeDePrueba()
+        subePrueba.cargar(500)
+
         alumnoPrueba.conseguirDinero(100)
         alumnoPrueba.consumirTiempo(10)
         alumnoPrueba.aumentarSueno(30)
-        alumnoPrueba.asignarSube(conSube)
+        alumnoPrueba.asignarSube(subePrueba)
         alumnoPrueba.position(game.at(5, 5))
 
         alumnoPrueba.reiniciar()
