@@ -7,25 +7,24 @@ object ayudante {
   var property position = game.at(24, 7)
   method image() = "ayudante.png"
 
+  method distanciaEntre(posicion, destino) =
+    (posicion.x() - destino.x()).abs() +
+    (posicion.y() - destino.y()).abs()
+
   method perseguirA(alumno) {
     const destino = alumno.position()
+    const direcciones = [derecha, izquierda, arriba, abajo]
 
-    if (destino.x() > position.x() and mapaNivel3.esTransitable(derecha.siguientePosicion(position))) {
-      position = derecha.siguientePosicion(position)
-    } else if (destino.x() < position.x() and mapaNivel3.esTransitable(izquierda.siguientePosicion(position))) {
-      position = izquierda.siguientePosicion(position)
+    const direccionesPosibles = direcciones.filter({ direccion =>
+        mapaNivel3.esTransitable(direccion.siguientePosicion(position))
+    })
+
+    if (direccionesPosibles.size() > 0) {
+        const mejorDireccion = direccionesPosibles.min({ direccion =>
+            self.distanciaEntre(direccion.siguientePosicion(position), destino)
+        })
+
+        position = mejorDireccion.siguientePosicion(position)
     }
-
-    if (destino.y() > position.y() and mapaNivel3.esTransitable(arriba.siguientePosicion(position))) {
-      position = arriba.siguientePosicion(position)
-    } else if (destino.y() < position.y() and mapaNivel3.esTransitable(abajo.siguientePosicion(position))) {
-      position = abajo.siguientePosicion(position)
-    }
-  }
-
-  method interactuar(personaje) {
-    game.say(self, "¡Llegás tarde al parcial!")
-    nivel3.restarTiempo(5)
-    position = game.at(24, 7)
-  }
+}
 }
