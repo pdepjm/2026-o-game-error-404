@@ -25,19 +25,18 @@ class MobEnMovimiento inherits Mob {
     method coordenadaActual()
     method direccionHaciaMaximo()
     method direccionHaciaMinimo()
-
-    method cambiarSentido() {
-        if (self.coordenadaActual() >= limiteMaximo and direccion == self.direccionHaciaMaximo()) {
-            direccion = direccion.opuesta()
-        } else if (self.coordenadaActual() <= limiteMinimo and direccion == self.direccionHaciaMinimo()) {
-            direccion = direccion.opuesta()
-        }
-    }
-
-   method moverse() {
-    if (direccion.llegoAlLimite(position, limiteMinimo, limiteMaximo)) {
+method cambiarSentido() {
+    if (direccion.llegoAlLimite(
+        self.coordenadaActual(),
+        limiteMinimo,
+        limiteMaximo
+    )) {
         direccion = direccion.opuesta()
     }
+}
+
+method moverse() {
+    self.cambiarSentido()
     position = direccion.siguientePosicion(position)
 }
 }
