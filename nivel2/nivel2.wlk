@@ -32,7 +32,7 @@ object nivel2 inherits Nivel() {
       gomitas, gomitas2, nube1, nube2, nube3, exclamacion, suenoVisual
     ].forEach({ elemento => game.addVisual(elemento) })
 
-    game.onTick(200, "moverPasajeros", {
+    game.onTick(300, "moverPasajeros", {
       pasajeroDormido.moverse(4, 10)
       pasajeroPesado.moverse(4, 10)
       pasajeroMochila.moverse(4, 10)
@@ -101,7 +101,7 @@ object nivel2 inherits Nivel() {
   method perderEnCurso() {
     estado = finalizado
     self.limpiarEventos()
-    self.finalizarCon(pantallaDormiste)
+    self.finalizarCon(pantallaDormido)
 
     juego.estadoActual(estadoVolverMenu)
     juego.puedeReiniciarNivel(true)

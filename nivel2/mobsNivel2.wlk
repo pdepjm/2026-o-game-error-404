@@ -15,13 +15,13 @@ class Pasajero {
 
     method image() = imagen
 
-   method moverse(limiteInferior, limiteSuperior) {
-    if (direccion.llegoAlLimite(position, limiteInferior, limiteSuperior)) {
+  method moverse(limiteInferior, limiteSuperior) {
+    if (direccion.llegoAlLimite(position.y(), limiteInferior, limiteSuperior)) {
         direccion = direccion.opuesta()
     }
 
     position = direccion.siguientePosicion(position)
-    }
+}
     method interactuar(personaje)
     {
         game.say(self, mensaje)

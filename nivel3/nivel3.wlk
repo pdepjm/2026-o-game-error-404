@@ -134,7 +134,7 @@ object nivel3 inherits Nivel() {
   method perderEnCurso() {
     estado = finalizado
     self.limpiarEventos()
-    self.finalizarCon(pantallaSinTiempo)
+    self.finalizarCon(pantallaSinTiempo3)
 
     juego.estadoActual(estadoVolverMenu)
     juego.puedeReiniciarNivel(true)
