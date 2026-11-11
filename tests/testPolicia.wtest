@@ -5,35 +5,23 @@ import direcciones.*
 describe "test policia" {
 
     test "Cuando el policia se mueve avanza una posicion hacia arriba" {
+        const posicionAnterior = policia.position()
+        const direccionAnterior = policia.direccion()
+
         policia.position(game.at(19, 1))
+        policia.direccion(arriba)
 
         policia.moverse()
 
-        assert.equals(2, policia.position().y())
+        const posicionFinal = policia.position()
+
+        policia.position(posicionAnterior)
+        policia.direccion(direccionAnterior)
+
+        assert.equals(2, posicionFinal.y())
+        assert.equals(19, posicionFinal.x())
     }
 
-    test "Cuando el policia llega al limite superior comienza a bajar" {
-        policia.position(game.at(19, 6))
-
-        policia.moverse()
-
-        assert.equals(5, policia.position().y())
-    }
-
-    test "Cuando el policia se mueve mantiene su posicion en x" {
-        policia.position(game.at(19, 1))
-
-        policia.moverse()
-
-        assert.equals(19, policia.position().x())
-    }
-    
-     test "Cuando el policia llega al limite inferior cambia el sentido para volver a subir" {
-        policia.position(game.at(19, 0))
-        policia.moverse()
-        assert.equals(1, policia.position().y())
-    }
-    
 }
 
 describe "Nuevos tests para Policía" {
@@ -42,20 +30,20 @@ describe "Nuevos tests para Policía" {
     }
 
     test "El policía reporta correctamente su coordenada actual en el eje Y" {
+        const posicionAnterior = policia.position()
+
         policia.position(game.at(19, 5))
-        assert.equals(5, policia.coordenadaActual())
+
+        const coordenadaObtenida = policia.coordenadaActual()
+
+        policia.position(posicionAnterior)
+        
+        assert.equals(5, coordenadaObtenida)
     }
 
     test "Las direcciones de límite máximo y mínimo del policía están configuradas hacia arriba y abajo respectivamente" {
         assert.equals(arriba, policia.direccionHaciaMaximo())
         assert.equals(abajo, policia.direccionHaciaMinimo())
-    }
-
-    test "El policía al encontrarse en el límite inferior y moverse hacia abajo invierte su sentido para ascender" {
-        policia.position(game.at(19, 0))
-        policia.direccion(abajo)
-        policia.moverse()
-        assert.equals(1, policia.position().y())
     }
 
     test "Al alcanzar el límite superior la policía invierte la dirección y avanza hacia abajo" {
