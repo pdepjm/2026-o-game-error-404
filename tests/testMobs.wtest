@@ -11,33 +11,20 @@ import nivel2.nivel2.*
 import nivel3.mobsNivel3.*
 import nivel3.nivel3.*
 
-describe "Mobs y la interacción con alumno" {
-    test "Cuando el fisura choca con el alumno le saca 15 de tiempo y la mitad de la plata" {
-        lucio.conseguirDinero(500 - lucio.dinero())
-        if (lucio.tiempo() < 50) {
-            lucio.agregarTiempo(50 - lucio.tiempo())
-        } else if (lucio.tiempo() > 50) {
-            lucio.consumirTiempo(lucio.tiempo() - 50)
-        }
-        
-        fisura.interactuar(lucio)
+class SubeDePrueba
+{
+    var property saldo = 0
 
-        assert.equals(250, lucio.dinero())
-        assert.equals(35, lucio.tiempo())
+    method cargar(monto)
+    {
+        saldo += monto
     }
 
-    test "Cuando el vecino choca con el alumno le suma 5 de tiempo" {
-        if (lucio.tiempo() < 50) {
-            lucio.agregarTiempo(50 - lucio.tiempo())
-        } else if (lucio.tiempo() > 50) {
-            lucio.consumirTiempo(lucio.tiempo() - 50)
-        }
-        
-        vecino.interactuar(lucio)
+    method tieneSube() = true
 
-        assert.equals(55, lucio.tiempo())
-    }
+}
 
+describe "Mobs, sus comportamientos y la interacción con alumno" {
     test "El fisura se mueve hacia la derecha en su rango" {
         fisura.position(game.at(7, 10))
         fisura.direccion(derecha)
@@ -51,46 +38,47 @@ describe "Mobs y la interacción con alumno" {
         assert.equals(11, fisura.position().x())
     }
 
-    test "El kiosco le carga SUBE al alumno si tiene mas de 500 de dinero" {
-        lucio.asignarSube(conSube)
-        lucio.conseguirDinero(1000 - lucio.dinero())
-        const saldoAnterior = lucio.saldo()
-        kiosco.interactuar(lucio)
-        assert.equals(saldoAnterior + 500, lucio.saldo())
-        assert.equals(500, lucio.dinero())
-    }
 }
 
 describe "Nuevos tests para Mobs y Consumibles de Nivel 1" {
     test "El billete de 500 incrementa el dinero del alumno en 500 unidades" {
-        const dineroAntes = lucio.dinero()
-        billete500.interactuar(lucio)
-        assert.equals(dineroAntes + 500, lucio.dinero())
+        const alumnoPrueba = new Alumno(imagenMenu = "_", imagen = "_", dineroInicial = 100, tiempoInicial = 60, danoAlumno = 1)
+        
+        billete500.interactuar(alumnoPrueba)
+        assert.equals(600, alumnoPrueba.dinero())
     }
 
-    test "El auto rojo se desplaza horizontalmente y reinicia su posición a 0 al llegar al ancho del juego" {
-        autoRojo.position(game.at(game.width() - 1, 8))
-        autoRojo.moverse()
-        assert.equals(0, autoRojo.position().x())
+    test "El auto vuelve al inicio cunado llega al limite del juego" {
+        const autoPrueba = new Auto(position = game.at(game.width() - 1, 8), carrilY = 8, image = "rojo.png")
+
+        autoPrueba.moverse()
+
+        assert.equals(0, autoPrueba.position().x())
+        assert.equals(8, autoPrueba.position().y())
     }
 
     test "El kiosco no realiza la recarga de SUBE si el alumno no posee una tarjeta asignada" {
-        lucio.asignarSube(sinSube)
-        lucio.conseguirDinero(1000 - lucio.dinero())
-        const dineroAntes = lucio.dinero()
-        kiosco.interactuar(lucio)
-        assert.notThat(lucio.tieneSube())
-        assert.equals(dineroAntes, lucio.dinero())
+        const alumnoPrueba = new Alumno(imagenMenu = "_", imagen = "_", dineroInicial = 1000, tiempoInicial = 60, danoAlumno = 1)
+
+        assert.notThat(alumnoPrueba.tieneSube())
+
+        kiosco.interactuar(alumnoPrueba)
+        assert.notThat(alumnoPrueba.tieneSube())
+        assert.equals(1000, alumnoPrueba.dinero())
     }
 
     test "El kiosco no recarga la SUBE si el alumno tiene la tarjeta pero menos de 500 de dinero" {
-        lucio.asignarSube(conSube)
-        lucio.pierdeDinero(lucio.dinero())
-        lucio.conseguirDinero(150) // Menor a 500
-        const saldoAnterior = lucio.saldo()
-        kiosco.interactuar(lucio)
-        assert.equals(saldoAnterior, lucio.saldo())
-        assert.equals(150, lucio.dinero())
+        const alumnoPrueba = new Alumno(imagenMenu = "_", imagen = "_", dineroInicial = 150, tiempoInicial = 60, danoAlumno = 1)
+        
+        const subePrueba = new SubeDePrueba()
+        subePrueba.cargar(100)
+
+        alumnoPrueba.asignarSube(subePrueba)
+
+        kiosco.interactuar(alumnoPrueba)
+
+        assert.equals(150, alumnoPrueba.dinero())
+        assert.equals(100, alumnoPrueba.saldo())
     }
 
 }
@@ -133,8 +121,9 @@ describe "Mobs de Nivel 1 con alumnos independientes" {
             tiempoInicial = 20,
             danoAlumno = 1
         )
-        alumnoPrueba.asignarSube(conSube)
-        alumnoPrueba.sube().saldo(100)
+        const subePrueba = new SubeDePrueba()
+        subePrueba.cargar(100)
+        alumnoPrueba.asignarSube(subePrueba)
 
         kiosco.interactuar(alumnoPrueba)
 
@@ -181,18 +170,16 @@ describe "Mobs de Nivel 1 con alumnos independientes" {
 
 describe "Mobs de los niveles siguientes" {
     test "La nube baja y vuelve a aparecer en la parte superior de su recorrido" {
-        const posicionInicial = nube1.position()
-        nube1.position(game.at(8, 6))
+        const nubePrueba = new NubeSueno(position = game.at(8, 6))
 
-        nube1.moverse()
-        const posicionLuegoDeBajar = nube1.position()
+        nubePrueba.moverse()
+        const posicionDespuesDeBajar = nubePrueba.position()
 
-        nube1.moverse()
-        const posicionLuegoDeReaparecer = nube1.position()
-        nube1.position(posicionInicial)
+        nubePrueba.moverse()
+        const posicionDespuesDeReaparecer = nubePrueba.position()
 
-        assert.equals(5, posicionLuegoDeBajar.y())
-        assert.equals(11, posicionLuegoDeReaparecer.y())
+        assert.equals(5, posicionDespuesDeBajar.y())
+        assert.equals(11, posicionDespuesDeReaparecer.y())
     }
 
     test "La nube aumenta el sueño del alumno" {
@@ -204,7 +191,9 @@ describe "Mobs de los niveles siguientes" {
             danoAlumno = 1
         )
 
-        nube1.interactuar(alumnoPrueba)
+        const nubePrueba = new NubeSueno(position = game.at(8, 5))
+
+        nubePrueba.interactuar(alumnoPrueba)
 
         assert.equals(25, alumnoPrueba.sueno())
     }
