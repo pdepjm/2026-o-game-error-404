@@ -5,6 +5,7 @@ import interfaz.pantallas.*
 import nivel1.nivel1.*
 import estados.*
 import controles.*
+import sonidos.*
 class Nivel {
 
   method preparar() {
@@ -22,15 +23,17 @@ class Nivel {
 
   method eventosAEliminar() = []
 
-method finalizarCon(pantalla) {
-  self.limpiarEventos()
-  game.clear()
-  game.addVisual(pantalla)
- 
- keyboard.r().onPressDo({
-  juego.jugador().reiniciar()
-  juego.cambiarEstado(estadoMenu)
-})
 
+method finalizarCon(pantalla) {
+    self.limpiarEventos()
+    sonidos.detenerMusica()
+    game.clear()
+    game.addVisual(pantalla)
+
+    keyboard.r().onPressDo({
+        juego.jugador().reiniciar()
+        juego.cambiarEstado(estadoMenu)
+    })
 }
+
 }

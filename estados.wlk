@@ -63,7 +63,6 @@ object estadoPasarNivel2 inherits Estado {
   override method activar() {
     game.clear()
     game.addVisual(pantallaGanaste)
-
     keyboard.enter().onPressDo({
       juego.cambiarEstado(estadoNivel2)
     })

@@ -29,8 +29,8 @@ object nivel2 inherits Nivel() {
     game.addVisual(jugador)
 
     [
-      pasajeroDormido, pasajeroPesado, pasajeroMochila, monster,
-      gomitas, gomitas2, nube1, nube2, nube3, exclamacion, suenoVisual
+      pasajeroDormido, pasajeroPesado, pasajeroMochila, monster, cancion,
+      gomitas,nube1, nube2, nube3, exclamacion, suenoVisual
     ].forEach({ elemento => game.addVisual(elemento) })
 
     game.onTick(300, "moverPasajeros", {
@@ -86,6 +86,7 @@ object nivel2 inherits Nivel() {
 
     if (jugador.sueno() < 50) {
       estado = finalizado
+     
       self.limpiarEventos()
       sonidos.ganar()
       juego.cambiarEstado(estadoPasarNivel3)
@@ -102,10 +103,12 @@ object nivel2 inherits Nivel() {
 
   method perderEnCurso() {
     estado = finalizado
+    
     self.limpiarEventos()
-    sonidos.perder()
+    sonidos.detenerMusica()
     self.finalizarCon(pantallaDormido)
-
+    sonidos.perder()
+   
     juego.estadoActual(estadoVolverMenu)
     juego.puedeReiniciarNivel(true)
   }
