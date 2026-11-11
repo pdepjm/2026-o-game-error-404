@@ -11,6 +11,7 @@ import consumiblesNivel3.*
 import mobsNivel3.*
 import mapaNivel3.*
 import estados.*
+import sonidos.*
 
 object nivel3 inherits Nivel() {
 
@@ -123,6 +124,7 @@ object nivel3 inherits Nivel() {
     if (self.puedeRendir()) {
       estado = finalizado
       self.limpiarEventos()
+      sonidos.ganar()
       self.finalizarCon(pantallaNivel3Completo)
     }
   }
@@ -134,6 +136,7 @@ object nivel3 inherits Nivel() {
   method perderEnCurso() {
     estado = finalizado
     self.limpiarEventos()
+    sonidos.perder()
     self.finalizarCon(pantallaSinTiempo3)
 
     juego.estadoActual(estadoVolverMenu)

@@ -4,7 +4,7 @@ import nivel1.*
 import nivel2.nivel2.*
 import interfaz.pantallas.*
 import estados.*
-
+import sonidos.*
 object bondi {
     const precioBoleto = 670
 
@@ -25,6 +25,7 @@ object bondi {
     game.say(self, "Te alcanza, subite")
 
     game.schedule(tiempoEsperaTransicion, {
+       sonidos.ganar()
       nivel1.finalizarCon(pantallaGanaste)
       juego.estadoActual(estadoPasarNivel2)
       estadoPasarNivel2.activar()
@@ -34,6 +35,7 @@ object bondi {
     game.say(self, "No llegas, bajate que la gente está yendo al trabajo pibe")
 
     game.schedule(tiempoEsperaTransicion, {
+      sonidos.perder()
       nivel1.finalizarCon(pantallaSinSaldo)
       juego.estadoActual(estadoVolverMenu)
     })

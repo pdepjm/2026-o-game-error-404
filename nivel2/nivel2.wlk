@@ -10,6 +10,7 @@ import controles.*
 import claseNivel.*
 import nivel3.nivel3.*
 import estados.*
+import sonidos.*
 
 object nivel2 inherits Nivel() {
 
@@ -86,6 +87,7 @@ object nivel2 inherits Nivel() {
     if (jugador.sueno() < 50) {
       estado = finalizado
       self.limpiarEventos()
+      sonidos.ganar()
       juego.cambiarEstado(estadoPasarNivel3)
     }
 
@@ -101,6 +103,7 @@ object nivel2 inherits Nivel() {
   method perderEnCurso() {
     estado = finalizado
     self.limpiarEventos()
+    sonidos.perder()
     self.finalizarCon(pantallaDormido)
 
     juego.estadoActual(estadoVolverMenu)

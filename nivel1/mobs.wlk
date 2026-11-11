@@ -1,6 +1,7 @@
 import wollok.game.*
 import efectos.*
 import direcciones.*
+import sonidos.*
 
 class Mob{
     var property position
@@ -73,6 +74,7 @@ object policia inherits MobEnMovimiento(
 
     override method leDaEfecto(personaje) {
         meterEnCana.aplicarEfecto(personaje)
+         sonidos.perder()
     }
 }
 

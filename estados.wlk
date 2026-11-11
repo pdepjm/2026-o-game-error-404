@@ -4,6 +4,7 @@ import interfaz.pantallas.*
 import nivel1.nivel1.*
 import nivel2.nivel2.*
 import nivel3.nivel3.*
+import sonidos.*
 
 class Estado {
   method activar() {}

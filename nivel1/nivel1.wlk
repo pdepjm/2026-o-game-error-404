@@ -11,7 +11,7 @@ import fases.*
 import claseNivel.*
 import mapaNivel1.*
 import estados.*
-
+import sonidos.*
 object nivel1 inherits Nivel() {
 
   var faseActual = faseEsperandoBondi
@@ -70,6 +70,7 @@ object nivel1 inherits Nivel() {
     game.say(juego.jugador(), "Uh la pucha, se me fue el bondi")
 
     game.schedule(1500, {
+        sonidos.perder()
         self.finalizarCon(pantallaSinTiempo)
         juego.estadoActual(estadoVolverMenu)
     })
