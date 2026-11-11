@@ -6,4 +6,8 @@ object sonidos {
     method perder() {
         game.sound("perder.mp3").play()
     }
+
+    method bala() {
+        game.sound("bala.mp3").play()
+    }
 }

@@ -1,4 +1,5 @@
 import wollok.game.*
+import sonidos.*
 
 class Bala {
   var property position
@@ -9,6 +10,7 @@ class Bala {
 
   method disparar() {
     game.addVisual(self)
+    sonidos.bala()
     game.onCollideDo(self, { objetoChocado => self.impactar(objetoChocado)})
     self.avanzar()
   }
