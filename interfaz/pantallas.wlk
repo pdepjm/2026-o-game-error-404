@@ -32,7 +32,7 @@ object selectorPersonaje {
 class Pantalla {
     var property image
     var property position = game.at(0, 0)
-    method recibirDano(cantidad) {}
+    method recibirDano(cantidad) {} //esta para que no rompa el juego, ya que las pantallas no pueden recibir daño
 }
 
 object fondoMapa {

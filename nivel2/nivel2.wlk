@@ -89,6 +89,7 @@ object nivel2 inherits Nivel() {
      
       self.limpiarEventos()
       sonidos.ganar()
+      sonidos.detenerMusica()
       juego.cambiarEstado(estadoPasarNivel3)
     }
 
