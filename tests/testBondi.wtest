@@ -1,0 +1,51 @@
+import alumno.*
+import efectos.*
+import nivel1.consumibles.*
+import nivel1.bondi.*
+import nivel1.mobs.*
+import nivel1.nivel1.*
+import nivel1.fases.*
+
+describe "Bondi y su funcionamiento" {
+    //test "Cuando el tiempo llega a 0 el bondi spawnea" {
+    //    juego.jugador(pinguino)
+    //    pinguino.consumirTiempo(pinguino.tiempo() - 1)
+    //    assert.notThat(nivel1.llegoBondi())
+
+    //    nivel1.pasarSegundo()
+    //    assert.that(nivel1.llegoBondi())
+    //}
+
+    test "El precio del boleto del bondi es 670" {
+        assert.equals(670, bondi.precioBoleto())
+    }
+
+    test "El bondi aparece en la posicion esperada x=20 y=0" {
+        assert.equals(20, bondi.position().x())
+        assert.equals(0, bondi.position().y())
+    }
+
+    test "El bondi muestra su imagen" {
+        assert.equals("bondi.png", bondi.image())
+    }
+
+    test "Cuando aparece agrega 15 segundos al jugador" {
+        const jugadorAnterior = juego.jugador()
+        const alumnoPrueba = new Alumno(
+            imagenMenu = "menu.png",
+            imagen = "juego.png",
+            dineroInicial = 0,
+            tiempoInicial = 10,
+            danoAlumno = 1
+        )
+        juego.jugador(alumnoPrueba)
+
+        bondi.aparecer()
+
+        const tiempoLuegoDeAparecer = alumnoPrueba.tiempo()
+        juego.jugador(jugadorAnterior)
+        game.removeVisual(bondi)
+
+        assert.equals(25, tiempoLuegoDeAparecer)
+    }
+}

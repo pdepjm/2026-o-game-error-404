@@ -1,0 +1,82 @@
+import wollok.game.*
+import nivel1.mobs.*
+import direcciones.*
+
+describe "test policia" {
+
+    test "Cuando el policia se mueve avanza una posicion hacia arriba" {
+        const posicionAnterior = policia.position()
+        const direccionAnterior = policia.direccion()
+
+        policia.position(game.at(19, 1))
+        policia.direccion(arriba)
+
+        policia.moverse()
+
+        const posicionFinal = policia.position()
+
+        policia.position(posicionAnterior)
+        policia.direccion(direccionAnterior)
+
+        assert.equals(2, posicionFinal.y())
+        assert.equals(19, posicionFinal.x())
+    }
+
+}
+
+describe "Nuevos tests para Policía" {
+    test "La imagen asignada a la entidad policía es 'policia.png'" {
+        assert.equals("policia.png", policia.image())
+    }
+
+    test "El policía reporta correctamente su coordenada actual en el eje Y" {
+        const posicionAnterior = policia.position()
+
+        policia.position(game.at(19, 5))
+
+        const coordenadaObtenida = policia.coordenadaActual()
+
+        policia.position(posicionAnterior)
+        
+        assert.equals(5, coordenadaObtenida)
+    }
+
+    test "Las direcciones de límite máximo y mínimo del policía están configuradas hacia arriba y abajo respectivamente" {
+        assert.equals(arriba, policia.direccionHaciaMaximo())
+        assert.equals(abajo, policia.direccionHaciaMinimo())
+    }
+
+    test "Al alcanzar el límite superior la policía invierte la dirección y avanza hacia abajo" {
+        const posicionAnterior = policia.position()
+        const direccionAnterior = policia.direccion()
+        policia.position(game.at(19, 6))
+        policia.direccion(arriba)
+
+        policia.moverse()
+
+        const posicionLuegoDeMoverse = policia.position()
+        const direccionLuegoDeMoverse = policia.direccion()
+        policia.position(posicionAnterior)
+        policia.direccion(direccionAnterior)
+
+        assert.equals(5, posicionLuegoDeMoverse.y())
+        assert.equals(abajo, direccionLuegoDeMoverse)
+    }
+
+    test "Al alcanzar el límite inferior la policía invierte la dirección y avanza hacia arriba" {
+        const posicionAnterior = policia.position()
+        const direccionAnterior = policia.direccion()
+        policia.position(game.at(19, 0))
+        policia.direccion(abajo)
+
+        policia.moverse()
+
+        const posicionLuegoDeMoverse = policia.position()
+        const direccionLuegoDeMoverse = policia.direccion()
+        policia.position(posicionAnterior)
+        policia.direccion(direccionAnterior)
+
+        assert.equals(1, posicionLuegoDeMoverse.y())
+        assert.equals(arriba, direccionLuegoDeMoverse)
+    }
+}

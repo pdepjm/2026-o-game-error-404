@@ -1,39 +1,21 @@
 import wollok.game.*
-
 import alumno.*
-import efectos.*
-import kiosco.*
-import reloj.*
-import sube.*
+import interfaz.pantallas.*
+import nivel1.nivel1.*
+import nivel2.nivel2.*
+import nivel3.nivel3.*
+import estados.*
 
 program ElBondi {
-	game.title("elJuegoDelBondi")
-	game.height(15)
-	game.width(15)
+    game.title("elBondi")
+    game.height(15)
+    game.width(30)
 
-    game.addVisual(alumno)
-    game.addVisual(reloj)
-    game.addVisual(sube)
-    game.addVisual(kiosco)
+    menuPrincipal.mostrar()
 
-
-    keyboard.w().onPressDo({ 
-        alumno.mover(alumno.position().up(1))
-    })
-    keyboard.s().onPressDo({ 
-        alumno.mover(alumno.position().down(1))
+    keyboard.space().onPressDo({
+        instrucciones.mostrar()
     })
 
-    keyboard.a().onPressDo({ 
-        alumno.mover(alumno.position().left(1))
-    })
-
-    keyboard.d().onPressDo({ 
-        alumno.mover
-        (alumno.position().right(1))
-    })
-
-	game.start()
-    
-    
+    game.start()
 }

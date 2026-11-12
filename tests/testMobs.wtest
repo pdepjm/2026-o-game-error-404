@@ -1,0 +1,201 @@
+import wollok.game.*
+import alumno.*
+import efectos.*
+import nivel1.consumibles.*
+import nivel1.bondi.*
+import nivel1.mobs.*
+import nivel1.nivel1.*
+import direcciones.*
+import nivel2.mobsNivel2.*
+import nivel2.nivel2.*
+import nivel3.mobsNivel3.*
+import nivel3.nivel3.*
+
+class SubeDePrueba
+{
+    var property saldo = 0
+
+    method cargar(monto)
+    {
+        saldo += monto
+    }
+
+    method tieneSube() = true
+
+}
+
+describe "Mobs, sus comportamientos y la interacción con alumno" {
+    test "El fisura se mueve hacia la derecha en su rango" {
+        fisura.position(game.at(7, 10))
+        fisura.direccion(derecha)
+        fisura.moverse()
+        assert.equals(8, fisura.position().x())
+    }
+
+    test "El fisura cambia de sentido hacia la izquierda al llegar a su limite maximo" {
+        fisura.position(game.at(12, 10))
+        fisura.moverse()
+        assert.equals(11, fisura.position().x())
+    }
+
+}
+
+describe "Nuevos tests para Mobs y Consumibles de Nivel 1" {
+    test "El billete de 500 incrementa el dinero del alumno en 500 unidades" {
+        const alumnoPrueba = new Alumno(imagenMenu = "_", imagen = "_", dineroInicial = 100, tiempoInicial = 60, danoAlumno = 1)
+        
+        billete500.interactuar(alumnoPrueba)
+        assert.equals(600, alumnoPrueba.dinero())
+    }
+
+    test "El auto vuelve al inicio cunado llega al limite del juego" {
+        const autoPrueba = new Auto(position = game.at(game.width() - 1, 8), carrilY = 8, image = "rojo.png")
+
+        autoPrueba.moverse()
+
+        assert.equals(0, autoPrueba.position().x())
+        assert.equals(8, autoPrueba.position().y())
+    }
+
+    test "El kiosco no realiza la recarga de SUBE si el alumno no posee una tarjeta asignada" {
+        const alumnoPrueba = new Alumno(imagenMenu = "_", imagen = "_", dineroInicial = 1000, tiempoInicial = 60, danoAlumno = 1)
+
+        assert.notThat(alumnoPrueba.tieneSube())
+
+        kiosco.interactuar(alumnoPrueba)
+        assert.notThat(alumnoPrueba.tieneSube())
+        assert.equals(1000, alumnoPrueba.dinero())
+    }
+
+    test "El kiosco no recarga la SUBE si el alumno tiene la tarjeta pero menos de 500 de dinero" {
+        const alumnoPrueba = new Alumno(imagenMenu = "_", imagen = "_", dineroInicial = 150, tiempoInicial = 60, danoAlumno = 1)
+        
+        const subePrueba = new SubeDePrueba()
+        subePrueba.cargar(100)
+
+        alumnoPrueba.asignarSube(subePrueba)
+
+        kiosco.interactuar(alumnoPrueba)
+
+        assert.equals(150, alumnoPrueba.dinero())
+        assert.equals(100, alumnoPrueba.saldo())
+    }
+
+}
+
+describe "Mobs de Nivel 1 con alumnos independientes" {
+    test "El fisura roba la mitad del dinero y resta 15 segundos" {
+        const alumnoPrueba = new Alumno(
+            imagenMenu = "menu.png",
+            imagen = "juego.png",
+            dineroInicial = 500,
+            tiempoInicial = 50,
+            danoAlumno = 1
+        )
+
+        fisura.interactuar(alumnoPrueba)
+
+        assert.equals(250, alumnoPrueba.dinero())
+        assert.equals(35, alumnoPrueba.tiempo())
+    }
+
+    test "El vecino agrega cinco segundos al alumno" {
+        const alumnoPrueba = new Alumno(
+            imagenMenu = "menu.png",
+            imagen = "juego.png",
+            dineroInicial = 0,
+            tiempoInicial = 20,
+            danoAlumno = 1
+        )
+
+        vecino.interactuar(alumnoPrueba)
+
+        assert.equals(25, alumnoPrueba.tiempo())
+    }
+
+    test "El kiosco carga 500 en la SUBE y cobra 500 si el alumno puede pagarlo" {
+        const alumnoPrueba = new Alumno(
+            imagenMenu = "menu.png",
+            imagen = "juego.png",
+            dineroInicial = 700,
+            tiempoInicial = 20,
+            danoAlumno = 1
+        )
+        const subePrueba = new SubeDePrueba()
+        subePrueba.cargar(100)
+        alumnoPrueba.asignarSube(subePrueba)
+
+        kiosco.interactuar(alumnoPrueba)
+
+        assert.equals(200, alumnoPrueba.dinero())
+        assert.equals(600, alumnoPrueba.saldo())
+    }
+
+    test "Un auto atropella al alumno, le resta tiempo y dinero, y lo devuelve al inicio" {
+        const autoPrueba = new Auto(
+            position = game.at(8, 8),
+            carrilY = 8,
+            image = "rojo.png"
+        )
+        const alumnoPrueba = new Alumno(
+            imagenMenu = "menu.png",
+            imagen = "juego.png",
+            dineroInicial = 80,
+            tiempoInicial = 10,
+            danoAlumno = 1
+        )
+        alumnoPrueba.position(game.at(8, 8))
+
+        autoPrueba.interactuar(alumnoPrueba)
+
+        assert.equals(0, alumnoPrueba.tiempo())
+        assert.equals(0, alumnoPrueba.dinero())
+        assert.equals(0, alumnoPrueba.position().x())
+        assert.equals(0, alumnoPrueba.position().y())
+    }
+
+    test "El auto avanza una casilla y conserva su carril" {
+        const autoPrueba = new Auto(
+            position = game.at(3, 7),
+            carrilY = 7,
+            image = "taxi.png"
+        )
+
+        autoPrueba.moverse()
+
+        assert.equals(4, autoPrueba.position().x())
+        assert.equals(7, autoPrueba.position().y())
+    }
+}
+
+describe "Mobs de los niveles siguientes" {
+    test "La nube baja y vuelve a aparecer en la parte superior de su recorrido" {
+        const nubePrueba = new NubeSueno(position = game.at(8, 6))
+
+        nubePrueba.moverse()
+        const posicionDespuesDeBajar = nubePrueba.position()
+
+        nubePrueba.moverse()
+        const posicionDespuesDeReaparecer = nubePrueba.position()
+
+        assert.equals(5, posicionDespuesDeBajar.y())
+        assert.equals(11, posicionDespuesDeReaparecer.y())
+    }
+
+    test "La nube aumenta el sueño del alumno" {
+        const alumnoPrueba = new Alumno(
+            imagenMenu = "menu.png",
+            imagen = "juego.png",
+            dineroInicial = 0,
+            tiempoInicial = 20,
+            danoAlumno = 1
+        )
+
+        const nubePrueba = new NubeSueno(position = game.at(8, 5))
+
+        nubePrueba.interactuar(alumnoPrueba)
+
+        assert.equals(25, alumnoPrueba.sueno())
+    }
+
+}
